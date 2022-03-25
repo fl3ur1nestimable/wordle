@@ -15,7 +15,9 @@ Gérald Oster <<gerald.oster@telecomnancy.eu>>
 * YEBOUET Antoine <<antoine.yebouet@telecomnancy.eu>>
 
 **Lancement rapide du wordle**
+
 A faire après le clonage :
+
 ```bash
 cd project2-E8/Wordle
 chmod 777 launch.sh
