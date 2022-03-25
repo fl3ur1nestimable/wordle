@@ -21,7 +21,8 @@ git clone https://gitlab.telecomnancy.univ-lorraine.fr/ppii2k22/project2-E8.git
 cd project2-E8/Wordle
 python3 -m venv env
 source env/bin/activate
-pip install -r requirements.txt
+pip install -r ../requirements.txt
+chmod 777 launch.sh
 ./launch.sh
 ```
 
