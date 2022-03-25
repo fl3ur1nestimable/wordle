@@ -14,6 +14,16 @@ Gérald Oster <<gerald.oster@telecomnancy.eu>>
 * THEISSE Alexandre <alexandre.theisse@telecomnancy.eu>
 * YEBOUET Antoine <<antoine.yebouet@telecomnancy.eu>>
 
+**Lancement rapide**
+
+```bash
+git clone https://gitlab.telecomnancy.univ-lorraine.fr/ppii2k22/project2-E8.git
+cd project2-E8/Wordle
+python3 -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+python3 app.py
+```
 
 ## **Description du projet**
 
