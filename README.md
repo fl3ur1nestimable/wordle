@@ -20,8 +20,10 @@ A faire après le clonage :
 
 ```bash
 cd project2-E8/Wordle
-chmod 777 launch.sh
-./launch.sh
+python3 -m venv env
+source env/bin/activate
+pip install -r ../requirements.txt
+python3 app.py
 ```
 
 ## **Description du projet**
