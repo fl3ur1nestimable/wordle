@@ -22,3 +22,29 @@ li a {
 li a:hover {
     background-color: rgb(194, 11, 11);
 }
+
+.logo{
+    margin : auto;
+    width: 60%;
+}
+
+.menu{
+    margin: auto;
+    width: 50%;
+    padding: 10px; 
+    text-align: center;
+}
+
+.menu_btn{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    padding: 5%;
+    width: 50%;
+    background-color: rgb(223, 19, 19);
+    border: none;
+    color:rgb(240, 234, 234);
+    font-size: 150%;
+    border-radius: 12px;
+}
