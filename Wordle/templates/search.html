@@ -1,0 +1,14 @@
+{% extends "layout.html" %} 
+{%block link%} 
+<link rel="stylesheet" type="text/css" href="/static/css/search.css">
+{%endblock%}
+
+{%block body%}
+<div>
+<form method="post" action="confirmation">
+<input type="search"  autocomplete="organization"aria-label="Rechercher Amis" value="Rechercher Amis">
+<input type="submit"> 
+</form>
+</div>
+
+ {%endblock%}

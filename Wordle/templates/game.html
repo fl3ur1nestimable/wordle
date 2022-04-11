@@ -1,9 +1,23 @@
 {% extends "layout.html"%} 
 
 {%block link%}
-<link rel="stylesheet" type="text/css" href="/static/css/home.css">
+<link rel="stylesheet" type="text/css" href="/static/css/game.css">
 {%endblock%}
 {%block body %}
-<h1>Choisir la taille du mot</h1>
-<h1>Choisir le nombre d'essaie possible</h1>
+<form action="Jeu" method="post">
+<h1 class="title2">Choisir la taille du mot</h1>
+<div class="centre">
+<input class="but2" type="number" min="2" max="15" value="5" aria-label="Sélectionner la taille du mot">
+</div>
+<h1 class="title2">Choisir le nombre d'essaie possible</h1>
+<div class="centre">
+<input class="but2" type="number" min="3" max="8" value="5" aria-label="Sélectionner le nombre d'essaie">
+</div>
+<div class="centre">
+    
+    <input class="but2" type="submit" value="Lancer le jeu" >
+    
+  
+</div>
+</form>
 {%endblock%} 
