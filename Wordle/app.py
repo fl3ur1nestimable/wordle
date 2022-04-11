@@ -13,9 +13,11 @@ def App():
 
     from python.pages.home import home
     from python.pages.Jeu import game
+    from python.pages.authentification import authentification
     from python.pages.connexion import connexion
     app.register_blueprint(home)
     app.register_blueprint(game)
+    app.register_blueprint(authentification)
     app.register_blueprint(connexion)
     return app
 

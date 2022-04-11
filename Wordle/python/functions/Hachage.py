@@ -6,11 +6,15 @@ message = "hello geeks"
   
 encMessage = rsa.encrypt(message.encode(),  
                          publicKey) 
-  
 
-print("encrypted string: ", encMessage) 
   
 decMessage = rsa.decrypt(encMessage, privateKey).decode() 
   
-print("decrypted string: ", decMessage) 
+
+
+def crypt(msg):
+    return rsa.encrypt(msg.encode(),publicKey)
+
+def decrypt(msg):
+    return rsa.decrypt(msg, privateKey).decode() 
 
