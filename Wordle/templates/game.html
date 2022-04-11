@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/static/css/game.css">
 {%endblock%}
 {%block body %}
-
+<form action="Jeu" method="post">
 <h1 class="title2">Choisir la taille du mot</h1>
 <div class="centre">
 <input class="but2" type="number" min="2" max="15" value="5" aria-label="Sélectionner la taille du mot">
@@ -14,10 +14,10 @@
 <input class="but2" type="number" min="3" max="8" value="5" aria-label="Sélectionner le nombre d'essaie">
 </div>
 <div class="centre">
-    <form action="Jeu" method="post">
-    <a href="../Jeu">
+    
     <input class="but2" type="submit" value="Lancer le jeu" >
-    </a>
-    </form>
+    
+  
 </div>
+</form>
 {%endblock%} 

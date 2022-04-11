@@ -5,10 +5,10 @@ def App():
 
     from python.pages.home import home
     from python.pages.Jeu import game
-    from python.pages.Search import Search
+    from python.pages.Search import search
     app.register_blueprint(home)
     app.register_blueprint(game)
-    app.register_blueprint(Search)
+    app.register_blueprint(search)
     return app
 
 if __name__ == "__main__":

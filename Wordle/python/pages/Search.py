@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 
-Search = Blueprint('Search',__name__)
+search = Blueprint('search',__name__)
 
-@Search.route('/recherche')
-def search():
+@search.route('/recherche')
+def search1():
     return render_template('search.html')

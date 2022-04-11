@@ -7,5 +7,5 @@ game = Blueprint('game',__name__)
 def Motus():
         if methods=="POST":
             return render_template('games.html')
-        else:
+        if methods=="GET":
             return render_template("game.html")
