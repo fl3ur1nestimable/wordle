@@ -9,4 +9,4 @@ def Motus():
         #    return render_template('games.html')
         #elif methods=="GET":
         #    return render_template("game.html")
-    return render_template("game.html")
+    return render_template("games.html")

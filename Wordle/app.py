@@ -8,11 +8,13 @@ def App():
     from python.pages.Search import search
     from python.pages.authentification import authentification
     from python.pages.connexion import connexion
+    from python.pages.stats import stats
     app.register_blueprint(home)
     app.register_blueprint(game)
     app.register_blueprint(search)
     app.register_blueprint(authentification)
     app.register_blueprint(connexion)
+    app.register_blueprint(stats)
     return app
 
 if __name__ == "__main__":
