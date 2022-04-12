@@ -6,11 +6,15 @@
 
 }
 .logo{
-  margin : auto;
-  width: 35%;
+  float: center;
+  margin-top: none;
+  margin-bottom: none;
+  width: 25%;
  
 }
-
+.logo2{
+  text-align: center;
+}
 .centre {
     text-align:center;
     padding:10px;
