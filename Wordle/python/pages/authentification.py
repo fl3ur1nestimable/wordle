@@ -24,7 +24,7 @@ def register_user():
         flash("Cette adresse mail est déjà utilisée par un compte existant")
         return redirect('/register')
 
-    input_user_db(form['name'],form['email'],crypt(form['password']))
-
+    mdp = crypt(form['password'])
+    input_user_db(form['name'],form['email'],mdp)
     return redirect('/home')
     

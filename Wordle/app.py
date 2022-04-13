@@ -2,14 +2,11 @@
 from flask import Flask
 
 
+
 def App():
     app = Flask(__name__)
 
-    app.config['SECRET_KEY'] = 'secret_key'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-
-
-
+    
     from python.pages.home import home
     from python.pages.Jeu import game
     from python.pages.Search import search
