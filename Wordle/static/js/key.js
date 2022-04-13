@@ -37,17 +37,6 @@ class key{
         else{
             this.sw=0;
         }
-        switch (this.state){
-            case 1:
-                this.col=color(255,0,0);
-                break;
-            case 2:
-                this.col=color(255,255,26);
-                break;
-            case 3:
-                this.col=color(128,128,128);
-                break;
-        }
     }
 
 }

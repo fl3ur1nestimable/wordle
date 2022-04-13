@@ -7,6 +7,8 @@ function setup(){
     var y = 105;
     canva.position(x, y);
     init_keyboard();
+    console.log(width);
+    console.log(height);
 }
 
 function draw(){
@@ -15,15 +17,6 @@ function draw(){
     for (let j = 0; j < keys.length; j++){
         keys[j].update();
     }
-    keys[0].state=1;
-    keys[5].state=2;
-    keys[17].state=3;
-    keys[23].state=1;
-    keys[8].state=2;
-    keys[10].state=3;
-    keys[11].state=1;
-    keys[21].state=2;
-
 }
 
 function mousePressed(){
@@ -66,7 +59,7 @@ function init_keyboard(){
     }
 }
 
-function display_keyboard(){
+function display_keyboard(){ 
     for (let i = 0; i < keys.length; i++) {
         keys[i].show();
     }
