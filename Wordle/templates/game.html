@@ -3,14 +3,36 @@
 {%block link%}
 <link rel="stylesheet" type="text/css" href="/static/css/game.css">
 {%endblock%}
+{%block header%} 
+<div class="icone">
+    <a href="Regle" id="config-icone">
+      <svg id="config-icone" class="symbol1">
+        <use href="#icone1"></use>
+      </svg>
+    </a>
+    
+    <a href="Stats" id="config-icone" >
+
+        <svg id="config-icone" class="symbol2">
+        <use href="#icone2"></use>
+      </svg>
+    </a>
+
+</div>
+{%endblock%}
 {%block body %}
+<div class="logo2">
+  <a href="/">
+  <img  class="logo" src="/static/img/Logo_2.png">
+  </a>
+</div>
 <form action="Jeu" method="post">
 <h1 class="title2">Choisir la taille du mot</h1>
-<div class="centre">
+<div class="centre" >
 <input class="but2" type="number" min="2" max="15" value="5" aria-label="Sélectionner la taille du mot">
 </div>
 <h1 class="title2">Choisir le nombre d'essaie possible</h1>
-<div class="centre">
+<div class="centre" >
 <input class="but2" type="number" min="3" max="8" value="5" aria-label="Sélectionner le nombre d'essaie">
 </div>
 <div class="centre">
