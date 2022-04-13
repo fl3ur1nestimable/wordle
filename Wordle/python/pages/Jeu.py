@@ -1,3 +1,4 @@
+
 from crypt import methods
 from flask import Flask,Blueprint,render_template
 
@@ -14,3 +15,10 @@ def Motus():
 @game.route('/wordle')
 def wordle():
     return render_template('wordle.html',essais =6, longueur =5)
+    
+
+
+@game.route('/JeuPL',methods=["GET","POST"])
+
+def MotusPL():
+    return render_template("gamePL.html")

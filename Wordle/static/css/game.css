@@ -1,17 +1,26 @@
 .title2{
     color: black;
-
+ 
     text-align: center;
  
 
 }
-div{
-    padding:10px;
-    margin: 10px;
-   
+.logo{
+  float: center;
+  margin-top: none;
+  margin-bottom: none;
+  width: 25%;
+ 
+}
+.logo2{
+  text-align: center;
 }
 .centre {
     text-align:center;
+    padding:10px;
+    margin: 10px;
+
+   
 }
 .but2{
     display: inline-block;
@@ -32,3 +41,17 @@ div{
     margin: 5px
     
 }
+.icone{
+    margin-top: none;
+    display: inline-flex;
+    height: 100px;
+    background-color: red;
+  
+  }
+  .symbol1{
+    float: left;
+    
+  }
+  .symbol2{
+    float: right;
+  }
