@@ -1,6 +1,5 @@
 from flask import Flask
 
-
 def App():
     app = Flask(__name__)
     from python.pages.home import home
@@ -9,6 +8,8 @@ def App():
     from python.pages.authentification import authentification
     from python.pages.connexion import connexion
     from python.pages.stats import stats
+    from python.pages.play import games
+    app.register_blueprint(games)
     app.register_blueprint(home)
     app.register_blueprint(game)
     app.register_blueprint(search)

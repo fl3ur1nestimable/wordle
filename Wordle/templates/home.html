@@ -5,23 +5,35 @@
 
   
     {%endblock%}
+    {%block header%} 
+    <div class="icone">
+        <a href="Regle" id="config-icone">
+          <svg id="config-icone" class="symbol1">
+            <use href="#icone1"></use>
+          </svg>
+        </a>
+      
+        <a href="Compte" id="config-icone" >
+            <svg class="symbol2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+            <image xlink:href="../static/img/compte.png" height="70px" weight="60px">
+        </svg>
+        </a>
     
-
+    </div>
+    
+    {%endblock%}
     {%block body%}
     <div class="menu">
         <img class="logo" src="/static/img/Logo.png">
         <div class="buttons">
-            <a href="Jeu/classique">
+            <a href="Jeu">
                 <button class="menu_btn">Classique</button>
             </a>
-            <a href="Jeu/p&l">
+            <a href="JeuPL">
                 <button class="menu_btn">Peace & Love</button>
             </a>
-            <a href="stats">
-                <button class="menu_btn">Statistiques</button>
-            </a>
-            <a href="friends">
-                <button class="menu_btn">Amis</button>
+            <a href="Stats">
+                <button class="menu_btn">Statistiques   </button>
             </a>
         </div>
     </div>
