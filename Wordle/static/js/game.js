@@ -1,4 +1,4 @@
-let letters = ['A','Z','E','R','T','Y','U','I','O','P','Q','S','D','F','G','H','J','K','L','M','ENTER'  ,'W','X','C','V','B','N','DEL'];
+let letters = ['A','Z','E','R','T','Y','U','I','O','P','Q','S','D','F','G','H','J','K','L','M','ENTER','W','X','C','V','B','N','DEL'];
 let keys = [];
 
 function setup(){
@@ -15,12 +15,21 @@ function draw(){
     for (let j = 0; j < keys.length; j++){
         keys[j].update();
     }
+    keys[0].state=1;
+    keys[5].state=2;
+    keys[17].state=3;
+    keys[23].state=1;
+    keys[8].state=2;
+    keys[10].state=3;
+    keys[11].state=1;
+    keys[21].state=2;
+
 }
 
 function mousePressed(){
     for (let j = 0; j < keys.length; j++){
         if (keys[j].hovered()) {
-            keys[j].col=150;
+            keys[j].w -=10;
         }
     }
 }
@@ -28,7 +37,7 @@ function mousePressed(){
 function mouseReleased(){
     for (let j = 0; j < keys.length; j++){
         if (keys[j].hovered()) {
-            keys[j].col=200;
+            keys[j].w+=10;
         }
     }
 }
@@ -43,15 +52,15 @@ function init_keyboard(){
         keys[j].w= width/12;
         
         if ((j>=0)&(j<10)) {
-            keys[j].x = (j%10)*(keys[j].w+15)+10;
+            keys[j].x = (j%10)*(keys[j].w+15)+48;
             keys[j].y = 3*height/5 +70;
         }
         if ((j>=10)&(j<20)) {
-            keys[j].x = (j%10)*(keys[j].w+15)+10;
+            keys[j].x = (j%10)*(keys[j].w+15)+48;
             keys[j].y = 3*height/5 + keys[j].w+85;
         }
         if ((j>=20)&(j<28)) {
-            keys[j].x = (j%10)*(keys[j].w+15)+102;
+            keys[j].x = (j%10)*(keys[j].w+15)+140;
             keys[j].y = 3*height/5 + 2*keys[j].w +100;
         }
     }
