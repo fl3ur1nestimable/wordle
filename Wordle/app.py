@@ -1,4 +1,4 @@
-from atexit import register
+
 from flask import Flask
 
 
@@ -12,6 +12,8 @@ def App():
     from python.pages.Search import search
     from python.pages.authentification import authentification
     from python.pages.connexion import connexion
+    from python.pages.play import games
+    app.register_blueprint(games)
     app.register_blueprint(home)
     app.register_blueprint(game)
     app.register_blueprint(search)
