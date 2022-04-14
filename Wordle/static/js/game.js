@@ -1,15 +1,19 @@
 let letters = ['A','Z','E','R','T','Y','U','I','O','P','Q','S','D','F','G','H','J','K','L','M','ENTER','W','X','C','V','B','N','DEL'];
 let keys = [];
+let essais = 6;
+let longueur = 5;
 let grid = [[]];
 let currentRow = 0;
-let mot = "amour";
+let word = ['A','M','O','U','R'];
+let message = "";
 
 function setup(){
     var canva =createCanvas(windowWidth,windowHeight);
     init_keyboard();
     // grille wordle
     grid = init_grid();
-    setParams();
+    console.log(height);
+    
 }
 
 function draw(){
@@ -19,6 +23,10 @@ function draw(){
     for (let j = 0; j < keys.length; j++){
         keys[j].update();
     }
+    fill(200,0,0);
+    textSize(40);
+    textFont('Arvo')
+    text(message,1350,700,600,400);
 }
 
 function mousePressed(){
@@ -42,9 +50,9 @@ function init_keyboard(){
         k = new key(letters[i]);
         keys.push(k)
     }
-    for (let j = 0; j <  keys.length; j++) {
+    for (let j = 0; j < keys.length; j++) {
 
-        keys[j].w= width*0.033;
+        keys[j].w= width*0.036;
         
         if ((j>=0)&(j<10)) {
             keys[j].x = (j%10)*(keys[j].w+15)+0.54*width;
@@ -66,6 +74,7 @@ function display_keyboard(){
         keys[i].show();
     }
 }
+
 
 function init_grid() {
     let grid = [];
@@ -90,6 +99,40 @@ function display_grid(){
         }
     }
 }
+
+
+function getWord(cellTab){
+    let w = [];
+    for(let i=0;i<cellTab.length;i++){
+        w.push(cellTab[i].letter);
+    }
+    return w;
+}
+
+function state(guess,word){
+    // Copie du tableau du mot à trouver (on va modifier ses valeurs)
+    let w = [].concat(word);
+    // Résultat renvoyé - tableau des états
+    // 1ere boucle pour trouver les lettres bien placées
+    for (let i=0;i<longueur;i++){
+        if(guess[i].letter===w[i]){
+            guess[i].state=2;
+            w[i]="";
+            }
+        }
+    // 2e boucle pour trouver les lettres mal placées 
+    for (let i=0;i<longueur;i++){
+        for (let j=0;j<longueur;j++){
+            if (guess[i].letter===w[j]){
+                guess[i].state=1;
+                w[j]="";
+            }
+        }
+    }
+    return state;
+}
+
+
 
 function addLetter(letter){
     row = grid[currentRow];
@@ -126,13 +169,24 @@ function removeLetter(){
 
 function guessWord(){
     let guess = grid[currentRow];
-    assert (guess.length<longueur)
 
-    if (guess===mot){
-        // TERMINER LE JEU et bravo
-    }else{
+    if(guess[longueur -1].letter===""){ // Si la ligne n'est pas remplie
+        return;
+    }
+
+
+    // Vérifier que le mot se trouve dans la liste --> Faire la fonction exist()
+    else if(!true){
+        message = "Mot incorrect, veuillez en choisir un autre " 
+        return;
+    }
+    
+    else{
+        state(guess,word);
+        console.log(grid[0][0].col);
         currentRow += 1;
-        //envoyer message mot == mauvais 
+
+
         // mettre les couleurs 
     }
 
@@ -157,30 +211,6 @@ function keyPressed(){
 
 }
 
-function setParams(){
-    if (longueur < 2) {
-        longueur =2;
-    }
-    if (longueur > 15) {
-        longueur =15;
-    }
-    if (essais < 3) {
-        essais =3;
-    }
-    if (essais > 8) {
-        essais =8;
-    }
-    if (typeof essais != "number") {
-        essais=5;
-    }
-    if (typeof longueur != "number") {
-        longueur=5;
-    }
-    longueur=floor(longueur);
-    essais=floor(essais);
-}
 
-function saveGameData(){
-    //enregistrement des données de la game
-    //user ID ?
-}
+
+
