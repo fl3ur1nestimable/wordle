@@ -1,18 +1,17 @@
 let letters = ['A','Z','E','R','T','Y','U','I','O','P','Q','S','D','F','G','H','J','K','L','M','ENTER','W','X','C','V','B','N','DEL'];
 let keys = [];
-let essais = 6;
-let longueur = 5;
 let grid = [[]];
 let currentRow = 0;
 let word = ['A','M','O','U','R'];
 let message = "";
+
+
 
 function setup(){
     var canva =createCanvas(windowWidth,windowHeight);
     init_keyboard();
     // grille wordle
     grid = init_grid();
-    console.log(height);
     
 }
 
@@ -208,6 +207,15 @@ function keyPressed(){
     }
 
     console.log(grid);
+}
+
+function setParams(){
+    if (longueur == null) {
+        longueur =5;
+    }
+    if (essais ==null){
+        essais =5;
+    }
 
 }
 
