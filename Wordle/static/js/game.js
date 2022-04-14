@@ -80,6 +80,17 @@ function setParams(){
     if (essais > 8) {
         essais =8;
     }
+    if (typeof essais != "number") {
+        essais=5;
+    }
+    if (typeof longueur != "number") {
+        longueur=5;
+    }
     longueur=floor(longueur);
     essais=floor(essais);
+}
+
+function saveGameData(){
+    //enregistrement des données de la game
+    //user ID ?
 }
