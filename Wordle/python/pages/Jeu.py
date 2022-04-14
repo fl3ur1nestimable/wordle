@@ -14,3 +14,5 @@ def Motus():
 
 def MotusPL():
     return render_template("gamePL.html")
+
+#revenir sur cette page et récup dans gameData.txt les données, puis saveGameData

@@ -1,12 +1,17 @@
-from flask import Flask,Blueprint,render_template
+from flask import Flask,Blueprint,render_template,request
 
 games = Blueprint('games',__name__)
 
-@games.route('/partie',methods=["GET","POST"])
+@games.route('/partie',methods=["GET","POST"]) 
 def Motus1():
-    
-        return render_template("games.html")
+    params=request.args
+    longueur=params.get("len")
+    essais=params.get("try")
+    return render_template("games.html",longueur=longueur,essais=essais)
 
-@games.route('/partiePL')
+@games.route('/partiePL',methods=["GET","POST"])
 def MotusPL1():
-    return render_template("gamesPL.html")
+    params=request.args
+    longueur=params.get("len")
+    essais=params.get("try")
+    return render_template("gamesPL.html",longueur=longueur,essais=essais)
