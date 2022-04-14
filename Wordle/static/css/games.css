@@ -1,0 +1,12 @@
+.icone{
+    margin-top: none;
+    display: inline-flex;
+    height: 100px;
+    background-color: red;}
+.symbol1{
+  float: left;
+  
+}
+.symbol2{
+  float: right;
+}

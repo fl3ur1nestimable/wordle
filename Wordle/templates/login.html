@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{%block link%}
+<link rel="stylesheet" type="text/css" href="/static/css/home.css">
+<link rel="stylesheet" type="text/css" href="/static/css/register.css">
+<link rel="stylesheet" type="text/css" href="/static/css/login.css">
+{%endblock%}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class = "col col-lg-4">
+            <h2 class="title text-center">Connexion</h2>
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" id="email" placeholder="Email" minlength='8' >
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" id="password1" placeholder="Mot de passe" minlength='8' maxlength="20">
+                </div>
+                    <button type="submit" class = "btn btn-light">Connexion</button>
+                </div>
+            <p class="text-center" >Pas de compte ? Inscrivez vous en cliquant 
+                <a class="text-primary" href="/register">ici</a>
+            </p>
+            <img class="logo" src="/static/img/Logo_2.png">
+        </div>
+    </div>
+</div>
+{% endblock %}

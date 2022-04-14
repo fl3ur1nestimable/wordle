@@ -4,8 +4,7 @@ publicKey, privateKey = rsa.newkeys(512)
   
 message = "hello geeks"
   
-encMessage = rsa.encrypt(message.encode(),  
-                         publicKey) 
+encMessage = rsa.encrypt(message.encode(),publicKey) 
 
   
 decMessage = rsa.decrypt(encMessage, privateKey).decode() 
