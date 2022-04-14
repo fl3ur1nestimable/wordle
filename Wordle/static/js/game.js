@@ -1,7 +1,5 @@
 let letters = ['A','Z','E','R','T','Y','U','I','O','P','Q','S','D','F','G','H','J','K','L','M','ENTER','W','X','C','V','B','N','DEL'];
 let keys = [];
-let essais = 6;
-let longueur = 5;
 let grid = [[]];
 let currentRow = 0;
 let mot = "amour";
@@ -11,9 +9,7 @@ function setup(){
     init_keyboard();
     // grille wordle
     grid = init_grid();
-    console.log(width);
-    console.log(height);
-    
+    setParams();
 }
 
 function draw(){
@@ -46,7 +42,7 @@ function init_keyboard(){
         k = new key(letters[i]);
         keys.push(k)
     }
-    for (let j = 0; j < keys.length; j++) {
+    for (let j = 0; j <  keys.length; j++) {
 
         keys[j].w= width*0.033;
         
@@ -71,7 +67,6 @@ function display_keyboard(){
     }
 }
 
-
 function init_grid() {
     let grid = [];
     for (let i = 0; i < essais; i++) {
@@ -95,11 +90,6 @@ function display_grid(){
         }
     }
 }
-
-
-
-
-
 
 function addLetter(letter){
     row = grid[currentRow];
@@ -167,5 +157,30 @@ function keyPressed(){
 
 }
 
+function setParams(){
+    if (longueur < 2) {
+        longueur =2;
+    }
+    if (longueur > 15) {
+        longueur =15;
+    }
+    if (essais < 3) {
+        essais =3;
+    }
+    if (essais > 8) {
+        essais =8;
+    }
+    if (typeof essais != "number") {
+        essais=5;
+    }
+    if (typeof longueur != "number") {
+        longueur=5;
+    }
+    longueur=floor(longueur);
+    essais=floor(essais);
+}
 
-
+function saveGameData(){
+    //enregistrement des données de la game
+    //user ID ?
+}
