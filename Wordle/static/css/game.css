@@ -43,10 +43,7 @@
 }
 .icone{
     margin-top: none;
-    display: inline-flex;
-    height: 100px;
-    background-color: red;
-  
+    display: inline-flex; 
   }
   .symbol1{
     float: left;
