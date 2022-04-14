@@ -1,16 +1,8 @@
 from atexit import register
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy() #sert pour l'authentification
 
 def App():
     app = Flask(__name__)
-
-    app.config['SECRET_KEY'] = 'secret_key'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
-
-    db.init_app(app)
 
     from python.pages.home import home
     from python.pages.Jeu import game
