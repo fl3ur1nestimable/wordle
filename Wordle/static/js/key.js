@@ -4,6 +4,7 @@ class key{
         this.x=null;
         this.y=null;
         this.state=0;
+        this.submitted = false;
         this.w=null;
         this.sw=0;
         this.col=color(217,217,217);
@@ -19,8 +20,8 @@ class key{
         stroke(0);
         strokeWeight(0.5);
         textAlign(CENTER);
-        textSize(15);
-        text(this.letter,this.x,this.y);
+        textSize(18);
+        text(this.letter,this.x,this.y+8);
     }
 
     hovered(){
