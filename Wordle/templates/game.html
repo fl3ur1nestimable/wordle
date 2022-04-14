@@ -23,23 +23,28 @@
 {%block body %}
 <div class="logo2">
   <a href="/">
-  <img  class="logo" src="/static/img/Logo_2.png">
+    <img  class="logo" src="/static/img/Logo_2.png">
   </a>
 </div>
-<form action="Jeu" method="post">
+
 <h1 class="title2">Choisir la taille du mot</h1>
-<div class="centre" >
-<input class="but2" type="number" min="2" max="15" value="5" aria-label="Sélectionner la taille du mot">
+<div class="centre" > 
+  <input class="but2" id="word_len" type="number" min="2" max="15" value="5" aria-label="Sélectionner la taille du mot">
 </div>
 <h1 class="title2">Choisir le nombre d'essaie possible</h1>
 <div class="centre" >
-<input class="but2" type="number" min="3" max="8" value="5" aria-label="Sélectionner le nombre d'essaie">
+  <input class="but2" id="tries" type="number" min="3" max="8" value="5" aria-label="Sélectionner le nombre d'essaie">
 </div>
 <div class="centre">
-    
-    <input class="but2" type="submit" value="Lancer le jeu" >
-    
-  
+  <input class="but2" type="button" value="Lancer le jeu" onclick="getParams()" >
 </div>
-</form>
+
+<script>
+  function getParams(){
+    var longueur = document.getElementById("word_len").value;
+    var essais   = document.getElementById("tries").value;
+    var url="partie?len="+String(longueur)+"&try="+String(essais);
+    window.location.href=url;
+  }
+</script>
 {%endblock%} 

@@ -7,12 +7,14 @@ function setup(){
     var y = 105;
     canva.position(x, y);
     init_keyboard();
-    console.log(width);
-    console.log(height);
+    setParams();
+    console.log(longueur);
+    console.log(essais);
+
 }
 
 function draw(){
-    background(255);
+    background(0);
     display_keyboard();
     for (let j = 0; j < keys.length; j++){
         keys[j].update();
@@ -40,7 +42,7 @@ function init_keyboard(){
         k = new key(letters[i]);
         keys.push(k)
     }
-    for (let j = 0; j < keys.length; j++) {
+    for (let j = 0; j <  keys.length; j++) {
 
         keys[j].w= width/12;
         
@@ -63,4 +65,21 @@ function display_keyboard(){
     for (let i = 0; i < keys.length; i++) {
         keys[i].show();
     }
+}
+
+function setParams(){
+    if (longueur < 2) {
+        longueur =2;
+    }
+    if (longueur > 15) {
+        longueur =15;
+    }
+    if (essais < 3) {
+        essais =3;
+    }
+    if (essais > 8) {
+        essais =8;
+    }
+    longueur=floor(longueur);
+    essais=floor(essais);
 }
