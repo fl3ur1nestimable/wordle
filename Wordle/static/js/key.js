@@ -6,6 +6,7 @@ class key{
         this.state=0;
         this.submitted = false;
         this.w=null;
+        this.wref=null;
         this.sw=0;
         this.col=color(217,217,217);
     }
@@ -15,13 +16,13 @@ class key{
         fill(this.col);
         stroke(0);
         strokeWeight(this.sw);
-        rect(this.x ,this.y,this.w,this.w,10);
+        rect(this.x ,this.y,this.w,this.w,0.012*height);
         fill(0);
         stroke(0);
         strokeWeight(0.5);
         textAlign(CENTER);
-        textSize(18);
-        text(this.letter,this.x,this.y+8);
+        textSize(0.018*height);
+        text(this.letter,this.x,this.y+0.00966*height);
     }
 
     hovered(){

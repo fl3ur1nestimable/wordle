@@ -2,9 +2,9 @@ let letters = ['A','Z','E','R','T','Y','U','I','O','P','Q','S','D','F','G','H','
 let keys = [];
 let grid = [[]];
 let currentRow = 0;
+let wordList=[];
 let word = ['A','M','O','U','R'];
 let message = "";
-
 
 
 function setup(){
@@ -12,6 +12,8 @@ function setup(){
     init_keyboard();
     // grille wordle
     grid = init_grid();
+    //charger le dictionnaire correspondant dans la wordlist
+    loadDic();//sans paramètres, agit directement sur la wordlist
     
 }
 
@@ -39,10 +41,20 @@ function mousePressed(){
 function mouseReleased(){
     for (let j = 0; j < keys.length; j++){
         if (keys[j].hovered()) {
-            keys[j].w+=10;
+            keys[j].w=keys[j].wref;
         }
     }
 }
+
+function mouseDragged(){
+    for (let j = 0; j < keys.length; j++){
+        if (!keys[j].hovered()) {
+            keys[j].w=keys[j].wref;
+        }
+    }
+}
+
+
 
 function init_keyboard(){
     for (let i = 0; i < letters.length; i++) {
@@ -52,17 +64,18 @@ function init_keyboard(){
     for (let j = 0; j < keys.length; j++) {
 
         keys[j].w= width*0.036;
+        keys[j].wref= width*0.036;
         
         if ((j>=0)&(j<10)) {
-            keys[j].x = (j%10)*(keys[j].w+15)+0.54*width;
+            keys[j].x = (j%10)*(keys[j].w+15)+0.55*width;
             keys[j].y = height*0.22;
         }
         if ((j>=10)&(j<20)) {
-            keys[j].x = (j%10)*(keys[j].w+15)+0.54*width;
+            keys[j].x = (j%10)*(keys[j].w+15)+0.55*width;
             keys[j].y = height*0.24 + keys[j].w;
         }
         if ((j>=20)&(j<28)) {
-            keys[j].x = (j%10)*(keys[j].w+15)+0.581*width;
+            keys[j].x = (j%10)*(keys[j].w+15)+0.595*width;
             keys[j].y = height*0.26 + 2*keys[j].w;
         }
     }
@@ -82,7 +95,7 @@ function init_grid() {
         for (let j = 0; j < longueur; j++) {
             let c = new cell();
             c.w = floor(height/(max(essais,longueur)+2));
-            c.x = j*(c.w+10)+0.102*width;
+            c.x = j*(c.w+10)+0.05*width;
             c.y = i*(c.w+10)+0.097*height;
             row.push(c);
         }
@@ -131,8 +144,6 @@ function state(guess,word){
     return state;
 }
 
-
-
 function addLetter(letter){
     row = grid[currentRow];
     for(let i=0;i<longueur;i++){
@@ -141,7 +152,6 @@ function addLetter(letter){
             return;
         }
     }
-
 }
 
 function removeLetter(){
@@ -173,8 +183,10 @@ function guessWord(){
         return;
     }
 
+    /*if (!isValid(guess)) {
+        message="Le mot n'existe pas"
+    }*/
 
-    // Vérifier que le mot se trouve dans la liste --> Faire la fonction exist()
     else if(!true){
         message = "Mot incorrect, veuillez en choisir un autre " 
         return;
@@ -182,7 +194,6 @@ function guessWord(){
     
     else{
         state(guess,word);
-        console.log(grid[0][0].col);
         currentRow += 1;
 
 
@@ -205,8 +216,6 @@ function keyPressed(){
     if((65<=keyCode)&&(keyCode<=90)){
         addLetter(String.fromCharCode(keyCode));
     }
-
-    console.log(grid);
 }
 
 function setParams(){
@@ -217,6 +226,19 @@ function setParams(){
         essais =5;
     }
 
+}
+
+function isValid(w){
+    ww=w.join('');
+    if (wordList.includes(ww)) {
+        return true
+    }
+    return false
+}
+
+function loadDic(){
+    //charger le fichier texte en fonction de la longueur
+    //et mettre chaque mot du fichier dans la listed de mots
 }
 
 
