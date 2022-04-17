@@ -5,6 +5,7 @@ let currentRow = 0;
 let wordList=[];
 let word = ['A','M','O','U','R'];
 let message = "";
+let win = false;
 
 
 function setup(){
@@ -24,9 +25,9 @@ function draw(){
     for (let j = 0; j < keys.length; j++){
         keys[j].update();
     }
-    fill(200,0,0);
+    fill(255);
     textSize(40);
-    textFont('Arvo')
+    textFont('Arvo');
     text(message,1350,700,600,400);
 }
 
@@ -40,10 +41,8 @@ function mousePressed(){
 
 function mouseReleased(){
     for (let j = 0; j < keys.length; j++){
-        if (keys[j].hovered()) {
             keys[j].w=keys[j].wref;
-        }
-    }
+    } 
 }
 
 function mouseDragged(){
@@ -180,6 +179,7 @@ function guessWord(){
     let guess = grid[currentRow];
 
     if(guess[longueur -1].letter===""){ // Si la ligne n'est pas remplie
+        message="Mot incomplet"
         return;
     }
 
@@ -188,15 +188,13 @@ function guessWord(){
     }*/
 
     else if(!true){
-        message = "Mot incorrect, veuillez en choisir un autre " 
+        message = "Mot incorrect, veuillez en choisir un autre"; 
         return;
     }
     
     else{
         state(guess,word);
         currentRow += 1;
-
-
         // mettre les couleurs 
     }
 
@@ -240,6 +238,25 @@ function loadDic(){
     //charger le fichier texte en fonction de la longueur
     //et mettre chaque mot du fichier dans la listed de mots
 }
+
+//fin de partie
+//proposition de rejouer si non redirection où ?
+
+function sendData(){
+    let s = "";
+    if (win==true) {
+        s+="win";
+    } else {
+        s+="loss";
+    }
+    let tries = String(currentRow);
+    const url='/save';
+    const xhr = new XMLHttpRequest();
+    sender = [s,tries];
+    xhr.open('POST',url);
+    xhr.send(sender);
+}
+
 
 
 

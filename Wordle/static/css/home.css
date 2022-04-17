@@ -43,3 +43,7 @@
 .menu_btn:hover{
     background-color: rgb(194, 11, 11);
 }
+
+.body{
+  background-color: rgb(40, 40, 40);
+}

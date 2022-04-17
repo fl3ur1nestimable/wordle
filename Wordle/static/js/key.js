@@ -20,9 +20,9 @@ class key{
         fill(0);
         stroke(0);
         strokeWeight(0.5);
-        textAlign(CENTER);
+        textAlign(CENTER,CENTER);
         textSize(0.018*height);
-        text(this.letter,this.x,this.y+0.00966*height);
+        text(this.letter,this.x,this.y);
     }
 
     hovered(){
@@ -34,7 +34,7 @@ class key{
 
     update(){
         if (this.hovered()) {
-            this.sw=2;
+            this.sw=3;
         }
         else{
             this.sw=0;
