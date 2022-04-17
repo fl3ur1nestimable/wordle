@@ -26,23 +26,17 @@
     <img  class="logo" src="/static/img/Logo_2.png">
   </a>
 </div>
-<h1 class="title2">Choisir la taille du mot</h1>
-<div class="centre" >
-<input class="but2" id="wordlen" type="number" min="2" max="15" value="5" aria-label="Sélectionner la taille du mot">
-</div>
-<h1 class="title2">Choisir le nombre d'essaie possible</h1>
-<div class="centre" >
-<input class="but2" id="tries" type="number" min="3" max="8" value="5" aria-label="Sélectionner le nombre d'essaie">
-</div>
-<div class="centre">
-    <input class="but2" type="submit" value="Lancer le jeu" onclick="getparametre()" >
-</div>
-<script>
-  function getparametre(){
-    var longueur=document.getElementById('wordlen').value;
-    var essais=document.getElementById('tries').value;
-    url="partie?len="+String(longueur)+"&try="+String(essais);
-    window.location.href=url;
-  }
-</script>
+<form action="/partie" method="POST">
+  <h1 class="title2">Choisir la taille du mot</h1>
+  <div class="centre" >
+  <input class="but2" id="wordlen" name="longueur" type="number" min="2" max="15" value="5" aria-label="Sélectionner la taille du mot">
+  </div>
+  <h1 class="title2">Choisir le nombre d'essaie possible</h1>
+  <div class="centre" >
+  <input class="but2" id="tries" name="essais" type="number" min="3" max="8" value="5" aria-label="Sélectionner le nombre d'essaie">
+  </div>
+  <div class="centre">
+      <input class="but2" type="submit" value="Lancer le jeu">
+  </div>
+</form>
 {%endblock%} 

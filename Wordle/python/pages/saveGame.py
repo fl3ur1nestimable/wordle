@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Blueprint, request, render_template, redirect
+from flask import Blueprint, request, render_template, redirect, url_for
 
 save = Blueprint('save',__name__)
 
@@ -11,7 +11,7 @@ def saveGame():
     print(data)
     #recupérer id_user
     #saveData() 
-    return redirect("/home")
+    return render_template("home.html") 
 
 def saveData(gameData):
     user_id=gameData[0]
