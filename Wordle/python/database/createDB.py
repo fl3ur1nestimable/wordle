@@ -11,7 +11,13 @@ def createDBusers():
 
 def createDBamis():
     query="""DROP TABLE IF EXISTS Amis;
-          CREATE TABLE Amis(id INTEGER Primary KEY,user1 TEXT, user2 TEXT, demand TEXT NOT NULL (demand in ('accepted','non_accepted')), FOREIGN KEY(user1) REFERENCES users(name),FOREIGN KEY(user2) REFERENCES users(name));
+        CREATE TABLE Amis(  id INTEGER Primary KEY,
+                            user1 TEXT, 
+                            user2 TEXT, 
+                            demand TEXT NOT NULL CHECK (demand in ('accepted','non_accepted')), 
+                            FOREIGN KEY(user1) REFERENCES users(name),
+                            FOREIGN KEY(user2) REFERENCES users(name)
+        );
           """
     db=sqlite3.connect("Wordle/database.db")
     cursor=db.cursor()

@@ -4,7 +4,7 @@ def createDB():
           CREATE TABLE Amis(id INTEGER Primary KEY);
           '''
     db=sqlite3.connect("../database.db")
-    db, cursor=db.cursor()
+    cursor=db.cursor()
     cursor.executescript(query)
     db.commit()
     db.close()
