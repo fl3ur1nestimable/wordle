@@ -1,4 +1,6 @@
+from audioop import add
 from flask import Flask
+
 
 def App():
     app = Flask(__name__)
@@ -10,6 +12,9 @@ def App():
     from python.pages.login import login
     from python.pages.stats import stats
     from python.pages.play import games
+    from python.pages.my_account import my_account
+    from python.pages.my_friends import my_friends
+
     app.register_blueprint(games)
     app.register_blueprint(home)
     app.register_blueprint(game)
@@ -17,6 +22,9 @@ def App():
     app.register_blueprint(authentification)
     app.register_blueprint(login)
     app.register_blueprint(stats)
+    app.register_blueprint(my_account)
+    app.register_blueprint(my_friends)
+
     return app
 
 if __name__ == "__main__":

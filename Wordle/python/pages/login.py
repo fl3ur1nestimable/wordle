@@ -5,10 +5,6 @@ from python.functions.Hachage import decrypt
 
 login = Blueprint('login',__name__)
 
-@login.route('/login')
-def oui():
-    return render_template('login.html')
-
 @login.route('/login', methods=['POST', 'GET'])
 def connect():
     if methods=='POST':
@@ -17,7 +13,7 @@ def connect():
         mdp_enter=form['password']
         db = sqlite3.connect('database.db')
         cursor = db.cursor()
-        cursor.execute(""" SELECT mdp FROM users WHERE mail = ?;""",(email_enter))
+        cursor.execute(""" SELECT mdp, mail FROM users WHERE mail = ?;""",(email_enter))
         mdp_crypt = cursor.fetchall()
         db.commit()
         db.close()
@@ -25,7 +21,10 @@ def connect():
         if decrypt(mdp_crypt[0])!=mdp_enter :
             flash("Oups, le mail ou mot de passe est éronné")
             return redirect('/login')
-
-        return redirect('home')
-    
-    return render_template("login.html")
+        session['user_mail']= mdp_crypt[1]
+        return redirect('/home')
+        
+    else :
+        if 'user_mail' in session :
+            return redirect('/home')
+        return render_template("login.html")
