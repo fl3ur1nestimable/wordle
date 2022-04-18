@@ -12,6 +12,7 @@ def App():
     from python.pages.login import login
     from python.pages.stats import stats
     from python.pages.play import games
+    from python.pages.saveGame import save
     from python.pages.my_account import my_account
     from python.pages.my_friends import my_friends
 
@@ -22,6 +23,7 @@ def App():
     app.register_blueprint(authentification)
     app.register_blueprint(login)
     app.register_blueprint(stats)
+    app.register_blueprint(save)
     app.register_blueprint(my_account)
     app.register_blueprint(my_friends)
 

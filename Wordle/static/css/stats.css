@@ -1,0 +1,32 @@
+.title1{
+    text-align: center;
+}
+.title2{
+    text-align: center;
+}
+
+.stats1{
+    margin: auto;
+    width: 50%;
+    border: 1px solid black;
+}
+.stats2{
+    margin: auto;
+    width: 20%;
+    text-align: center;
+    border: 1px solid red;
+}
+
+.stat{
+   text-align: center;
+    border: 1px solid yellow;
+
+}
+.perfs{
+    margin: auto;
+    width: 100%;
+}
+
+ul{
+    list-style: none;
+}
