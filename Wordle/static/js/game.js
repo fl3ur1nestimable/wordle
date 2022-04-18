@@ -249,12 +249,9 @@ function sendData(){
     } else {
         s+="loss";
     }
-    let tries = String(currentRow);
-    const url='/save';
-    const xhr = new XMLHttpRequest();
-    sender = [s,tries];
-    xhr.open('POST',url);
-    xhr.send(sender);
+    let tries = String(currentRow+1);
+    const url='/save?state='+btoa(s)+'&try=';
+    window.location.href='/home'
 }
 
 

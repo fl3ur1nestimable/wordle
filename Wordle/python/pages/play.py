@@ -1,4 +1,4 @@
-from flask import Flask,Blueprint,render_template,request
+from flask import Blueprint,render_template,request
 
 games = Blueprint('games',__name__)
 
