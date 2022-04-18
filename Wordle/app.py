@@ -2,6 +2,7 @@ from flask import Flask
 
 def App():
     app = Flask(__name__)
+    app.config['SECRET_KEY'] = '044655fff565dgaaz52dd5'
     from python.pages.home import home
     from python.pages.Jeu import game
     from python.pages.Search import search
