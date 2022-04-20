@@ -1,26 +1,27 @@
 .title1{
     text-align: center;
+    padding: 2%;
 }
 .title2{
     text-align: center;
+    padding: 2%;
 }
 
 .stats1{
     margin: auto;
     width: 50%;
-    border: 1px solid black;
 }
 .stats2{
     margin: auto;
     width: 20%;
     text-align: center;
-    border: 1px solid red;
 }
 
 .stat{
-   text-align: center;
-    border: 1px solid yellow;
-
+    text-align: center;
+    border: 1px solid rgb(249, 71, 73);
+    border-radius: 12px;
+    background-color: rgb(249, 71, 73);
 }
 .perfs{
     margin: auto;
@@ -29,4 +30,12 @@
 
 ul{
     list-style: none;
+}
+
+body{
+    color: white;
+}
+
+.num{
+    font-size: 50px;
 }
