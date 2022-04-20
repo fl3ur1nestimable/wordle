@@ -15,6 +15,7 @@ def App():
     from python.pages.saveGame import save
     from python.pages.my_account import my_account
     from python.pages.my_friends import my_friends
+    from python.pages.demands import demands
 
     app.register_blueprint(games)
     app.register_blueprint(home)

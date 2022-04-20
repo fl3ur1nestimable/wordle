@@ -1,5 +1,4 @@
 from flask import Flask, Blueprint, render_template, request, redirect, session, url_for
-import sqlite3
 from python.functions.friends import demande,accepte,refuse
 
 demands = Blueprint('demands',__name__)
