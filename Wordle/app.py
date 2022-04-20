@@ -27,6 +27,7 @@ def App():
     app.register_blueprint(save)
     app.register_blueprint(my_account)
     app.register_blueprint(my_friends)
+    app.register_blueprint(demands)
 
     return app
 
