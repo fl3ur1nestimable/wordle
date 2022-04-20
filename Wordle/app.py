@@ -1,7 +1,4 @@
-from audioop import add
-from importlib.machinery import FrozenImporter
 from flask import Flask
-
 
 def App():
     app = Flask(__name__)
@@ -16,6 +13,7 @@ def App():
     from python.pages.saveGame import save
     from python.pages.my_account import my_account
     from python.pages.my_friends import my_friends
+    from python.pages.demands import demands
     from python.pages.invitations import invitations
     from python.pages.disconnected import disconnected
 
@@ -31,6 +29,7 @@ def App():
     app.register_blueprint(my_friends)
     app.register_blueprint(invitations)
     app.register_blueprint(disconnected)
+    app.register_blueprint(demands)
 
     return app
 
