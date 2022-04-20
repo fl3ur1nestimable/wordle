@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{%block link%}
+<link rel="stylesheet" type="text/css" href="/static/css/home.css">
+{%endblock%}
+
+{% block body %}
+
+<h1>Mes invitations</h1>
+
+<div class = "wrapper">
+    {% for items in data1 %}
+    <div class = "amis">
+        {{items[0]}}
+    </div>
+    <div class="buttons">
+        <a href="/accept_invitation/{{items[0]}}/{{user}}">
+            <button class="menu_btn">Accepter</button>
+        </a>
+        <a href="/delay_invitation/{{items[0]}}/{{user}}">
+            <button class="menu_btn">Refuser</button>
+        </a>
+    </div>
+    </a>
+    {% endfor %}
+    {% for items in data2 %}
+    <div class = "amis">
+        {{items[0]}}
+    </div>
+    <div class="buttons">
+        <a href="/accept_invitation/{{user}}/{{items[0]}}">
+            <button class="menu_btn">Accepter</button>
+        </a>
+        <a href="/delay_invitation/{{user}}/{{items[0]}}">
+            <button class="menu_btn">Refuser</button>
+        </a>
+    </div>
+    </a>
+    {% endfor %}
+</div>
+
+{% endblock %}
