@@ -5,26 +5,32 @@ from python.functions.Hachage import decrypt
 
 login = Blueprint('login',__name__)
 
-@login.route('/login', methods=['POST', 'GET'])
+@login.route('/login')
+def show():
+    return render_template("login.html")
+
+@login.route('/login', methods=['POST'])
 def connect():
-    if methods=='POST':
-        form = request.form.to_dict()
-        email_enter=form['email']
-        mdp_enter=form['password']
-        db = sqlite3.connect('database.db')
-        cursor = db.cursor()
-        cursor.execute(""" SELECT mdp, mail FROM users WHERE mail = ?;""",(email_enter))
-        mdp_crypt = cursor.fetchall()
-        db.commit()
-        db.close()
-    
-        if decrypt(mdp_crypt[0])!=mdp_enter :
-            flash("Oups, le mail ou mot de passe est éronné")
-            return redirect('/login')
-        session['user_mail']= mdp_crypt[1]
-        return redirect('/home')
+    print(0)
+
+    form = request.form.to_dict()
+    email_enter=form['email']
+    mdp_enter=form['password']
+    db = sqlite3.connect('Wordle/database.db')
+    cursor = db.cursor()
+    cursor.execute(""" SELECT mdp, mail FROM users WHERE mail = ?;""",(email_enter))
+    mdp_crypt = cursor.fetchall()
+    db.commit()
+    db.close()
+    print(mdp_crypt)
+    if decrypt(mdp_crypt[0])!=mdp_enter :
+        flash("Oups, le mail ou mot de passe est éronné")
+        return redirect('/login')
+    session['user_mail']= mdp_crypt[1]
+    return redirect('/home')
         
+    """
     else :
         if 'user_mail' in session :
             return redirect('/home')
-        return render_template("login.html")
+        return render_template("login.html") """
