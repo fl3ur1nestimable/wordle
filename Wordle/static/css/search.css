@@ -1,0 +1,30 @@
+.but2{
+    display: inline-block;
+    background-color: rgb(249, 71, 73);;
+    border-radius: 10px;
+    border: 4px double #cccccc;
+    color: rgb(240, 234, 234);
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 200px;
+    border: none;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px
+    
+}
+
+.but2 :hover{
+  background-color: rgb(226, 28, 38);
+}
+.centre {
+    text-align:center;
+    padding:10px;
+    margin: 10px;
+
+   
+}
