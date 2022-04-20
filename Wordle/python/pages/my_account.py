@@ -5,7 +5,6 @@ my_account = Blueprint('my_account',__name__)
 
 @my_account.route('/my_account')
 def account():
-    if not test_login():
-        return redirect('/login')
-    else :
+    if (test_login()):
         return render_template('my_account.html')
+    return redirect('/login')

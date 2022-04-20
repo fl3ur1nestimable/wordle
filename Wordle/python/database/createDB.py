@@ -1,7 +1,7 @@
 import sqlite3
 
 def createDBusers():
-    db = sqlite3.connect('database.db')
+    db = sqlite3.connect('Wordle/database.db')
     cursor = db.cursor()
     cursor.executescript(""" DROP TABLE IF EXISTS users;
                     CREATE TABLE users(id_user INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT,mail TEXT, mdp TEXT); """)
@@ -19,7 +19,7 @@ def createDBamis():
                             FOREIGN KEY(user2) REFERENCES users(name)
         );
           """
-    db=sqlite3.connect('database.db')
+    db=sqlite3.connect('Wordle/database.db')
     cursor=db.cursor()
     cursor.executescript(query)
     db.commit()

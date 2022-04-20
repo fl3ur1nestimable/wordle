@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from python.functions.is_connected import test_login
 
 home = Blueprint('home',__name__)
 
@@ -8,4 +9,5 @@ def wordle():
 
 @home.route('/home')
 def wordle_home():
-    return render_template('home.html')
+    is_connected = test_login()
+    return render_template('home.html',is_connected=is_connected)
