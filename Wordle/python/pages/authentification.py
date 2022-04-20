@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, render_template, request, flash, redirect
 import sqlite3
 from python.functions.auth import input_user_db, name_already_exist, mail_already_exist, input_user_db
-from python.functions.Hachage import crypt, decrypt
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 authentification = Blueprint('authentification',__name__)
@@ -24,7 +24,8 @@ def register_user():
         flash("Cette adresse mail est déjà utilisée par un compte existant")
         return redirect('/register')
 
-    mdp = crypt(form['password'])
+    mdp = generate_password_hash(form['password'], method='sha256')
+    print(mdp)
     input_user_db(form['name'],form['email'],mdp)
     return redirect('/home')
     
