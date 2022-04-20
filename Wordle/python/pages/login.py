@@ -28,7 +28,3 @@ def connect():
         return redirect('/login')
     session['user_mail']= mdp_crypt[1]
     return redirect('/home')
-
-    if 'user_mail' in session :
-        return redirect('/home')
-    return render_template("login.html")
