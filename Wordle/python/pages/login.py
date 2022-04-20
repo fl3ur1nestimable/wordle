@@ -18,8 +18,7 @@ def connect():
     db = sqlite3.connect('Wordle/database.db')
     cursor = db.cursor()
     cursor.execute(""" SELECT mdp, name FROM users WHERE mail = ?;""",(email_enter,))
-    mdp_crypt = cursor.fetchall()[0][0]
-    name = cursor.fetchall()[0][1]
+    mdp_crypt, name = cursor.fetchall()[0]
     db.commit()
     db.close()
     if not(check_password_hash(mdp_crypt,mdp_enter)) :
