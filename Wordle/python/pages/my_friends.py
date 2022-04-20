@@ -5,7 +5,7 @@ my_friends = Blueprint('my_friends',__name__)
 
 @my_friends.route('/my_friends')
 def add_friends():
-    user = str(session.get("user_mail"))
+    user = str(session.get("name"))
     db = sqlite3.connect("Wordle/database.db")
     cursor= db.cursor()
     cursor2= db.cursor()
