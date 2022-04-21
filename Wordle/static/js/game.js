@@ -15,6 +15,7 @@ function setup(){
     grid = init_grid();
     //charger le dictionnaire correspondant dans la wordlist
     loadDic();//sans paramètres, agit directement sur la wordlist
+    //set up le mot partir de la liste
     
 }
 
@@ -214,16 +215,6 @@ function keyPressed(){
     if((65<=keyCode)&&(keyCode<=90)){
         addLetter(String.fromCharCode(keyCode));
     }
-}
-
-function setParams(){
-    if (longueur == null) {
-        longueur =5;
-    }
-    if (essais ==null){
-        essais =5;
-    }
-
 }
 
 function isValid(w){

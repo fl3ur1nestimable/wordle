@@ -8,7 +8,7 @@ header{
     background-color: red;
 }
 .icone{
-  display: inline-flex;
+  display: block;
 ;
 
 }

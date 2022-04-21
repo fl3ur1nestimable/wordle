@@ -1,7 +1,7 @@
 from flask import session
 
 def test_login():
-     if session.get("user_mail")!=None:
+     if session.get("name")!=None:
           return True
      else:
           return False

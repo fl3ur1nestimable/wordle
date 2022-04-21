@@ -1,1 +1,18 @@
-ici mon profil et de quoi se déco
+{% extends "layout.html" %}
+
+{%block link%}
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css"> 
+{%endblock%}
+
+{%block body%}
+
+<div class="menu">
+    <div class="buttons">
+        <a href="/disconnected">
+            <button class="menu_btn">Déconnexion</button>
+        </a>
+    </div>
+</div>
+   
+   
+{%endblock%}
