@@ -1,8 +1,7 @@
 import sqlite3
 from flask import session
 
-def getData():
-    user_id = getUserId()
+def getData(user_id):
     query='''SELECT id_game,tries,state FROM Game WHERE Game.id_user = ? '''
     db=sqlite3.connect("Wordle/database.db")
     db, cursor=db.cursor()
