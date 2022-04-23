@@ -20,24 +20,22 @@ def liste_amis(user):
 def liste_demandes(user):
     db = sqlite3.connect('Wordle/database.db')
     cursor = db.cursor()
-    cursor.execute(""" SELECT user2 FROM Amis WHERE demand='not_accepted' AND user1=?""",(user,))
-    l1=cursor.fetchall()
     cursor.execute(""" SELECT user1 FROM Amis WHERE demand='not_accepted' AND user2=?""",(user,))
-    l2=cursor.fetchall()
+    l1=cursor.fetchall()
     db.close()
-    return l1+l2
+    return l1
 
 def accept_invit(user1,user2):
     db = sqlite3.connect('Wordle/database.db')
     cursor = db.cursor()
-    cursor.execute(""" UPDATE Amis SET demand='accepted' WHERE user1=? AND user2=?;""",(user1,user2))
-    cursor.execute("DELETE FROM Amis WHERE user1=? AND user2=?",(user2,user1))
+    cursor.execute(""" UPDATE Amis SET demand='accepted' WHERE user1=? AND user2=?;""",(user2,user1))
+    cursor.execute("DELETE FROM Amis WHERE user1=? AND user2=?",(user1,user2))
     db.commit()
     db.close()
 
 def refuse_invit(user1,user2):
     db = sqlite3.connect('Wordle/database.db')
     cursor = db.cursor()
-    cursor.execute(""" DELETE FROM Amis WHERE user1=? AND user2=?;""",(user1,user2))
+    cursor.execute(""" DELETE FROM Amis WHERE user1=? AND user2=?;""",(user2,user1))
     db.commit()
     db.close()
