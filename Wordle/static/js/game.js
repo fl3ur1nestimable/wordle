@@ -285,7 +285,7 @@ function sendData(){
     } else {
         s+="loss";
     }
-    let tries = String(currentRow+1);
+    let tries =(s == 'win') ? String(currentRow+1) : String(currentRow);
     var http = new XMLHttpRequest();
     var url = "/save"
     data=[s,tries]

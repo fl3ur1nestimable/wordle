@@ -2,7 +2,7 @@ import sqlite3
 from flask import session
 
 def getData(user_id):
-    query='''SELECT id_game,tries,state, FROM Game WHERE Game.id_user = ? ORDER BY id_game DESC;'''
+    query='''SELECT id_game,tries,state,name FROM Game JOIN users ON Game.id_user=users.id_user WHERE Game.id_user = ? ORDER BY id_game DESC;'''
     db=sqlite3.connect("Wordle/database.db")
     db, cursor=db.cursor()
     cursor.executescript(query,user_id)
