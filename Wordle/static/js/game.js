@@ -31,7 +31,7 @@ function draw(){
     fill(255);
     textSize(40);
     textFont('Arvo');
-    text(message,1350,700,600,400);
+    text(message,0.7542*width,0.645*height,0.3289*width,0.483*height);
 }
 
 function windowResized(){
