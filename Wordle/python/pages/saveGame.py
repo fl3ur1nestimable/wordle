@@ -5,6 +5,8 @@ save = Blueprint('save',__name__)
 
 @save.route('/save',methods=["POST"])
 def saveGame():
+    ex=request.data
+    print(ex)
     if session:
         data=request.data
         data=data.decode('utf-8')
