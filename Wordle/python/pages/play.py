@@ -7,14 +7,16 @@ def Motus1():
     params=request.form
     longueur=params.get("longueur")
     essais=params.get("essais")
-    return render_template("games.html",longueur=longueur,essais=essais)
+    mode = 'classique'
+    return render_template("games.html",longueur=longueur,essais=essais,mode=mode)
 
 @games.route('/partiePL',methods=["POST"])
 def MotusPL1():
     params=request.form
-    longueur=params.get("len")
-    essais=params.get("try")
-    return render_template("gamesPL.html",longueur=longueur,essais=essais)
+    longueur=params.get("longueur")
+    essais=params.get("essais")
+    mode='pl'
+    return render_template("games.html",longueur=longueur,essais=essais,mode=mode)
 
 
 def generate_word(longueur):
