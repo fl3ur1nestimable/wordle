@@ -1,5 +1,8 @@
 
+from random import seed
 import sqlite3
+
+from flask import session
 
 def ajoute(user1,user2):
     db = sqlite3.connect('Wordle/database.db')
@@ -45,11 +48,11 @@ def is_amis(user1,user2):
     db = sqlite3.connect('Wordle/database.db')
     cursor = db.cursor()
     cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=?;""",(user2,user1))
-    l=cursor.fetchall
+    l=cursor.fetchall()
     if len(l)!=0:
         return True
-    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=?;""",(user2,user1))
-    l2=cursor.fetchall
+    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=?;""",(user1,user2))
+    l2=cursor.fetchall()
     if len(l2)!=0:
         return True
 
