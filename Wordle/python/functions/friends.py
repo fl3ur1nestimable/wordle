@@ -1,3 +1,4 @@
+
 import sqlite3
 
 def ajoute(user1,user2):
@@ -39,3 +40,20 @@ def refuse_invit(user1,user2):
     cursor.execute(""" DELETE FROM Amis WHERE user1=? AND user2=?;""",(user2,user1))
     db.commit()
     db.close()
+
+def is_amis(user1,user2):
+    db = sqlite3.connect('Wordle/database.db')
+    cursor = db.cursor()
+    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=?;""",(user2,user1))
+    l=cursor.fetchall
+    if len(l)!=0:
+        return True
+    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=?;""",(user2,user1))
+    l2=cursor.fetchall
+    if len(l2)!=0:
+        return True
+
+    db.commit()
+    db.close()
+    return False
+
