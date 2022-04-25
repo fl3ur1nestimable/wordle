@@ -25,7 +25,7 @@ class cell {
         fill(255);
         stroke(0);
         strokeWeight(2);
-        textAlign(CENTER);
+        textAlign(CENTER,CENTER);
         textSize(height*0.06);
         text(this.letter,this.x,this.y+height*0.0217);
         

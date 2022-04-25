@@ -32,12 +32,37 @@ class key{
         return false;
     }
 
+    isClicked(){
+        if (!["ENTER","DEL"].includes(this.letter)) {
+            addLetter(this.letter);
+        }
+        else if (this.letter=="ENTER") {
+            guessWord();
+        }
+        else if (this.letter=="DEL") {
+            removeLetter();
+        }
+    }
+
     update(){
         if (this.hovered()) {
             this.sw=3;
         }
         else{
             this.sw=0;
+        }
+        switch (this.state) {
+            case 1:
+                this.col = color(100,100,100);
+                break;
+            case 2:
+                this.col = color(235,200,120);
+                break;
+            case 3:
+                this.col = color(150,235,120);
+                break;
+            default:
+                break;
         }
     }
 
