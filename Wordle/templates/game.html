@@ -5,13 +5,12 @@
 {%endblock%}
 
 {%block body %}
-<div class="logo2">
-  <a href="/">
-    <img  class="logo" src="/static/img/Logo_2.png">
-  </a>
-</div>
 
+{% if mode=='pl' %}
+<form action="/partiePL" method="POST">
+{%else%}
 <form action="/partie" method="POST">
+{%endif%}
   <h1 class="title2">Choisir la taille du mot</h1>
   <div class="centre" >
   <input class="but2" id="wordlen" name="longueur" type="number" min="2" max="15" value="5" aria-label="Sélectionner la taille du mot">
