@@ -16,7 +16,7 @@
     <body>
       
       <div class="icon-bar">
-        <a href="regle"><i class="fa fa-question"></i></a>
+        <a onclick="togglePopup()"><i class="fa fa-question"></i></a>
         <a href="recherche"><i class="fa fa-search"></i></a>
         <a href="/home"><img class="logo" src="../static/img/Logo5.png"></a>
         <a href="/my_account"><i class="fa fa-user-circle-o"></i></a>
@@ -25,6 +25,8 @@
        
           
      
-        {%block body%} {%endblock%} 
+        {%block body%} {%endblock%}
+        
+        <script src="../static/js/popup.js"></script>
     </body>
 </html>

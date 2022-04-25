@@ -29,7 +29,6 @@ def App():
     app.register_blueprint(my_friends)
     app.register_blueprint(invitations)
     app.register_blueprint(disconnected)
-    app.register_blueprint(demands)
     app.register_blueprint(check)
     return app
 
