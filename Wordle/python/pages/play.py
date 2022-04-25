@@ -15,3 +15,10 @@ def MotusPL1():
     longueur=params.get("len")
     essais=params.get("try")
     return render_template("gamesPL.html",longueur=longueur,essais=essais)
+
+
+def generate_word(longueur):
+    pass
+
+def save_word(word):
+    pass

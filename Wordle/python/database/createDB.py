@@ -40,8 +40,18 @@ def createDbGame():
     db.commit()
     db.close()
 
+def createDbWord():
+    query='''DROP TABLE IF EXISTS word;
+             CREATE TABLE word(mot TEXT);'''
+    db=sqlite3.connect("Wordle/database.db")
+    db, cursor=db.cursor()
+    cursor.executescript(query)
+    db.commit()
+    db.close()
+
 
 createDBusers()
 createDBamis()
 createDbGame()
+createDbWord()
 
