@@ -16,6 +16,7 @@ def App():
     from python.pages.demands import demands
     from python.pages.invitations import invitations
     from python.pages.disconnected import disconnected
+    from python.pages.wordcheck import check
 
     app.register_blueprint(games)
     app.register_blueprint(home)
@@ -30,6 +31,7 @@ def App():
     app.register_blueprint(invitations)
     app.register_blueprint(disconnected)
     app.register_blueprint(demands)
+    app.register_blueprint(check)
 
     return app
 
