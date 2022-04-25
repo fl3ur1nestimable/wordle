@@ -11,3 +11,7 @@ def wordle():
 def wordle_home():
     is_connected = test_login()
     return render_template('home.html',is_connected=is_connected)
+
+@home.route('/guide')
+def oui():
+    return render_template('guide.html')

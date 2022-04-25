@@ -17,12 +17,13 @@ def connect():
     mdp_enter=form['password']
     db = sqlite3.connect('Wordle/database.db')
     cursor = db.cursor()
-    cursor.execute(""" SELECT mdp, name FROM users WHERE mail = ?;""",(email_enter,))
-    mdp_crypt, name = cursor.fetchall()[0]
+    cursor.execute(""" SELECT mdp, name, id_user FROM users WHERE mail = ?;""",(email_enter,))
+    mdp_crypt, name, id = cursor.fetchall()[0]
     db.commit()
     db.close()
     if not(check_password_hash(mdp_crypt,mdp_enter)) :
         flash("Oups, le mail ou mot de passe est éronné")
         return redirect('/login')
     session['name']= name
+    session['id']=id
     return redirect('/home')

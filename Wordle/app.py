@@ -13,7 +13,6 @@ def App():
     from python.pages.saveGame import save
     from python.pages.my_account import my_account
     from python.pages.my_friends import my_friends
-    from python.pages.demands import demands
     from python.pages.invitations import invitations
     from python.pages.disconnected import disconnected
     from python.pages.wordcheck import check
@@ -32,7 +31,6 @@ def App():
     app.register_blueprint(disconnected)
     app.register_blueprint(demands)
     app.register_blueprint(check)
-
     return app
 
 if __name__ == "__main__":
