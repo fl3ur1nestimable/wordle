@@ -53,8 +53,6 @@ def ouiii(ami):
     user=session.get("name")
     l= classe_amis(ami)
     n=len(l)
-    if ami==session.get("name"):
-        return redirect('/my_friends')
     for i in range(len(l)):
         l[i]=str(l[i][0])
     return render_template('friends_of_my_friends.html',data=l,n=n,ami=ami,user=user,is_amis=is_amis,type=type)
