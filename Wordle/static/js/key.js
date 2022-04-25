@@ -39,6 +39,19 @@ class key{
         else{
             this.sw=0;
         }
+        switch (this.state) {
+            case 1:
+                this.col = color(100,100,100);
+                break;
+            case 2:
+                this.col = color(235,200,120);
+                break;
+            case 3:
+                this.col = color(150,235,120);
+                break;
+            default:
+                break;
+        }
     }
 
 }

@@ -130,6 +130,12 @@ function state(guess,word){
         if(guess[i].letter===w[i]){
             guess[i].state=2;
             w[i]="";
+            for(let j=0;j<keys.length;j++){
+               if(guess[i].letter==keys[j].letter){
+                   keys[j].state=3;
+               } 
+            }
+
             }
         }
     // 2e boucle pour trouver les lettres mal placées 
@@ -138,8 +144,24 @@ function state(guess,word){
             if (guess[i].letter===w[j]){
                 guess[i].state=1;
                 w[j]="";
+                for(let h=0;h<keys.length;h++){
+                    if(guess[i].letter==keys[h].letter){
+                        if(keys[h].state<2){
+                            keys[h].state=2;
+                        }
+                    } 
+                 }
             }
         }
+    for (let i=0;i<longueur;i++){
+        for(let h=0;h<keys.length;h++){
+            if(guess[i].letter==keys[h].letter){
+                if(keys[h].state<2){
+                    keys[h].state=1;
+                }
+            }
+        }
+    }
     }
     return state;
 }
@@ -245,7 +267,9 @@ function sendData(){
     window.location.href='/home'
 }
 
+function update_color_keybord(){
 
+}
 
 
 
