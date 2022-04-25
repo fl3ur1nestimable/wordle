@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{%block link%}
+<link rel="stylesheet" type="text/css" href="/static/css/home.css">
+<link rel="stylesheet" type="text/css" href="/static/css/my_friends.css">
+
+{%endblock%}
+
+{% block body %}
+<div class="container" id="onglets">
+    <ul class="nav nav-tabs navbar-dark ">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/my_friends">Mes amis</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/my_friends/add">Ajouter des amis</a>     
+          </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="/my_friends/invitations">Demandes d'amis</a>     
+        </li>
+    </ul>
+</div>
+
+<div class="container ">
+    <div class = "row text-center text-light">
+        <h1> Classement des amis de {{ami}}</h1>
+        <h1>{{amis}}</h1>
+    </div>
+    <div class="list-group list-group-flush">
+        {% for k in range(n) %}
+            {% if data[k] in amis %}
+                <div class = "row text-light justify-content-center" id="item">
+                    <div class="col-1 text-center">
+                        <i style="border:solid 3px;
+                                padding-left:13px;
+                                padding-right: 13px;
+                                padding-top: 8px;
+                                padding-bottom: 8px;">{{k+1}}</i>
+                    </div>
+                    <div class="col-5">
+                        <div class = "list-group-item text-light">{{data[k][0]}}</div>
+                    </div>
+                    <div class="col-1 text-center">
+                        <a href="/friends/{{data[k][0]}}"><i class="fa fa-group fa-2x"></i></a>
+                    </div>
+                    <div class="col-1 text-center">
+                        <a href="/stats/{{data[k][0]}}"><i class="fa fa-bar-chart fa-2x"></i></a>
+                    </div>
+                </div>
+            {% else %} 
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{%endblock%}

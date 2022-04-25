@@ -47,3 +47,13 @@ def add(user):
         return redirect(url_for('my_friends.add_friends'))
     else:
         return redirect('/login')
+
+@my_friends.route('/friends/<ami>')
+def ouiii(ami):
+    user=session.get("name")
+    l= classe_amis(ami)
+    n=len(l)
+    L=liste_amis(user)
+    if ami==session.get("name"):
+        return redirect('/my_friends')
+    return render_template('friends_of_my_friends.html',data=l,n=n,ami=ami,amis=L)
