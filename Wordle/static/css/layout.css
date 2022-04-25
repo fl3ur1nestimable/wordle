@@ -1,21 +1,21 @@
 .icon-bar {
   width: 100%; /* Set a specific width */
-  background-color: #555; /* Dark-grey background */
   overflow: auto;
 }
 
 .icon-bar a {
-  float: left; /* Float links side by side */
+  float:left; /* Float links side by side */
   text-align: center; /* Center-align text */
   width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
-  padding: 12px 0; /* Some top and bottom padding */
+  padding:10px 0px; /* Some top and bottom padding */
   transition: all 0.3s ease; /* Add transition for hover effects */
   color: white; /* White text color */
   font-size: 36px; 
+  
 }
 
 .icon-bar a:hover {
-  background-color: #000; /* Add a hover color */
+  background-color: rgba(0, 0, 0, 0.527); /* Add a hover color */
 }
   .logo{
      width: 20%;
