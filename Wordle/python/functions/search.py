@@ -1,5 +1,4 @@
 import sqlite3
-import unidecode 
 
 def liste_users():
     db = sqlite3.connect('Wordle/database.db')
