@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{%block link%}
+<link rel="stylesheet" type="text/css" href="/static/css/home.css">
+<link rel="stylesheet" type="text/css" href="/static/css/my_friends.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+{%endblock%}
+
+{% block body %}
+<div class="container" id="onglets">
+    <ul class="nav nav-tabs navbar-dark ">
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="/my_friends">Mes amis</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/my_friends/add">Ajouter des amis</a>     
+          </li>
+        <li class="nav-item">
+          <a class="nav-link " aria-current="page" href="/my_friends/invitations">Demandes d'amis</a>     
+        </li>
+    </ul>
+</div>
+
+<div class="container justify-content-center">
+    <form class="row" action="/my_friends/add" method="post" id="barre">
+        <div class="col text-end">
+            <label for="search" class="text-light">Ajouter des amis</label>
+        </div>
+        <div class="col">
+            <input class="form-control " id="search" type="search" name="search" placeholder="Non d'utilisateur" aria-label="Chercher">
+        </div>
+        <div class="col" style="padding-left: 15px;">
+            <button class="btn btn_search" type="submit">Rechercher</button>
+        </div>
+    </form>
+    <div class="row" id="barre">
+        {% if empty %}
+        <p class="text-center text-light">Aucun utilisateurs n'a été trouvé</p>
+        {% else %}
+        <div class="list-group list-group-flush">
+            {% for user in users_found %}
+                <div class="row" id="item">
+                    <div class="col-1 text-center">
+                        <i class = "fa fa-user-plus fa-3x"></i>
+                    </div>
+                    <div class="col-6">
+                        <div class = "list-group-item text-light">{{user}}</div>
+                    </div>
+                    <div class="col text-center">
+                        <a class="col btn btn-light" href="/ajouter/{{user}}">Ajouter</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

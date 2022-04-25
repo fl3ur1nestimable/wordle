@@ -5,9 +5,13 @@ save = Blueprint('save',__name__)
 
 @save.route('/save',methods=["POST"])
 def saveGame():
-    data=request.form
-    user_id = getUserId()
-    gameData=[user_id,data.get("state"),data.get("try")]
-    saveData(gameData)
-    return redirect(url_for('home.wordle'))
+    ex=request.data
+    print(ex)
+    if session:
+        data=request.data
+        data=data.decode('utf-8')
+        user_id = getUserId()
+        gameData=[user_id,data[0],data[1]]
+        saveData(gameData)
+    return ""
 

@@ -2,21 +2,23 @@ let letters = ['A','Z','E','R','T','Y','U','I','O','P','Q','S','D','F','G','H','
 let keys = [];
 let grid = [[]];
 let currentRow = 0;
+let wordload;
 let wordList=[];
-let word = ['A','M','O','U','R'];
+let word;
 let message = "";
 let win = false;
 
+function preload(){
+    wordload=loadStrings('static/Dictionnaire/liste_francais.txt');
+}
 
 function setup(){
     var canva =createCanvas(windowWidth,windowHeight);
     init_keyboard();
     // grille wordle
     grid = init_grid();
-    //charger le dictionnaire correspondant dans la wordlist
-    loadDic();//sans paramètres, agit directement sur la wordlist
-    //set up le mot partir de la liste
-    
+    loadDic();
+    word=random(wordList).split('');
 }
 
 function draw(){
@@ -29,13 +31,44 @@ function draw(){
     fill(255);
     textSize(40);
     textFont('Arvo');
-    text(message,1350,700,600,400);
+    text(message,0.7542*width,0.645*height,0.3289*width,0.483*height);
+}
+
+function windowResized(){
+    resizeCanvas(windowWidth,windowHeight);
+    for (let i = 0; i < essais; i++) {
+        for (let j = 0; j < longueur; j++) {
+            let c = grid[i][j];
+            c.w = floor(height/(max(essais,longueur)+2));
+            c.x = j*(c.w+10)+0.05*width;
+            c.y = i*(c.w+10)+0.097*height;
+        }
+    }
+    for (let j = 0; j < keys.length; j++) {
+
+        keys[j].w= width*0.036;
+        keys[j].wref= width*0.036;
+        
+        if ((j>=0)&(j<10)) {
+            keys[j].x = (j%10)*(keys[j].w+15)+0.55*width;
+            keys[j].y = height*0.22;
+        }
+        if ((j>=10)&(j<20)) {
+            keys[j].x = (j%10)*(keys[j].w+15)+0.55*width;
+            keys[j].y = height*0.24 + keys[j].w;
+        }
+        if ((j>=20)&(j<28)) {
+            keys[j].x = (j%10)*(keys[j].w+15)+0.595*width;
+            keys[j].y = height*0.26 + 2*keys[j].w;
+        }
+    }
 }
 
 function mousePressed(){
     for (let j = 0; j < keys.length; j++){
         if (keys[j].hovered()) {
             keys[j].w -=10;
+            keys[j].isClicked();
         }
     }
 }
@@ -53,8 +86,6 @@ function mouseDragged(){
         }
     }
 }
-
-
 
 function init_keyboard(){
     for (let i = 0; i < letters.length; i++) {
@@ -87,7 +118,6 @@ function display_keyboard(){
     }
 }
 
-
 function init_grid() {
     let grid = [];
     for (let i = 0; i < essais; i++) {
@@ -111,7 +141,6 @@ function display_grid(){
         }
     }
 }
-
 
 function getWord(cellTab){
     let w = [];
@@ -205,24 +234,27 @@ function guessWord(){
         message="Mot incomplet"
         return;
     }
-
-    /*if (!isValid(guess)) {
-        message="Le mot n'existe pas"
-    }*/
-
-    else if(!true){
-        message = "Mot incorrect, veuillez en choisir un autre"; 
-        return;
+    else if (!isValid(guess)) {
+        message="Le mot n'existe pas";
     }
-    
+
+    else if (isFound(guess,word)) {
+        win=true;
+        message='gg!';
+        state(guess,word);
+        // mettre les couleurs 
+        endGame();
+    }
     else{
+        message="Mot incorrect. Veuillez en choisir un autre";
         state(guess,word);
         currentRow += 1;
         // mettre les couleurs 
     }
-
+    if ((currentRow==essais)&&(win==false)) {
+        endGame();
+    }
 }
-
 
 function keyPressed(){
     // Touche entrer
@@ -240,20 +272,33 @@ function keyPressed(){
 }
 
 function isValid(w){
-    ww=w.join('');
+    let ww ="";
+    for (let i = 0; i < w.length; i++) {
+        ww+=w[i].letter;        
+    }
     if (wordList.includes(ww)) {
         return true
     }
     return false
 }
 
-function loadDic(){
-    //charger le fichier texte en fonction de la longueur
-    //et mettre chaque mot du fichier dans la listed de mots
+function isFound(guess,word){
+    for (let i = 0; i < guess.length; i++) {
+        if (guess[i].letter!=word[i]) {
+            return false;
+        }        
+    }
+    return true;
 }
 
-//fin de partie
-//proposition de rejouer si non redirection où ?
+function loadDic(){
+    for (let i = 0; i < wordload.length; i++) {
+        let toAdd=wordload[i].toUpperCase();
+        if (toAdd.length == longueur) {
+            wordList.push(toAdd);
+        }
+    }
+}
 
 function sendData(){
     let s = "";
@@ -262,14 +307,31 @@ function sendData(){
     } else {
         s+="loss";
     }
-    let tries = String(currentRow+1);
-    const url='/save?state='+btoa(s)+'&try=';
-    window.location.href='/home'
+    let tries =(s == 'win') ? String(currentRow+1) : String(currentRow);
+    var http = new XMLHttpRequest();
+    var url = "/save"
+    data=[s,tries]
+    http.open("POST",url,true);
+    http.send(data);
 }
 
-function update_color_keybord(){
-
+function messagePlayer(){
+    switch (win) {
+        case true:
+            if (window.confirm("gg t'as gagné, on rejoue ?")==true) {
+                window.location.href='/Jeu';
+            }
+            break;
+        case false:
+            if (window.confirm("ctait " + word.join('') +"\ncheh :) . on rejoue ?")==true) {
+                window.location.href='/Jeu';
+            }
+            break;
+    }
 }
 
-
-
+function endGame(){
+    noLoop();
+    sendData();
+    messagePlayer();
+}

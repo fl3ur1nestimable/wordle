@@ -32,6 +32,18 @@ class key{
         return false;
     }
 
+    isClicked(){
+        if (!["ENTER","DEL"].includes(this.letter)) {
+            addLetter(this.letter);
+        }
+        else if (this.letter=="ENTER") {
+            guessWord();
+        }
+        else if (this.letter=="DEL") {
+            removeLetter();
+        }
+    }
+
     update(){
         if (this.hovered()) {
             this.sw=3;
