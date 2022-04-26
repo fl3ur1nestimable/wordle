@@ -1,17 +1,17 @@
 from flask import Blueprint, request, render_template, redirect, url_for, session
-from python.functions.GameData import saveData,getUserId
-
+from python.database.GameData import saveData
+from python.functions.is_connected import test_login
 save = Blueprint('save',__name__)
 
 @save.route('/save',methods=["POST"])
 def saveGame():
-    ex=request.data
-    print(ex)
-    if session:
+    if test_login()==True :
         data=request.data
         data=data.decode('utf-8')
-        user_id = getUserId()
-        gameData=[user_id,data[0],data[1]]
+        user_id = session['id']
+        data=data.split(',')
+        gameData=[user_id,data[1],data[0]]
         saveData(gameData)
     return ""
+
 

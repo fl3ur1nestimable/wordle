@@ -2,23 +2,15 @@ let letters = ['A','Z','E','R','T','Y','U','I','O','P','Q','S','D','F','G','H','
 let keys = [];
 let grid = [[]];
 let currentRow = 0;
-let wordload;
-let wordList=[];
-let word;
 let message = "";
 let win = false;
 
-function preload(){
-    wordload=loadStrings('static/Dictionnaire/liste_francais.txt');
-}
 
 function setup(){
-    var canva =createCanvas(windowWidth,windowHeight);
+    createCanvas(windowWidth,windowHeight);
     init_keyboard();
     // grille wordle
     grid = init_grid();
-    loadDic();
-    word=random(wordList).split('');
 }
 
 function draw(){
@@ -150,38 +142,30 @@ function getWord(cellTab){
     return w;
 }
 
-function state(guess,word){
-    // Copie du tableau du mot à trouver (on va modifier ses valeurs)
-    let w = [].concat(word);
-    // Résultat renvoyé - tableau des états
-    // 1ere boucle pour trouver les lettres bien placées
-    for (let i=0;i<longueur;i++){
-        if(guess[i].letter===w[i]){
+function state(s,guess){
+    for (let i = 0; i < s.length; i++) {
+        if (s[i]==2) {
             guess[i].state=2;
-            w[i]="";
             for(let j=0;j<keys.length;j++){
-               if(guess[i].letter==keys[j].letter){
-                   keys[j].state=3;
-               } 
+                if(guess[i].letter==keys[j].letter){
+                    keys[j].state=3;
+                } 
             }
+        }
+    }
+    for (let i = 0; i < s.length; i++) {
+        if (s[i]==1) {
+            guess[i].state=1;
+            for(let h=0;h<keys.length;h++){
+                if(guess[i].letter==keys[h].letter){
+                    if(keys[h].state<2){
+                        keys[h].state=2;
+                    }
+                } 
+            }
+        }
+    }
 
-            }
-        }
-    // 2e boucle pour trouver les lettres mal placées 
-    for (let i=0;i<longueur;i++){
-        for (let j=0;j<longueur;j++){
-            if (guess[i].letter===w[j]){
-                guess[i].state=1;
-                w[j]="";
-                for(let h=0;h<keys.length;h++){
-                    if(guess[i].letter==keys[h].letter){
-                        if(keys[h].state<2){
-                            keys[h].state=2;
-                        }
-                    } 
-                 }
-            }
-        }
     for (let i=0;i<longueur;i++){
         for(let h=0;h<keys.length;h++){
             if(guess[i].letter==keys[h].letter){
@@ -190,7 +174,6 @@ function state(guess,word){
                 }
             }
         }
-    }
     }
     return state;
 }
@@ -227,33 +210,51 @@ function removeLetter(){
     }
 }
 
-function guessWord(){
+async function guessWord(){
     let guess = grid[currentRow];
-
-    if(guess[longueur -1].letter===""){ // Si la ligne n'est pas remplie
-        message="Mot incomplet"
-        return;
+    let guessToSend="";
+    for (let i = 0; i < guess.length; i++) {
+        guessToSend+=(guess[i].letter);
     }
-    else if (!isValid(guess)) {
+    let response=await fetch('/check?guess='+guessToSend);
+    let res;
+    let b;
+    if (response.ok) {
+        b = await response.json();
+        let a= Promise.resolve(b);
+        res=(await a).valueOf();
+    }
+    s=res["s"];
+    guess_state=res["guess_state"];
+
+    if (s.length==0 && guess_state=="incomplete") {
+        message="Mot incomplet";
+    }
+    else if (s.length==0 && guess_state=="invalid") {
         message="Le mot n'existe pas";
     }
-
-    else if (isFound(guess,word)) {
+    else if (guess_state=="found") {
         win=true;
         message='gg!';
-        state(guess,word);
-        // mettre les couleurs 
+        state(s,guess);
+        await sleep(500);
         endGame();
     }
-    else{
+    else if (guess_state=="incorrect"){
         message="Mot incorrect. Veuillez en choisir un autre";
-        state(guess,word);
+        state(s,guess);
         currentRow += 1;
-        // mettre les couleurs 
     }
+
     if ((currentRow==essais)&&(win==false)) {
+        await sleep(500);
         endGame();
     }
+}
+function sleep(millisecondsDuration){
+  return new Promise((resolve) => {
+    setTimeout(resolve, millisecondsDuration);
+  })
 }
 
 function keyPressed(){
@@ -291,15 +292,6 @@ function isFound(guess,word){
     return true;
 }
 
-function loadDic(){
-    for (let i = 0; i < wordload.length; i++) {
-        let toAdd=wordload[i].toUpperCase();
-        if (toAdd.length == longueur) {
-            wordList.push(toAdd);
-        }
-    }
-}
-
 function sendData(){
     let s = "";
     if (win==true) {
@@ -315,7 +307,15 @@ function sendData(){
     http.send(data);
 }
 
-function messagePlayer(){
+async function messagePlayer(){
+    let response=await fetch('/response');
+    let res;
+    let b;
+    if (response.ok) {
+        b = await response.text();
+        let a= Promise.resolve(b);
+        res=(await a).valueOf();
+    }
     switch (win) {
         case true:
             if (window.confirm("gg t'as gagné, on rejoue ?")==true) {
@@ -323,7 +323,7 @@ function messagePlayer(){
             }
             break;
         case false:
-            if (window.confirm("ctait " + word.join('') +"\ncheh :) . on rejoue ?")==true) {
+            if (window.confirm("ctait " + res +"\ncheh :) . on rejoue ?")==true) {
                 window.location.href='/Jeu';
             }
             break;
