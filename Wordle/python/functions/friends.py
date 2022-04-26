@@ -24,12 +24,10 @@ def liste_amis(user):
 def liste_amis_attente(user):
     db = sqlite3.connect("Wordle/database.db")
     cursor= db.cursor()
-    cursor.execute('''SELECT user1 FROM Amis WHERE user2=? AND demand = "not_accepted" ''',(user,))
-    l1=cursor.fetchall()
     cursor.execute('''SELECT user2 FROM Amis WHERE user1 =? AND demand = "not_accepted" ''',(user,))
     l2=cursor.fetchall()
     db.close()
-    return l1+l2
+    return l2
 
 def liste_demandes(user):
     db = sqlite3.connect('Wordle/database.db')
