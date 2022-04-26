@@ -1,7 +1,7 @@
 from flask import Flask, Blueprint, render_template, session, request, redirect,url_for
 import sqlite3
 from python.functions.search import liste_users_minus_friends, recherche
-from python.functions.friends import ajoute, liste_amis, is_amis
+from python.functions.friends import ajoute, liste_amis, is_amis, is_already_demanded
 from python.functions.classement import classe_amis
 from python.functions.is_connected import test_login
 
@@ -55,4 +55,4 @@ def ouiii(ami):
     n=len(l)
     for i in range(len(l)):
         l[i]=str(l[i][0])
-    return render_template('friends_of_my_friends.html',data=l,n=n,ami=ami,user=user,is_amis=is_amis,type=type)
+    return render_template('friends_of_my_friends.html',data=l,n=n,ami=ami,user=user,is_amis=is_amis,is_already_demanded=is_already_demanded)

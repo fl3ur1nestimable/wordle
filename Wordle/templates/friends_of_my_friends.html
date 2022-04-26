@@ -3,6 +3,7 @@
 {%block link%}
 <link rel="stylesheet" type="text/css" href="/static/css/home.css">
 <link rel="stylesheet" type="text/css" href="/static/css/my_friends.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 {%endblock%}
 
@@ -79,13 +80,19 @@
                     <div class="col-5">
                         <div class = "list-group-item text-light">{{data[k]}}</div>
                     </div>
-                    <div class="row" id="item">
-                        <a href="/ajouter/{{data[k]}}">
-                            <div class="col-1 text-center">
-                                <i class = "fa fa-user-plus fa-2x"></i>
-                            </div>
-                        </a>
-                    </div>
+                    {% if is_already_demanded(data[k],user) %}
+                        <div class="col-1 text-center">
+                            <i class="fa fa-hourglass-half fa-2x" aria-hidden="true"></i>
+                        </div>
+                    {% else %}
+                        <div class="row" id="ui">
+                            <a href="/ajouter/{{data[k]}}">
+                                <div class="col-1 text-center">
+                                    <i class = "fa fa-user-plus fa-2x"></i>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
             {% endif %}

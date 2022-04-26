@@ -47,11 +47,11 @@ def refuse_invit(user1,user2):
 def is_amis(user1,user2):
     db = sqlite3.connect('Wordle/database.db')
     cursor = db.cursor()
-    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=?;""",(user2,user1))
+    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=? AND demand="accepted";""",(user2,user1))
     l=cursor.fetchall()
     if len(l)!=0:
         return True
-    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=?;""",(user1,user2))
+    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=? AND demand="accepted";""",(user1,user2))
     l2=cursor.fetchall()
     if len(l2)!=0:
         return True
@@ -60,3 +60,18 @@ def is_amis(user1,user2):
     db.close()
     return False
 
+def is_already_demanded(user1,user2):
+    db = sqlite3.connect('Wordle/database.db')
+    cursor = db.cursor()
+    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=? AND demand="not_accepted";""",(user2,user1))
+    l=cursor.fetchall()
+    if len(l)!=0:
+        return True
+    cursor.execute(""" Select * FROM Amis WHERE user1=? AND user2=? AND demand="not_accepted";""",(user1,user2))
+    l2=cursor.fetchall()
+    if len(l2)!=0:
+        return True
+
+    db.commit()
+    db.close()
+    return False
