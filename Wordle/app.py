@@ -17,6 +17,7 @@ def App():
     from python.pages.invitations import invitations
     from python.pages.disconnected import disconnected
     from python.pages.wordcheck import check
+    from python.pages.historique import historique
     
 
     app.register_blueprint(games)
@@ -32,6 +33,7 @@ def App():
     app.register_blueprint(invitations)
     app.register_blueprint(disconnected)
     app.register_blueprint(check)
+    app.register_blueprint(historique)
 
     createDBamis()
     createDbGame()
