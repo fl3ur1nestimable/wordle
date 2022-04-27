@@ -53,7 +53,7 @@ function windowResized(){
             keys[j].x = (j%10)*(keys[j].w+15)+0.595*width;
             keys[j].y = height*0.26 + 2*keys[j].w;
         }
-    }
+    } 
 }
 
 function mousePressed(){
@@ -270,26 +270,6 @@ function keyPressed(){
     if((65<=keyCode)&&(keyCode<=90)){
         addLetter(String.fromCharCode(keyCode));
     }
-}
-
-function isValid(w){
-    let ww ="";
-    for (let i = 0; i < w.length; i++) {
-        ww+=w[i].letter;        
-    }
-    if (wordList.includes(ww)) {
-        return true
-    }
-    return false
-}
-
-function isFound(guess,word){
-    for (let i = 0; i < guess.length; i++) {
-        if (guess[i].letter!=word[i]) {
-            return false;
-        }        
-    }
-    return true;
 }
 
 function sendData(){
