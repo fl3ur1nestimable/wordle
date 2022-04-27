@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 from unicodedata import name
 from webbrowser import get
-from flask import Blueprint, render_template,session,redirect
-=======
 from flask import Blueprint, render_template,session,redirect, url_for
->>>>>>> 3d0730f (MAJ sécurité js)
 from python.database.GameData import getData
 from python.database.stats import *
 from python.functions.is_connected import test_login
@@ -25,9 +21,7 @@ def wordle_stats():
         perfs=getPerfs(data)
         return render_template('stats.html',username=username,games_nb=games_nb,win_percentage=win_percentage,series=series,perfs=perfs)
     else :
-<<<<<<< HEAD
-        return render_template('stats.html',username='username',games_nb=0,win_percentage=0,series=(0,0),perfs=[0,0,0,0,0,0,0,0])
-
+        return redirect(url_for("home.wordle_home"))
 @stats.route('/stats/<user>')
 def stats_friend(user):
     me=session["name"]
@@ -40,7 +34,3 @@ def stats_friend(user):
         series=getSeries(data)
         perfs=getPerfs(data)
         return render_template('stats.html',username=username,games_nb=games_nb,win_percentage=win_percentage,series=series,perfs=perfs)
-
-=======
-        return redirect(url_for("home.wordle_home"))
->>>>>>> 3d0730f (MAJ sécurité js)
