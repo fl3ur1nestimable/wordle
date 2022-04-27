@@ -26,7 +26,11 @@ function draw(){
     display_grid();
     display_keyboard();
     for (let j = 0; j < keys.length; j++){
+        if (mode==='pl'){
+            keys[j].updatePL();
+        }else{
         keys[j].update();
+        }
     }
     fill(255);
     textSize(40);
@@ -171,7 +175,7 @@ function state(guess,word){
     for (let i=0;i<longueur;i++){
         for (let j=0;j<longueur;j++){
             if (guess[i].letter===w[j]){
-                if(guess[i].state<1){
+                if (guess[i].state<1){
                     guess[i].state=1;
                     w[j]="";
                     for(let h=0;h<keys.length;h++){
@@ -180,7 +184,7 @@ function state(guess,word){
                                 keys[h].state=2;
                             }
                         } 
-                    }
+                     }
                 }
             }
         }
