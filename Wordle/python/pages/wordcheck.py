@@ -10,11 +10,8 @@ def check_word():
     guess=request.args.get('guess')
     response=getWord()
     states=compare(guess,response)
-<<<<<<< HEAD
     if (states[1]=='incorrect') or (states[1]=='found'):
         input_guess(response,guess)
-=======
->>>>>>> 3d0730f (MAJ sécurité js)
     jsonres=json.dumps({"s":states[0],"guess_state":states[1]})
     return jsonres
 
