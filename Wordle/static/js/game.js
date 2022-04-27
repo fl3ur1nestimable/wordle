@@ -3,7 +3,6 @@ let keys = [];
 let grid = [[]];
 let currentRow = 0;
 let message = "";
-let win = false;
 
 
 function setup(){
@@ -215,6 +214,7 @@ function removeLetter(){
 }
 
 async function guessWord(){
+    let win = undefined;
     let guess = grid[currentRow];
     let guessToSend="";
     for (let i = 0; i < guess.length; i++) {
@@ -242,7 +242,6 @@ async function guessWord(){
         message='gg!';
         state(s,guess);
         await sleep(500);
-        endGame();
     }
     else if (guess_state=="incorrect"){
         message="Mot incorrect. Veuillez en choisir un autre";
@@ -250,11 +249,48 @@ async function guessWord(){
         currentRow += 1;
     }
 
-    if ((currentRow==essais)&&(win==false)) {
+    if (currentRow==essais) {
+        win=false;
         await sleep(500);
-        endGame();
+    }
+    if(win!=undefined){
+        noLoop();
+        let s = "";
+        if (win==true) {
+            s+="win";
+        } else {
+            s+="loss";
+        }
+        let tries =(s == 'win') ? String(currentRow+1) : String(currentRow);
+        var http = new XMLHttpRequest();
+        var url = "/save"
+        data=[s,tries]
+        http.open("POST",url,true);
+        http.send(data);
+
+        let response=await fetch('/response');
+        let res;
+        let b;
+        if (response.ok) {
+            b = await response.text();
+            let a= Promise.resolve(b);
+            res=(await a).valueOf();
+        }
+        switch (win) {
+            case true:
+                if (window.confirm("gg t'as gagné, on rejoue ?")==true) {
+                    window.location.href='/Jeu';
+                }
+                break;
+            case false:
+                if (window.confirm("ctait " + res +"\ncheh :) . on rejoue ?")==true) {
+                    window.location.href='/Jeu';
+                }
+                break;
+        }
     }
 }
+
 function sleep(millisecondsDuration){
   return new Promise((resolve) => {
     setTimeout(resolve, millisecondsDuration);
@@ -274,48 +310,4 @@ function keyPressed(){
     if((65<=keyCode)&&(keyCode<=90)){
         addLetter(String.fromCharCode(keyCode));
     }
-}
-
-function sendData(){
-    let s = "";
-    if (win==true) {
-        s+="win";
-    } else {
-        s+="loss";
-    }
-    let tries =(s == 'win') ? String(currentRow+1) : String(currentRow);
-    var http = new XMLHttpRequest();
-    var url = "/save"
-    data=[s,tries]
-    http.open("POST",url,true);
-    http.send(data);
-}
-
-async function messagePlayer(){
-    let response=await fetch('/response');
-    let res;
-    let b;
-    if (response.ok) {
-        b = await response.text();
-        let a= Promise.resolve(b);
-        res=(await a).valueOf();
-    }
-    switch (win) {
-        case true:
-            if (window.confirm("gg t'as gagné, on rejoue ?")==true) {
-                window.location.href='/Jeu';
-            }
-            break;
-        case false:
-            if (window.confirm("ctait " + res +"\ncheh :) . on rejoue ?")==true) {
-                window.location.href='/Jeu';
-            }
-            break;
-    }
-}
-
-function endGame(){
-    noLoop();
-    sendData();
-    messagePlayer();
 }
