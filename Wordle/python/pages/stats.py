@@ -1,8 +1,10 @@
 from unicodedata import name
+from webbrowser import get
 from flask import Blueprint, render_template,session,redirect
 from python.database.GameData import getData
 from python.database.stats import *
 from python.functions.is_connected import test_login
+from python.functions.classement import get_id
 from python.functions.friends import is_amis
 stats = Blueprint('stats',__name__)
 
@@ -25,7 +27,8 @@ def wordle_stats():
 def stats_friend(user):
     me=session["name"]
     if is_amis(user,me) == True:
-        data=getData(user)
+        user_id=get_id(user)
+        data=getData(user_id)
         username=user
         games_nb=len(data)
         win_percentage=getWin(data)
