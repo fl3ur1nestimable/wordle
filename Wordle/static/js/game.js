@@ -18,7 +18,11 @@ function draw(){
     display_grid();
     display_keyboard();
     for (let j = 0; j < keys.length; j++){
+        if (mode==='pl'){
+            keys[j].updatePL();
+        }else{
         keys[j].update();
+        }
     }
     fill(255);
     textSize(40);
@@ -161,10 +165,10 @@ function state(s,guess){
                     if(keys[h].state<2){
                         keys[h].state=2;
                     }
-                } 
+                }
             }
         }
-    }
+    } 
 
     for (let i=0;i<longueur;i++){
         for(let h=0;h<keys.length;h++){

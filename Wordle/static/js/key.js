@@ -66,4 +66,27 @@ class key{
         }
     }
 
+    updatePL(){
+        if (this.hovered()) {
+            this.sw=3;
+        }
+        else{
+            this.sw=0;
+        }
+        switch (this.state) {
+            case 1:
+                this.col = color(100,100,100);
+                break;
+            case 2:
+                this.col = color(249, 141, 143);
+                break;
+            case 3:
+                this.col = color(226, 28, 38);
+                break;
+            default:
+                break;
+        }
+
+    }
+
 }

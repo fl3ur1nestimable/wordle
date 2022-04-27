@@ -6,10 +6,10 @@ game = Blueprint('game',__name__)
 
 @game.route('/Jeu',methods=["GET","POST"])
 def Motus():
-    return render_template("game.html")   
+    return render_template("game.html",mode='classique')   
 
 
 @game.route('/JeuPL',methods=["GET","POST"])
 
 def MotusPL():
-    return render_template("gamePL.html")
+    return render_template("game.html",mode='pl')
