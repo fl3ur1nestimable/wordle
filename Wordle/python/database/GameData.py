@@ -15,9 +15,19 @@ def saveData(gameData):
     user_id=gameData[0]
     tries=gameData[1]
     state=gameData[2]
-    query='''INSERT INTO Game (id_user,tries,state) VALUES (?,?,?);'''
+    word = gameData[3]
+    guesses = gameData[4]
+    query='''INSERT INTO Game (id_user,tries,state,word,guesses) VALUES (?,?,?,?,?);'''
     db=sqlite3.connect("Wordle/database.db")
     cursor=db.cursor()
-    cursor.execute(query,(user_id,tries,state))
+    cursor.execute(query,(user_id,tries,state,word,guesses))
     db.commit() 
     db.close()
+
+def getWordGuesses():
+    db=sqlite3.connect("Wordle/database.db")
+    cursor=db.cursor()
+    query = 'SELECT mot,liste_mots FROM Word;'
+    cursor.execute(query)
+    data=cursor.fetchall()[0]
+    return data
