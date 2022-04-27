@@ -17,6 +17,8 @@ def MotusPL1():
     params=request.form
     longueur=params.get("longueur")
     essais=params.get("essais")
+    word=generate_word(int(longueur))
+    save_word(word)
     mode='pl'
     return render_template("games.html",longueur=longueur,essais=essais,mode=mode)
 

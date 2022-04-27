@@ -7,6 +7,17 @@
 
     {%block body%}
 
+    <div class="container" id="onglets">
+        <ul class="nav nav-tabs navbar-dark ">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/stats">Mes statistiques</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/historique">Historique des parties</a>     
+              </li>
+        </ul>
+    </div>
+
     <h1 class="title1">{{username}} - Statistiques</h1>
     <div class="stats1">
         <table class="perfs">

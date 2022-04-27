@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template, redirect, url_for, session
-from python.database.GameData import saveData
+from python.database.GameData import saveData,getWordGuesses
 from python.functions.is_connected import test_login
 save = Blueprint('save',__name__)
 
@@ -10,7 +10,8 @@ def saveGame():
         data=data.decode('utf-8')
         user_id = session['id']
         data=data.split(',')
-        gameData=[user_id,data[1],data[0]]
+        mot,liste = getWordGuesses()
+        gameData=[user_id,data[1],data[0],mot,liste]
         saveData(gameData)
     return ""
 
