@@ -30,8 +30,12 @@ def createDBamis():
 
 def createDbGame():
     query='''DROP TABLE IF EXISTS Game;
-             CREATE TABLE Game(id_game INTEGER Primary KEY AUTOINCREMENT,id_user INTEGER NOT NULL, tries INTEGER NOT NULL, 
+             CREATE TABLE Game(id_game INTEGER Primary KEY AUTOINCREMENT,
+             id_user INTEGER NOT NULL, 
+             tries INTEGER NOT NULL, 
              state TEXT NOT NULL CHECK (state in ('win','loss')),
+             word TEXT NOT NULL,
+             guesses TEXT DEFAULT "" NOT NULL,
              FOREIGN KEY(id_user) REFERENCES users(id_user));
           '''
     db=sqlite3.connect("Wordle/database.db")
@@ -42,7 +46,7 @@ def createDbGame():
 
 def createDbWord():
     query='''DROP TABLE IF EXISTS word;
-             CREATE TABLE word(mot TEXT);'''
+             CREATE TABLE word(mot TEXT, liste_mots TEXT DEFAULT "|" NOT NULL);'''
     db=sqlite3.connect("Wordle/database.db")
     cursor=db.cursor()
     cursor.executescript(query)
