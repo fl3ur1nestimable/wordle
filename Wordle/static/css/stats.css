@@ -9,7 +9,7 @@
 
 .stats1{
     margin: auto;
-    width: 50%;
+    width: 40%;
 }
 .stats2{
     margin: auto;
@@ -38,4 +38,20 @@ body{
 
 .num{
     font-size: 50px;
+}
+
+#onglets {
+    padding-top: 4rem;
+}
+
+.nav-link{
+    color:rgb(249, 71, 73);
+}
+
+.nav-link:hover{
+    color:rgb(226, 28, 38);
+    border: none;
+}
+.container {
+    padding: 1rem;
 }
