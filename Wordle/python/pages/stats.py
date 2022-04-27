@@ -1,7 +1,9 @@
+from unicodedata import name
 from flask import Blueprint, render_template,session,redirect
 from python.database.GameData import getData
 from python.database.stats import *
 from python.functions.is_connected import test_login
+from python.functions.friends import is_amis
 stats = Blueprint('stats',__name__)
 
 
@@ -18,3 +20,16 @@ def wordle_stats():
         return render_template('stats.html',username=username,games_nb=games_nb,win_percentage=win_percentage,series=series,perfs=perfs)
     else :
         return render_template('stats.html',username='username',games_nb=0,win_percentage=0,series=(0,0),perfs=[0,0,0,0,0,0,0,0])
+
+@stats.route('/stats/<user>')
+def stats_friend(user):
+    me=session["name"]
+    if is_amis(user,me) == True:
+        data=getData(user)
+        username=user
+        games_nb=len(data)
+        win_percentage=getWin(data)
+        series=getSeries(data)
+        perfs=getPerfs(data)
+        return render_template('stats.html',username=username,games_nb=games_nb,win_percentage=win_percentage,series=series,perfs=perfs)
+
