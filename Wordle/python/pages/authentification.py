@@ -1,6 +1,7 @@
-from flask import Flask, Blueprint, render_template, request, flash, redirect
+from flask import Flask, Blueprint, render_template, request, flash, redirect,session
 import sqlite3
 from python.functions.auth import input_user_db, name_already_exist, mail_already_exist, input_user_db
+from python.functions.classement import get_id
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -13,8 +14,10 @@ def register():
 @authentification.route('/register', methods=['POST'])
 def register_user():
     form=request.form.to_dict()
-    name_exist = name_already_exist(form['name'])
-    email_exist = mail_already_exist(form['email'])
+    name = form['name']
+    mail = form['email']
+    name_exist = name_already_exist(name)
+    email_exist = mail_already_exist(mail)
 
     if name_exist :
         flash("Ce nom d'utilisateur est déjà utilisé, veuillez en choisir un autre")
@@ -26,6 +29,8 @@ def register_user():
 
     mdp = generate_password_hash(form['password'], method='sha256')
     print(mdp)
-    input_user_db(form['name'],form['email'],mdp)
+    input_user_db(name,mail,mdp)
+    session['name']= name
+    session['id']= get_id(name)
     return redirect('/home')
     
