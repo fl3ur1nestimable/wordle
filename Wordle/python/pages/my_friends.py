@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, session, request, redirect,url_for
+from flask import Flask, Blueprint, render_template, session, request, redirect,url_for,flash
 import sqlite3
 from python.functions.search import liste_users_minus_friends, recherche
 from python.functions.friends import ajoute, liste_amis, is_amis, is_already_demanded, liste_amis_attente
@@ -15,6 +15,7 @@ def show_friends():
         n = len(l)
         return render_template('my_friends.html',data=l,n=n)
     else:
+        flash("Pour accéder à la page d'amis, veuillez vous connecter à votre compte (ou en créer un). ")
         return redirect('/login')
 
 
@@ -23,6 +24,7 @@ def search_friends():
     if test_login() :
         return render_template('add_friends.html')
     else:
+        flash("Pour accéder à la page d'amis, veuillez vous connecter à votre compte (ou en créer un). ")
         return redirect('/login')
 
 @my_friends.route('/my_friends/add',methods=['POST'])
@@ -36,6 +38,7 @@ def add_friends():
         empty = (users_found==[])
         return render_template('add_friends.html',users_found=users_found,empty=empty)
     else:
+        flash("Pour accéder à la page d'amis, veuillez vous connecter à votre compte (ou en créer un). ")
         return redirect('/login')
 
 
@@ -46,6 +49,7 @@ def add(user):
         ajoute(user1,user2)
         return redirect(url_for('my_friends.add_friends'))
     else:
+        flash("Pour accéder à la page d'amis, veuillez vous connecter à votre compte (ou en créer un). ")
         return redirect('/login')
 
 @my_friends.route('/friends/<ami>')
@@ -65,4 +69,5 @@ def wait():
         n = len(l)
         return render_template('waiting.html',data=l,n=n)
     else:
+        flash("Pour accéder à la page d'amis, veuillez vous connecter à votre compte (ou en créer un). ")
         return redirect('/login')
