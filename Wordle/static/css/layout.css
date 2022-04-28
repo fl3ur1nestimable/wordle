@@ -1,32 +1,27 @@
-
-header{
-  display: grid;
-  grid-template-columns: none;
-  align-items: center;
-  width: 100%;
+.icon-bar {
+  width: 100%; /* Set a specific width */
+  overflow: auto;
 }
-.icone{
-  display: inline-flex;
-  height: 100px;
-  background-color: red;
 
-}
-.symbol1{
-  float: left;
+.icon-bar a {
+  float:left; /* Float links side by side */
+  text-align: center; /* Center-align text */
+  width: 20%; /* Equal width (5 icons with 20% width each = 100%) */
+  padding:10px 0px; /* Some top and bottom padding */
+  transition: all 0.3s ease; /* Add transition for hover effects */
+  color: white; /* White text color */
+  font-size: 36px; 
   
 }
-.symbol2{
-  float: right;
-}
 
-  .title{
-      flood-color: rgb(48, 146, 231);
-      text-align: center;
-      color: rgb(41, 218, 35);
-    
-  }
-  .lol{
-      color: rgb(127, 191, 247);
+.icon-bar a:hover {
+  background-color: rgba(0, 0, 0, 0.527); /* Add a hover color */
+}
+  .logo{
+     width: 20%;
+     text-align: center;
+     margin: auto;
+     font-size: 36px;
   }
 
   * {
@@ -41,3 +36,7 @@ header{
             box-sizing: content-box;
   }
   
+body{
+  background-color: rgb(40,40,40);
+  font-family: 'Arvo';
+}

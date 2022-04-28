@@ -1,0 +1,58 @@
+#onglets {
+    padding-top: 4rem;
+}
+
+.nav-link{
+    color:rgb(249, 71, 73);
+}
+
+.nav-link:hover{
+    color:rgb(226, 28, 38);
+    border: none;
+}
+.container {
+    padding: 1rem;
+}
+
+.col{
+    margin:auto;
+    width:auto;
+}
+
+.row{
+    padding: auto;
+}
+
+#barre{
+    margin:3rem;
+}
+
+i{
+    color:white;
+}
+
+.list-group{
+    width: 40rem;
+    margin: auto;
+    padding: 1rem;
+}
+
+.list-group-item{
+    background-color: rgb(40,40,40);
+    border-left:0;
+    border-right: 0;
+    border-top:0;
+    border-color: white;
+}
+
+#item{
+    margin: 1rem;
+}
+
+.btn_search{
+    background-color: rgb(249, 71, 73);
+}
+
+.btn_search:hover{
+    background-color: rgb(226, 28, 38);
+}

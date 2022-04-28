@@ -2,14 +2,48 @@
 
     {%block link%}
     <link rel="stylesheet" type="text/css" href="/static/css/stats.css">
-
-  
     {%endblock%}
     
 
     {%block body%}
-    
-    <h1>Normalement y'aura les stats ici lol.</h1>
-   
-   
+
+    <div class="container" id="onglets">
+        <ul class="nav nav-tabs navbar-dark ">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/stats">Mes statistiques</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/historique">Historique des parties</a>     
+              </li>
+        </ul>
+    </div>
+
+    <h1 class="title1">{{username}} - Statistiques</h1>
+    <div class="stats1">
+        <table class="perfs">
+            <tbody>
+                <tr>
+                    <td><div class="stat">Parties Jouées<p class="num">{{games_nb}}</p></div></td>
+                    <td><div class="stat">% de victoire<p class="num">{{win_percentage}}%</p></div></td>
+                </tr>
+                <tr>
+                    <td><div class="stat">Série actuelle<p class="num">{{series[0]}}</p></div></td>
+                    <td><div class="stat">Meilleure Série<p class="num">{{series[1]}}</p></div></td> 
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <h2 class="title2">Performances</h2>
+    <div class="stats2">
+        Victoires en 1 essai : {{perfs[0]}}<br>
+        Victoires en 2 essais : {{perfs[1]}}<br>
+        Victoires en 3 essais : {{perfs[2]}}<br>
+        Victoires en 4 essais : {{perfs[3]}}<br>
+        Victoires en 5 essais : {{perfs[4]}}<br>
+        Victoires en 6 essais : {{perfs[5]}}<br>
+        Victoires en 7 essais : {{perfs[6]}}<br>
+        Victoires en 8 essais : {{perfs[7]}}<br>
+    </div>
+
     {%endblock%}

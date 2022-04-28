@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+    {%block link%}
+    <link rel="stylesheet" type="text/css" href="/static/css/historique.css">
+    {%endblock%}
+    
+
+    {%block body%}
+
+    <div class="container" id="onglets">
+        <ul class="nav nav-tabs navbar-dark ">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="/stats">Mes statistiques</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/historique">Historique des parties</a>     
+              </li>
+        </ul>
+    </div>
+
+    <div class="container">
+        {% if empty %}
+        <div class="row">
+            <h3> C'est ici que vous retrouverez l'historique de vos parties une fois que vous aurez commencer à jouer</h3>
+        </div>
+        {% else %}
+        <div class="row text-center" id="item">
+    
+                <div class="col">Mot à trouver</div>
+                <div class="col">Réussite ?</div>
+                <div class="col">Liste des tentatives</div>
+            
+        </div>
+        {% for game in data %}
+        <div class="row text-center" id="item">
+            
+                <div class="col">{{game[3]}}</div>
+                <div class="col">
+                    {% if game[2]=='win' %}
+                    Oui
+                    {% else %}
+                    Non
+                    {% endif %}
+                </div>
+                <div class="col">{{game[4]}}</div>
+        </div>
+        {%endfor%}
+        {% endif %}
+    </div>
+
+
+    {%endblock%}

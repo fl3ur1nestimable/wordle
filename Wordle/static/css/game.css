@@ -1,5 +1,5 @@
 .title2{
-    color: black;
+    color: rgb(240, 234, 234);
  
     text-align: center;
  
@@ -24,10 +24,10 @@
 }
 .but2{
     display: inline-block;
-    background-color: #2c0e05;
+    background-color: rgb(249, 71, 73);;
     border-radius: 10px;
     border: 4px double #cccccc;
-    color: #eeeeee;
+    color: rgb(240, 234, 234);
     text-align: center;
     font-size: 28px;
     padding: 20px;
@@ -41,12 +41,14 @@
     margin: 5px
     
 }
+
+.but2 :hover{
+  background-color: rgb(226, 28, 38);
+
+}
 .icone{
     margin-top: none;
-    display: inline-flex;
-    height: 100px;
-    background-color: red;
-  
+    display: inline-flex; 
   }
   .symbol1{
     float: left;
@@ -55,3 +57,8 @@
   .symbol2{
     float: right;
   }
+
+
+.row{
+  margin-top:4rem;
+}
