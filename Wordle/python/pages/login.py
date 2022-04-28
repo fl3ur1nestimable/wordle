@@ -23,7 +23,7 @@ def connect():
         flash("Ce compte n'existe pas")
         return render_template('login.html')
     else:
-        mdp_crypt, name, id = cursor.fetchall()[0]
+        mdp_crypt, name, id = L[0]
         db.commit()
         db.close()
         if not(check_password_hash(mdp_crypt,mdp_enter)) :
