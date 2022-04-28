@@ -9,7 +9,7 @@ my_friends = Blueprint('my_friends',__name__)
 
 @my_friends.route('/my_friends')
 def show_friends():
-    if test_login :
+    if test_login() :
         user = str(session.get("name"))
         l = classe_amis(user)
         n = len(l)
@@ -20,14 +20,14 @@ def show_friends():
 
 @my_friends.route('/my_friends/add',)
 def search_friends():
-    if test_login :
+    if test_login() :
         return render_template('add_friends.html')
     else:
         return redirect('/login')
 
 @my_friends.route('/my_friends/add',methods=['POST'])
 def add_friends():
-    if test_login:
+    if test_login():
         search = request.form.get('search')
         user = session.get('name')
         l = liste_users_minus_friends(user)
@@ -41,7 +41,7 @@ def add_friends():
 
 @my_friends.route('/ajouter/<user>')
 def add(user):
-    if test_login:
+    if test_login():
         user1,user2 = session.get('name'),user
         ajoute(user1,user2)
         return redirect(url_for('my_friends.add_friends'))
@@ -59,7 +59,7 @@ def ouiii(ami):
 
 @my_friends.route('/waiting')
 def wait():
-    if test_login :
+    if test_login() :
         user = str(session.get("name"))
         l = liste_amis_attente(user)
         n = len(l)
