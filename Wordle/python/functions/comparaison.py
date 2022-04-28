@@ -35,7 +35,7 @@ def getState(guess,response):
         for k in range(l):
             if guess[j] == response[k]:
                 state[j]=1
-                response[k]=""
+                response[k]=""   
     for h in range(l):
         if state[h]==None:
             state[h]=0

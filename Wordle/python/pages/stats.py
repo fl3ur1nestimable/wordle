@@ -1,6 +1,6 @@
 from unicodedata import name
 from webbrowser import get
-from flask import Blueprint, render_template,session,redirect, url_for
+from flask import Blueprint, render_template,session,redirect,url_for
 from python.database.GameData import getData
 from python.database.stats import *
 from python.functions.is_connected import test_login
@@ -22,8 +22,13 @@ def wordle_stats():
         return render_template('stats.html',username=username,games_nb=games_nb,win_percentage=win_percentage,series=series,perfs=perfs)
     else :
         return redirect(url_for("home.wordle_home"))
+
 @stats.route('/stats/<user>')
 def stats_friend(user):
+    id=session["id"]
+    user_id=get_id(user)
+    if id==user_id:
+        redirect("/stats")
     me=session["name"]
     if is_amis(user,me) == True:
         user_id=get_id(user)
@@ -34,3 +39,4 @@ def stats_friend(user):
         series=getSeries(data)
         perfs=getPerfs(data)
         return render_template('stats.html',username=username,games_nb=games_nb,win_percentage=win_percentage,series=series,perfs=perfs)
+
