@@ -37,6 +37,10 @@ function windowResized(){
             c.w = floor(height/(max(essais,longueur)+2));
             c.x = j*(c.w+10)+0.05*width;
             c.y = i*(c.w+10)+0.097*height;
+            if (essais==8){
+                c.w = floor(height/(max(essais,longueur)+3));
+                c.y = i*(c.w+10)+0.05*height;
+            }
         }
     }
     for (let j = 0; j < keys.length; j++) {
@@ -122,6 +126,10 @@ function init_grid() {
             c.w = floor(height/(max(essais,longueur)+2));
             c.x = j*(c.w+10)+0.05*width;
             c.y = i*(c.w+10)+0.097*height;
+            if (essais==8){
+                c.w = floor(height/(max(essais,longueur)+3));
+                c.y = i*(c.w+10)+0.05*height;
+            }
             row.push(c);
         }
         grid.push(row);
@@ -239,7 +247,7 @@ async function guessWord(){
     }
     else if (guess_state=="found") {
         win=true;
-        message='gg!';
+        message='Bravo !';
         state(s,guess);
         await sleep(500);
     }
