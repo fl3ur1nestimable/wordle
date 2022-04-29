@@ -1,4 +1,4 @@
-from flask import Flask,Blueprint,render_template,redirect,session,flash
+from flask import Flask,Blueprint,render_template,redirect,session,flash,url_for
 from python.functions.game import getDataGame
 from python.functions.is_connected import test_login
 from python.functions.friends import is_amis
@@ -24,6 +24,8 @@ def show_histo():
 def show_histo_friend(user):
     if test_login():
         username = session.get('name')
+        if user==username:
+            return redirect(url_for('historique.show_histo'))
         if is_amis(user,username):
             id=get_id(user)
             data = getDataGame(id)
