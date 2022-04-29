@@ -17,7 +17,7 @@ def points(user):
     n = nb_partie(id)
     for k in range(7):
         nb = nb_tries(id,k)
-        points+=(nb_tries(id,k)*n)*(8-k)
+        points+=(nb*n)*(8-k)
     return points
 
 
@@ -28,7 +28,7 @@ def classe_amis(user):
     for e in amis :
         l.append([e[0],points(e[0])])
 
-    l = sorted(l, key=lambda l: l[1])
+    l = sorted(l, key=lambda l: l[1],reverse=True)
     return l
 
 
