@@ -35,11 +35,6 @@ def App():
     app.register_blueprint(check)
     app.register_blueprint(historique)
 
-    createDBamis()
-    createDbGame()
-    createDBusers()
-    createDbWord()
-
 
     return app
 
