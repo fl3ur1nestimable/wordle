@@ -9,7 +9,7 @@ from python.functions.friends import is_amis
 stats = Blueprint('stats',__name__)
 
 
-@stats.route('/stats')
+@stats.route('/stats/')
 def wordle_stats():
     if test_login() == True:
         user_id=session['id']
