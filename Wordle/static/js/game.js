@@ -239,7 +239,7 @@ async function guessWord(){
     }
     else if (guess_state=="found") {
         win=true;
-        message='gg!';
+        message='Bravo !';
         state(s,guess);
         await sleep(500);
     }
