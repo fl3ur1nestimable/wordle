@@ -41,6 +41,11 @@ function windowResized(){
                 c.w = floor(height/(max(essais,longueur)+3));
                 c.y = i*(c.w+10)+0.05*height;
             }
+            if (essais==7){
+                c.w = floor(height/(max(essais,longueur)+3));
+                c.y = i*(c.w+10)+0.05*height;
+            }
+
         }
     }
     for (let j = 0; j < keys.length; j++) {
@@ -127,6 +132,10 @@ function init_grid() {
             c.x = j*(c.w+10)+0.05*width;
             c.y = i*(c.w+10)+0.097*height;
             if (essais==8){
+                c.w = floor(height/(max(essais,longueur)+3));
+                c.y = i*(c.w+10)+0.05*height;
+            }
+            if (essais==7){
                 c.w = floor(height/(max(essais,longueur)+3));
                 c.y = i*(c.w+10)+0.05*height;
             }

@@ -63,7 +63,7 @@ class cell {
             stroke(0);
             strokeWeight(2);
             textAlign(CENTER,CENTER);
-            textSize(height*0.06);
+            textSize(this.w*0.45);
             text(this.letter,this.x,this.y+this.w*0.05);
 
         
