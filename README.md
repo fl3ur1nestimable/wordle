@@ -19,11 +19,11 @@ Gérald Oster <<gerald.oster@telecomnancy.eu>>
 A faire après le clonage :
 
 ```bash
-cd project2-E8/Wordle
+cd project2-E8
 python3 -m venv env
 source env/bin/activate
-pip install -r ../requirements.txt
-python3 app.py
+pip install -r requirements.txt
+python3 Wordle/app.py
 ```
 
 ## **Description du projet**
