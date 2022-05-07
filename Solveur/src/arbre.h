@@ -9,10 +9,7 @@ typedef struct {
 
 typedef struct {
     struct noeud *root;
-
 }arbre_mots;
-
-
 #endif /* ARBRE_H */
 
 double proba(arbre_mots one_arbre,char* mot, pattern pat);
