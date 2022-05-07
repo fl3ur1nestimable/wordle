@@ -1,8 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#ifndef MOT_H
+#define MOT_H
 
-typedef struct{
-    
 
-}mot_t;
+typedef struct {
+    char* val;
+    double entropy;
+}mot;
+
+
+#endif /* MOT_H */
