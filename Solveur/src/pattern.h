@@ -1,9 +1,13 @@
 #ifndef PATTERN_H
 #define PATTERN_H
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
 
 
 typedef struct {
-    int *tab;
+    char *tab;
     double entropy;
     int size;
 }pattern;
@@ -16,10 +20,12 @@ double entropy_pat(pattern* one_pattern, char * mot, double proba);
 
 double* list_entro(pattern* pattern, char* mot, double proba);
 
-pattern *pattern_from_input(int* tab,int taille);
+pattern *pattern_from_input(char* tab,int taille);
 
 void pattern_print(pattern *one_pattern);
 
 void pattern_destroy(pattern* one_pattern);
+
+long base3(int n);
 
 #endif /* PATTERN_H */
