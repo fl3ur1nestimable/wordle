@@ -42,13 +42,14 @@ void arbre_append(noeud* list, char* val ){
 void lecture_fichier(arbre_mots* arbre, int n){
     FILE* f;
     f=fopen("../static/liste_mots.txt","rt");
-    char* c=(char*)fgetc(f);
+    char* c;
+    fgets(c,n,f);
     while (c!=NULL)
     {
-         if (strlen(c)==n){
+         if ((int)strlen(c)==n){
         arbre_append_mot(arbre,c);
     }
-    c=(char*)fgetc(f);
+    fgets(c,n,f);
     
    
 
@@ -60,7 +61,7 @@ void arbre_append_mot(arbre_mots* arbre, char* m){
     noeud* current=arbre->root;
     list_ele* currentchar=current->head;
     int i=0;
-    while( i<=strlen(m)){
+    while( i<=(int)strlen(m)){
     while (currentchar->next!=NULL)
     {   if (currentchar==NULL){
             currentchar=list_ele_init(&m[i]);
@@ -123,7 +124,7 @@ int taille_arbre(arbre_mots* arbre){
 }
 
 noeud* node_update(noeud* node, mot* mots, pattern* pat){
-    for (int i;i<=strlen(mots->val);i++){
+    for (int i;i<=(int)strlen(mots->val);i++){
         if (pat->tab[i]==0){
     list_ele* current=node->head;
     char* c=&mots->val[i];
