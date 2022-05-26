@@ -1,31 +1,39 @@
+#include "mot.h"
+#include "pattern.h"
 #ifndef ARBRE_H
 #define ARBRE_H
-#include "pattern.h"
-#include "mot.h"
-typedef struct {
+
+struct _list_ele{
     char* etiquette;
-    struct liste_ele* next;
-    struct noeud* next_node;
-}list_ele;
-typedef struct 
+    struct _list_ele* next;
+    struct _noeud* next_node;
+};
+typedef struct _list_ele list_ele;
+
+struct _noeud
 {
     list_ele* head;
-    int* size;
+    int size;
 
-}noeud;
+};
+typedef struct _noeud noeud;
 
-typedef struct {
- noeud *root;
-}arbre_mots;
-#endif /* ARBRE_H */
 
-double proba(arbre_mots one_arbre,char* mot, pattern pat);
+ struct _arbre_mots{
+    noeud *root;
+};
+typedef  struct _arbre_mots arbre_mots;
 
-arbre_mots* arbre_init(int taille);
+
+//double proba(arbre_mots* one_arbre,char* mot, pattern pat);
+void arbre_append_mot(arbre_mots* arbre, char* m);
+arbre_mots* arbre_init();
 noeud* node_init();
-void arbre_append_list(arbre_mots* arbre,noeud* node );
+void lecture_fichier(arbre_mots* arbre, int n);
+list_ele* list_ele_init(char* val);
 void arbre_append(noeud* node, char* val);
-
-arbre_mots* arbre_update(arbre_mots* one_arbre, mot* mot, pattern *pat);
-
-int taille_arbre(arbre_mots one_arbre);
+void remove_ele(noeud* node, char* c);
+arbre_mots* arbre_update(arbre_mots* one_arbre, mot* mots, pattern *pat);
+void remove_node(noeud* node);
+int taille_arbre(arbre_mots *one_arbre);
+#endif /* ARBRE_H */
