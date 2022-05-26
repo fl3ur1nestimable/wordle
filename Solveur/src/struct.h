@@ -31,6 +31,7 @@ typedef  struct _arbre_mots arbre_mots;
 typedef struct {
     int *tab;
     double entropy;
+    int size;
 }pattern;
 
 

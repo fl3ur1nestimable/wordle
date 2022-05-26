@@ -1,4 +1,5 @@
 #include "struct.h"
+#include <stdbool.h>
 #ifndef ARBRE_H
 #define ARBRE_H
 
@@ -10,7 +11,7 @@ noeud* node_init();
 void lecture_fichier(arbre_mots* arbre, int n);
 list_ele* list_ele_init(char val);
 void arbre_append(noeud* node, char val);
-void remove_ele(noeud* node, char c);
+bool remove_ele(noeud* node, char c);
 arbre_mots* arbre_update(arbre_mots* one_arbre, mot* mots, pattern *pat);
 void remove_node(noeud* node);
 int taille_arbre(arbre_mots *one_arbre);

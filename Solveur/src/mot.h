@@ -28,6 +28,8 @@ mot *mot_create(char *str);
 
 void mot_destroy();
 
+/*
+
 bool noeud_is_empty(noeud *one_noeud);
 
 void mot_arbre_explore(noeud *one_noeud, char* str, mot *best);
@@ -39,5 +41,7 @@ void mot_generate_best(arbre_mots *one_arbre);
 char* mot_get_val(mot *mot);
 
 double mot_entropy(double *list_entro);
+
+*/
 
 #endif /* MOT_H */
