@@ -42,15 +42,21 @@ void arbre_append(noeud* list, char val ){
 void lecture_fichier(arbre_mots* arbre, int n){
     FILE* f;
     f=fopen("../liste_mots.txt","r");
-    char* c = malloc(sizeof(char));
-    while (fgets(c,sizeof(c),f)!=NULL){
+    char c[20];
+   
+    
+    while (fgets(c,sizeof(c),f)!=NULL)
+    {   //printf("%d",(int)strlen(c));
+        c[strlen(c)-1]='\0';
         if ((int)strlen(c)==n){
-            //arbre_append_mot(arbre,c);
-            printf("%s",c);
-        }
+            arbre_append_mot(arbre,c);
+        } 
     }
+    fclose(f);
+    
 
 }
+
 void arbre_append_mot(arbre_mots* arbre, char* m){
     // Si l'arbre est vide, on l'initialise
     if(arbre->root==NULL){
@@ -62,10 +68,12 @@ void arbre_append_mot(arbre_mots* arbre, char* m){
     noeud* current=arbre->root;
 
     while( i<(int)strlen(m)){
-        printf("%d",i);
-        printf("%c\n",m[i]);
+        //printf("%d ",i);
+        //printf("%c\n",m[i]);
         // Si la liste de noeuf est vide 
+        //printf("%d\n",current->head==NULL);
         if(current->head==NULL){
+            //printf("feuille\n");
             current->head=list_ele_init(m[i]);
             current->size ++;
             current->head->next_node=node_init();
@@ -77,17 +85,21 @@ void arbre_append_mot(arbre_mots* arbre, char* m){
             while(current_ele->next!=NULL){
                 // Si la lettre existe déjà, on passe au niveau suivant
                 if(current_ele->etiquette==m[i]){
-                    current = current->head->next_node;
-                    i++;
                     break;
                 }
                 current_ele = current_ele->next;
             }
-            // On rajoute le noeud à la fin de la liste
-            current_ele->next=list_ele_init(m[i]);
-            current->size ++;
-            current_ele->next_node = node_init();
-            current = current_ele->next->next_node;
+            if(current_ele->etiquette==m[i]){
+                current = current_ele->next_node;
+                i++;
+            }else{
+                // On ajoute a la fin de la liste
+                current_ele->next=list_ele_init(m[i]);
+                current->size ++;
+                current_ele->next->next_node = node_init();
+                current = current_ele->next->next_node;
+                i++;
+            }
         }
 
     }

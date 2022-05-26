@@ -8,9 +8,12 @@
 int main(){
 
     arbre_mots *arbre = arbre_init();
-    arbre_append_mot(arbre,"AMOUR");
-    //printf("%c\n",arbre->root->head->etiquette);
-    //printf("%c\n",arbre->root->head->next_node->head->etiquette);
+    lecture_fichier(arbre,5);
+    //arbre_append_mot(arbre,"AMOUR");
+    //arbre_append_mot(arbre,"AMPOU");
+    printf("%c\n",arbre->root->head->etiquette);
+    printf("%c\n",arbre->root->head->next_node->head->etiquette);
+    //printf("%c\n",arbre->root->head->next_node->head->next_node->head->next->etiquette);
     destroy_arbre(arbre);
 
     return EXIT_SUCCESS;
