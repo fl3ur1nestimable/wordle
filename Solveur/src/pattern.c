@@ -1,5 +1,6 @@
 #include "pattern.h"
 #include "arbre.h"
+#include "mot.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

@@ -1,5 +1,7 @@
 #ifndef PATTERN_H
 #define PATTERN_H
+#include "arbre.h"
+#include "mot.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
