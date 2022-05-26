@@ -45,6 +45,12 @@ long base3(int n){
     return r;
 }
 
+double entropy_pat(pattern* one_pattern, char * mot, arbre_mots *arbre){
+    double p  = proba(arbre,mot,one_pattern);
+    double e = p*log(1/p);
+    return e;
+}
+
 pattern *pattern_from_input(int* tab,int taille){
     pattern* p = malloc(sizeof(pattern));
     p->entropy=0;

@@ -12,7 +12,7 @@ typedef struct {
 }arbre_mots;
 
 
-double proba(arbre_mots one_arbre,char* mot, pattern pat);
+double proba(arbre_mots *one_arbre,char* mot, pattern *pat);
 
 arbre_mots arbre_init(int taille);
 
