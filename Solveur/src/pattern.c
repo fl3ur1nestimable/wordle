@@ -51,6 +51,17 @@ double entropy_pat(pattern* one_pattern, char * mot, arbre_mots *arbre){
     return e;
 }
 
+double moy_entropy(pattern** patterns, char* mot,arbre_mots *arbre,int taille){
+    double e_moy=0;
+    int tot = pow(3,taille);
+    for (int i = 0; i < tot; i++)
+    {
+        e_moy+=entropy_pat(patterns[i],mot,arbre);
+    }
+    e_moy=e_moy/tot;
+    return e_moy;
+}
+
 pattern *pattern_from_input(int* tab,int taille){
     pattern* p = malloc(sizeof(pattern));
     p->entropy=0;
