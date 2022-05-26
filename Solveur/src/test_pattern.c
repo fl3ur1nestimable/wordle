@@ -10,13 +10,8 @@ int main()
     //generate patterns
     //test entropy
     //print pattern
-    char *tab = malloc(5*sizeof(char));
-    tab[0]='2';
-    tab[1]='2';
-    tab[2]='0';
-    tab[3]='0';
-    tab[4]='2';
-    int taille =5;
+    int taille = 8;
+    int tab[]={0,2,1,0,1};
     pattern *p = pattern_from_input(tab,5);
     pattern_print(p);
     pattern **plist = pattern_init_all(taille);
