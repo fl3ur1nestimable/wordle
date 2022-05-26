@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 arbre_mots* arbre_init(){
     arbre_mots* arbre=malloc(sizeof(arbre_mots));
@@ -131,40 +132,59 @@ int taille_arbre(arbre_mots* arbre){
 }
 
 noeud* node_update(noeud* node, mot* mots, pattern* pat){
-    for (int i=0;i<=(int)strlen(mots->val);i++){
+    for (int i=0;i<(int)strlen(mots->val);i++){
         if (pat->tab[i]==0){
-    list_ele* current=node->head;
-    char c=mots->val[i];
-    remove_ele(node,c);
-    while (current->next!=NULL){
-        remove_ele(current->next_node,c);
-        current=current->next;
-
+            list_ele* current=node->head;
+            char c=mots->val[i];
+            bool node_detruite = remove_ele(node,c);
+            if(node_detruite){
+                return NULL;
+            }
+            current=node->head;
+            while (current->next!=NULL){
+                node_detruite = remove_ele(current->next_node,c);
+                current=current->next;
+            }
+        }
     }
-}
-}
-return node;
+    return node;
 }
 arbre_mots* arbre_update(arbre_mots* arbre,mot* mots, pattern* pat){
-    noeud* node=arbre->root;
-    node_update(node,mots,pat);
-    return arbre;
+    arbre_mots *new_arbre=arbre_init();
+    memcpy(new_arbre,arbre,sizeof(arbre_mots));
+    node_update(new_arbre->root,mots,pat);
+    return new_arbre;
 }
-void remove_ele(noeud* node, char c){
+bool remove_ele(noeud* node, char c){
     list_ele* current=node->head;
-    list_ele* cur2=current->next;
-    while (current->next!=NULL)
-    {
-        if (cur2->etiquette==c){
-            current->next=cur2->next;
-            free(cur2);
-            cur2=cur2->next;
-            node->size--;
-
+    // Si c'est la tête qu'on enlève
+    if (current->etiquette==c){
+        // Si c'était le seul élément de la liste
+        if(current->next==NULL){
+            destroy_node(node);
+            return true;
         }
-        current=current->next;
-        cur2=cur2->next;
+        list_ele *temp = current->next;
+        destroy_node(current->next_node);
+        free(current);
+        node->size--;
+        // On modifie la tête de la node
+        node->head=temp;
+        return false;
     }
+
+    while ((current->next!=NULL)&&(current->next->etiquette!=c)){
+        current=current->next;
+    }
+
+    if (current->next->etiquette==c){
+        list_ele *temp = current->next->next;
+        destroy_node(current->next->next_node);
+        free(current->next);
+        current->next = temp;
+        node->size--;
+    }
+    return false;
     
 }
 void remove_node(noeud* node){
@@ -209,3 +229,22 @@ void destroy_arbre(arbre_mots *arbre){
     destroy_node(current);
     free(arbre);
 }
+
+/*
+noeud *node_cpy(noeud *node){
+    if(node==NULL){
+        return NULL;
+    }
+    if(node->head==NULL){
+        return NULL;
+    }
+    node_cpy(node->head->next)
+}
+
+arbre_mots *arbre_cpy(arbre_mots *arbre){
+    arbre_mots *new_arbre = arbre_init();
+    noeud *root = node_cpy(arbre->root); 
+    new_arbre->root = root;
+}
+
+*/

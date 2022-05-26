@@ -1,5 +1,3 @@
-#include "pattern.h"
-
 #include "mot.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,6 +17,8 @@ void mot_destroy(mot *mot){
     free(mot);
 }
 
+
+/*
 char* mot_get_val(mot *mot){
     return mot->val;
 }
@@ -73,4 +73,6 @@ void mot_generate_best(arbre_mots *one_arbre){
     free(best);
     return;
 }
+
+*/
 

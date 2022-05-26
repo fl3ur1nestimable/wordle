@@ -1,5 +1,4 @@
-#include "pattern.h"
-
+#include "struct.h"
 #include "mot.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +10,12 @@ int main(){
     mot *mot1 = mot_create("AMOUR");
     assert(strcmp(mot_get_val(mot1),"AMOUR")==0);
     mot_destroy(mot1);
+
+
+
+
+
+    /*
 
     // Création d'un arbre test
     noeud *racine = malloc(sizeof(noeud));
@@ -80,6 +85,8 @@ int main(){
 
 
     //free(mot2);
+
+    */
 
     return EXIT_SUCCESS;
 }
