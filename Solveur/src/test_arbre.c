@@ -14,20 +14,23 @@ int main(){
     arbre_append_mot(arbre,"AMOUR");
     arbre_append_mot(arbre,"TUILE");
     arbre_append_mot(arbre,"TARIF");
+    arbre_append_mot(arbre,"TRIPE");
     int tab[]={1,0,1,1,1};
     pattern *pat = pattern_from_input(tab,5);
     mot *m = mot_create("TARIF");
 
     printf("%c\n",arbre->root->head->etiquette);
 
-    arbre_mots *new_arbre = arbre_update(arbre,m,pat);
+    printf("Taille : %d\n",taille_noeud(arbre->root));
+
+    //arbre_mots *new_arbre = arbre_update(arbre,m,pat);
 
 
-    printf("%c\n",arbre->root->head->etiquette);
+    //printf("%c\n",arbre->root->head->etiquette);
 
     //printf("%c\n",arbre->root->head->next_node->head->etiquette);
-    //printf("%c\n",arbre->root->head->next_node->head->next_node->head->next->etiquette);
-    destroy_arbre(new_arbre);
+    //printf("%c\n",arbre->root->head->next_node->head->next->etiquette);
+    //destroy_arbre(new_arbre);
     destroy_arbre(arbre);
     mot_destroy(m);
     pattern_destroy(pat);

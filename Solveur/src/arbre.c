@@ -107,28 +107,24 @@ void arbre_append_mot(arbre_mots* arbre, char* m){
   
 }
 int taille_noeud(noeud* node){
-list_ele* current=node->head;
-    if (current==NULL){
+    if (node==NULL){
         return 0;
-
     }
-    if (node==NULL)
-    {
+    list_ele* current=node->head;
+    if (current==NULL){
         return 0;
     }
     
     int p=node->size;
-    while (current->next!=NULL)
-    {
-            p+=taille_noeud(current->next_node);
-            current=current->next;
+    while (current!=NULL){
+        p+=taille_noeud(current->next_node);
+        current=current->next;
     }
     return p;
 }
 
 int taille_arbre(arbre_mots* arbre){
-    noeud* current=arbre->root;
-    return taille_noeud(current);
+    return taille_noeud(arbre->root);
 }
 
 noeud* node_update(noeud* node, mot* mots, pattern* pat){
@@ -141,7 +137,7 @@ noeud* node_update(noeud* node, mot* mots, pattern* pat){
                 return NULL;
             }
             current=node->head;
-            while (current->next!=NULL){
+            while (current!=NULL){
                 node_detruite = remove_ele(current->next_node,c);
                 current=current->next;
             }
@@ -150,10 +146,10 @@ noeud* node_update(noeud* node, mot* mots, pattern* pat){
     return node;
 }
 arbre_mots* arbre_update(arbre_mots* arbre,mot* mots, pattern* pat){
-    arbre_mots *new_arbre=arbre_init();
-    memcpy(new_arbre,arbre,sizeof(arbre_mots));
-    node_update(new_arbre->root,mots,pat);
-    return new_arbre;
+    //arbre_mots *new_arbre=arbre_init();
+    //memcpy(new_arbre,arbre,sizeof(arbre_mots));
+    arbre->root = node_update(arbre->root,mots,pat);
+    return arbre;
 }
 bool remove_ele(noeud* node, char c){
     list_ele* current=node->head;
@@ -248,3 +244,66 @@ arbre_mots *arbre_cpy(arbre_mots *arbre){
 }
 
 */
+
+
+void printNTree(noeud* n, bool flag[], int depth, bool isLast)
+{
+    // Condition when node is None
+    if (n == NULL){
+        return;
+    }
+    list_ele *current_ele = n->head;
+    // Loop to print the depths of the
+    // current node
+    for (int i = 1; i < depth; ++i) {
+         
+        // Condition when the depth
+        // is exploring
+        if (flag[i] == true) {
+            printf("|    ");
+        }
+         
+        // Otherwise print
+        // the blank spaces
+        else {
+            printf("    ");
+        }
+    }
+     
+    // Condition when the current
+    // node is the root node
+    if (depth == 0){
+        printf("%d\n",current_ele->etiquette);
+    }
+    // Condition when the node is
+    // the last node of
+    // the exploring depth
+    else if (isLast) {
+        printf("+--- %d \n",n->head->etiquette);
+         
+        // No more childrens turn it
+        // to the non-exploring depth
+        flag[depth] = false;
+    }
+    else {
+        printf("+--- %d\n",n->head->etiquette);
+    }
+    noeud *current = current_ele->next_node;
+    while(current!=NULL){
+        printNTree(current,flag,depth+1,current->head==NULL);
+        current = current->head->next_node;
+    }
+    
+    flag[depth] = true;
+}
+
+void printTree(arbre_mots *arbre){
+    int n = taille_arbre(arbre);
+    bool flag[n];
+    for(int k=0;k<n;k++){
+        flag[k]=true;
+    }
+    printNTree(arbre->root,flag,0,false);
+}
+
+

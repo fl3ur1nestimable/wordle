@@ -15,6 +15,7 @@ bool remove_ele(noeud* node, char c);
 arbre_mots* arbre_update(arbre_mots* one_arbre, mot* mots, pattern *pat);
 void remove_node(noeud* node);
 int taille_arbre(arbre_mots *one_arbre);
+int taille_noeud(noeud* node);
 void destroy_arbre(arbre_mots *arbre);
 void destroy_node(noeud *node);
 #endif /* ARBRE_H */
