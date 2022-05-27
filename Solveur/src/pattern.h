@@ -7,13 +7,11 @@
 #include <string.h>
 #include <math.h>
 
-
-typedef struct {
-    int *tab;
-    double entropy;
-    int size;
-}pattern;
-
+#include "struct.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
 
 
 pattern** pattern_init_all(int taille );

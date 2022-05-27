@@ -1,20 +1,48 @@
-mot:
+CC=clang
+LLVM=/usr/local/opt/llvm
+#CC=$(LLVM)/bin/clang
+LDFLAGS=-L$(LLVM)/lib 
+CPPFLAGS=-I$(LLVM)/include
+CFLAGS=-std=c99 -Wall -Wextra -pedantic -fdiagnostics-color=always
+CFLAGS+=$(CPPFLAGS) -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls # -DNDEBUG
+LDFLAGS+=-fsanitize=address
 
-arbre:
-	clang -c -Wall -Wextra -pedantic -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls arbre.c
-	clang -c -Wall -Wextra -pedantic -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls test_arbre.c
-	clang -Wall -Wextra -pedantic -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls test_arbre.o arbre.o -o test_arbre
-	
+#RUN_ENV=LSAN_OPTIONS=suppressions=lsan.ignore:print_suppressions=0 ASAN_OPTIONS=detect_leaks=1:symbolize=1 MallocNanoZone=0
+#RUN_ENV=ASAN_OPTIONS=detect_leaks=1:symbolize=1
+RUN_ENV=
+
+mot : test_mot
+	$(RUN_ENV) ./test_mot
+
+test_mot: test_mot.o mot.o
+
+tes_mot.o: mot.o test_mot.c
+
+mot.o: arbre.h mot.c
+
+arbre: test_arbre
+	$(RUN_ENV) ./test_arbre
 
 
-pattern:
-		clang -c -Wall -Wextra -pedantic -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls pattern.c
-		clang -c -Wall -Wextra -pedantic -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls test_pattern.c
-		clang -Wall -Wextra -pedantic -O0 -g3 -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls pattern.o mot.o arbre.o test_pattern.o -o test_pattern
+test_arbre: test_arbre.o arbre.o mot.o pattern.o
+
+test_arbre.o : arbre.o test_arbre.c
+
+arbre.o : struct.h arbre.h arbre.c 
+
+pattern: test_pattern
+	$(RUN_ENV) ./test_pattern
+
+test_pattern: test_pattern.o pattern.o
+
+test_pattern.o : pattern.o test_pattern.c
+
+pattern.o : struct.h pattern.h pattern.c 
 
 main:
 
 clean_mot:
+	rm -f *.o test_mot
 
 clean_arbre:
 
@@ -24,3 +52,6 @@ clean_pattern:
 		rm test_pattern
 
 clean_main:
+	rm -f *.o test_*
+
+.SILENT: clean
