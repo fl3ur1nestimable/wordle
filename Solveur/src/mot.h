@@ -8,4 +8,9 @@ typedef struct {
 }mot;
 
 
+
+mot mot_generate_best(arbre_mots one_arbre);
+
+char* mot_get_val(mot mot);
+
 #endif /* MOT_H */
