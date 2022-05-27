@@ -18,4 +18,6 @@ int taille_arbre(arbre_mots *one_arbre);
 int taille_noeud(noeud* node);
 void destroy_arbre(arbre_mots *arbre);
 void destroy_node(noeud *node);
+void printTree(arbre_mots *arbre);
+void printNTree(noeud* n, bool flag[], int depth, bool isLast);
 #endif /* ARBRE_H */

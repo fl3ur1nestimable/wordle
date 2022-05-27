@@ -249,61 +249,67 @@ arbre_mots *arbre_cpy(arbre_mots *arbre){
 void printNTree(noeud* n, bool flag[], int depth, bool isLast)
 {
     // Condition when node is None
-    if (n == NULL){
+    if (n->head == NULL){
+        //printf("7");
         return;
     }
     list_ele *current_ele = n->head;
-    // Loop to print the depths of the
-    // current node
-    for (int i = 1; i < depth; ++i) {
-         
-        // Condition when the depth
-        // is exploring
-        if (flag[i] == true) {
-            printf("|    ");
+    while(current_ele!=NULL){
+        // Loop to print the depths of the
+        // current node
+        for (int i = 1; i < depth; ++i) {
+            
+            // Condition when the depth
+            // is exploring
+            if (flag[i] == true) {
+                printf("|    ");
+            }
+            
+            // Otherwise print
+            // the blank spaces
+            else {
+                printf("     ");
+            }
         }
-         
-        // Otherwise print
-        // the blank spaces
+        
+        // Condition when the current
+        // node is the root node
+        if (depth == 1){
+            printf("+--- %c\n",current_ele->etiquette);
+        }
+        // Condition when the node is
+        // the last node of
+        // the exploring depth
+        else if (isLast) {
+            printf("+--- %c \n",current_ele->etiquette);
+            
+            // No more childrens turn it
+            // to the non-exploring depth
+            flag[depth] = false;
+        }
         else {
-            printf("    ");
+            //printf("5");
+            printf("+--- %c\n",current_ele->etiquette);
         }
+        noeud *current = current_ele->next_node;
+        printNTree(current,flag,depth+1,current_ele->next==NULL);
+        //printf("0-");
+        //printf("%d\n",depth);
+        current_ele = current_ele->next;
     }
-     
-    // Condition when the current
-    // node is the root node
-    if (depth == 0){
-        printf("%d\n",current_ele->etiquette);
-    }
-    // Condition when the node is
-    // the last node of
-    // the exploring depth
-    else if (isLast) {
-        printf("+--- %d \n",n->head->etiquette);
-         
-        // No more childrens turn it
-        // to the non-exploring depth
-        flag[depth] = false;
-    }
-    else {
-        printf("+--- %d\n",n->head->etiquette);
-    }
-    noeud *current = current_ele->next_node;
-    while(current!=NULL){
-        printNTree(current,flag,depth+1,current->head==NULL);
-        current = current->head->next_node;
-    }
+    flag[depth] =true;
     
-    flag[depth] = true;
 }
 
 void printTree(arbre_mots *arbre){
     int n = taille_arbre(arbre);
     bool flag[n];
+    //flag[0]=false;
     for(int k=0;k<n;k++){
         flag[k]=true;
     }
-    printNTree(arbre->root,flag,0,false);
+    printf("\n---------- Arbre ----------\n");
+    printNTree(arbre->root,flag,1,false);
 }
 
 

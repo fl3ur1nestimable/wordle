@@ -23,8 +23,11 @@ int main(){
 
     printf("Taille : %d\n",taille_noeud(arbre->root));
 
-    //arbre_mots *new_arbre = arbre_update(arbre,m,pat);
+    printTree(arbre);
 
+    arbre_mots *new_arbre = arbre_update(arbre,m,pat);
+
+    printTree(arbre);
 
     //printf("%c\n",arbre->root->head->etiquette);
 
