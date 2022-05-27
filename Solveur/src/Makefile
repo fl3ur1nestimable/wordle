@@ -47,6 +47,9 @@ clean_mot:
 clean_arbre:
 
 clean_pattern:
+		rm pattern.o
+		rm test_pattern.o
+		rm test_pattern
 
 clean_main:
 	rm -f *.o test_*
