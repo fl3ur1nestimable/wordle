@@ -387,7 +387,7 @@ int nb_mots_pat(noeud *node,mot *m, pattern *pat,int depth,char* str){
                 }
                 // Si c'est une feuille, on a atteint la fin du mot, on vérifie avec les occurences si le mot contient le bon nb de lettres
                 if(current_ele->next_node->head==NULL){
-                    // Si on a trouvé moins de lettres(associé au 1) dans le mot
+                    // Si on a trouvé moins de lettres(associé au 1) dans le mot, on l'enlève 
                     if(mot_occurences(str,m->val[i])<mot_occurences(m->val,m->val[i])){
                         count += 1;
                     }
