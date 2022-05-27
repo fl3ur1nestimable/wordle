@@ -20,11 +20,12 @@ noeud* node_init(){
     return n;
 
 }
-list_ele* list_ele_init(char val){
+list_ele* list_ele_init(char val,list_ele *prev){
     list_ele* lettre=malloc(sizeof(list_ele));
     lettre->etiquette=val;
     lettre->next_node=NULL;
     lettre->next=NULL;
+    lettre->prev=prev;
     return lettre;
 }
 
@@ -35,7 +36,7 @@ void arbre_append(noeud* list, char val ){
     {
         current=current->next;
     }
-    current->next=list_ele_init(val);
+    current->next=list_ele_init(val,current);
     list->size++;
     
 
@@ -62,7 +63,7 @@ void lecture_fichier(arbre_mots* arbre, int n){
 void arbre_append_mot(arbre_mots* arbre, char* m){
     // Si l'arbre est vide, on l'initialise
     if(arbre->root==NULL){
-        arbre->root=node_init();
+        arbre->root=node_init(NULL);
     }
     // Initialisation du compteur niveau
     int i = 0;
@@ -76,7 +77,7 @@ void arbre_append_mot(arbre_mots* arbre, char* m){
         //printf("%d\n",current->head==NULL);
         if(current->head==NULL){
             //printf("feuille\n");
-            current->head=list_ele_init(m[i]);
+            current->head=list_ele_init(m[i],NULL);
             current->size ++;
             current->head->next_node=node_init();
             current = current->head->next_node;
@@ -96,7 +97,7 @@ void arbre_append_mot(arbre_mots* arbre, char* m){
                 i++;
             }else{
                 // On ajoute a la fin de la liste
-                current_ele->next=list_ele_init(m[i]);
+                current_ele->next=list_ele_init(m[i],current_ele);
                 current->size ++;
                 current_ele->next->next_node = node_init();
                 current = current_ele->next->next_node;
@@ -111,11 +112,11 @@ int taille_noeud(noeud* node){
     if (node==NULL){
         return 0;
     }
+
     list_ele* current=node->head;
     if (current==NULL){
         return 0;
     }
-    
     int p=node->size;
     while (current!=NULL){
         p+=taille_noeud(current->next_node);
@@ -128,59 +129,146 @@ int taille_arbre(arbre_mots* arbre){
     return taille_noeud(arbre->root);
 }
 
-noeud* node_update(noeud* node, mot* mots, pattern* pat){
-    for (int i=0;i<(int)strlen(mots->val);i++){
-        if (pat->tab[i]==0){
-            list_ele* current=node->head;
-            char c=mots->val[i];
-            bool node_detruite = remove_ele(node,c);
-            if(node_detruite){
-                return NULL;
+void node_update(noeud *node,mot *m, pattern *pat,int depth,char* str){
+    if(depth>pat->size){
+        return ;
+    }
+    list_ele *current_ele = node->head;
+    while(current_ele!=NULL){
+        //printf("%c\n",current_ele->etiquette);
+        str[depth]=current_ele->etiquette;
+        bool coupe = false;
+        bool node_detruite = false;
+        bool change_pointeur = true;
+        for(int i=0;i<pat->size;i++){
+            if(coupe){
+                break;
             }
-            current=node->head;
-            while (current!=NULL){
-                node_detruite = remove_ele(current->next_node,c);
-                current=current->next;
+            switch (pat->tab[i])
+            {
+            case 0:
+                // Si le mot contient la lettre, on coupe
+                if(current_ele->etiquette==m->val[i]){
+                    list_ele *temp = current_ele->prev;
+                    node_detruite = remove_ele(node,current_ele);
+                    coupe = true;
+                    if(node_detruite){
+                        return;
+                    }
+                    // Si c'est la tête qu'on a enlevé, on modifie le pointeur
+                    if(temp==NULL){
+                        current_ele = node->head;
+                        change_pointeur = false;
+                    // Sinon on pointe vers le précédent
+                    }else{
+                        current_ele = temp;
+                    }
+                }
+                break;
+            case 2:
+                // Si le mot ne contient pas la lettre placée à ce niveau, on coupe
+                if((i==depth)&&(current_ele->etiquette!=m->val[i])){
+                    list_ele *temp = current_ele->prev;
+                    node_detruite = remove_ele(node,current_ele);
+                    coupe = true;
+                    if(node_detruite){
+                        return;
+                    }
+                    // Si c'est la tête qu'on a enlevé
+                    if(temp==NULL){
+                        current_ele = node->head;
+                        change_pointeur = false;
+                    // Sinon on recolle le précédent avec le suivant
+                    }else{
+                        current_ele = temp;
+                    }
+                }
+                break;
+            case 1:
+                // Si le mot contient la lettre placée à ce niveau, on coupe
+                if((current_ele->etiquette==m->val[i])&&(i==depth)){
+                    list_ele *temp = current_ele->prev;
+                    node_detruite = remove_ele(node,current_ele);
+                    coupe = true;
+                    if(node_detruite){
+                        return;
+                    }
+                    // Si c'est la tête qu'on a enlevé
+                    if(temp==NULL){
+                        current_ele = node->head;
+                        change_pointeur = false;
+                    // Sinon on recolle le précédent avec le suivant
+                    }else{
+                        current_ele = temp;
+                    }
+                }
+                // Si c'est une feuille, on a atteint la fin du mot, on vérifie avec les occurences si le mot contient le bon nb de lettres
+                if(current_ele->next_node->head==NULL){
+                    // Si on a trouvé moins de lettres(associé au 1) dans le mot, on l'enlève 
+                    if(mot_occurences(str,m->val[i])<mot_occurences(m->val,m->val[i])){
+                        list_ele *temp = current_ele->prev;
+                        node_detruite = remove_ele(node,current_ele);
+                        coupe = true;
+                        if(node_detruite){
+                            return;
+                        }
+                        // Si c'est la tête qu'on a enlevé
+                        if(temp==NULL){
+                            current_ele = node->head;
+                            change_pointeur = false;
+                        // Sinon on recolle le précédent avec le suivant
+                        }else{
+                            current_ele = temp;
+                        }
+                    }
+                }
+                break;
+            default:
+                break;
             }
+        }
+        // Si on a pas coupé la branche, on continue de parcourir la branche suivante (noeud suivant et niveau suivant)
+        if(!coupe){
+            node_update(current_ele->next_node,m,pat,depth+1,str);
+        }
+        // On éxécute le programme pour chaque élément de la liste 
+        if(change_pointeur){
+            current_ele = current_ele->next;
         }
     }
-    return node;
+    // On retourne le nombre de mots qu'on a enlevé
+    return;
 }
-arbre_mots* arbre_update(arbre_mots* arbre,mot* mots, pattern* pat){
-    //arbre_mots *new_arbre=arbre_init();
-    //memcpy(new_arbre,arbre,sizeof(arbre_mots));
-    arbre->root = node_update(arbre->root,mots,pat);
-    return arbre;
+
+void arbre_update(arbre_mots* arbre,mot* m, pattern* pat){
+    char str[12];
+    node_update(arbre->root,m,pat,0,str);
+    return;
 }
-bool remove_ele(noeud* node, char c){
-    list_ele* current=node->head;
-    // Si c'est la tête qu'on enlève
-    if (current->etiquette==c){
-        // Si c'était le seul élément de la liste
-        if(current->next==NULL){
-            destroy_node(node);
-            return true;
-        }
-        list_ele *temp = current->next;
+bool remove_ele(noeud* node, list_ele *current){
+    list_ele *prev = current->prev;
+    list_ele *next = current->next;
+    // Si c'est le seul élément de sa node
+    if(prev==NULL&&next==NULL){
+        node->head=NULL;
+        node->size=0;
         destroy_node(current->next_node);
         free(current);
-        node->size--;
-        // On modifie la tête de la node
-        node->head=temp;
-        return false;
+        return true;
     }
-
-    while ((current->next!=NULL)&&(current->next->etiquette!=c)){
-        current=current->next;
+    // Si c'est la tête qu'on enlève
+    if (prev==NULL){
+        node->head=next;
     }
-
-    if (current->next->etiquette==c){
-        list_ele *temp = current->next->next;
-        destroy_node(current->next->next_node);
-        free(current->next);
-        current->next = temp;
-        node->size--;
+    if(prev!=NULL){
+        prev->next=next;
+    }   
+    if(next!=NULL){
+        next->prev=prev;
     }
+    destroy_node(current->next_node);
+    node->size--;
+    free(current);
     return false;
     
 }
@@ -200,7 +288,9 @@ void remove_node(noeud* node){
 }
 
 void destroy_node(noeud *node){
+    //printf("a\n");
     if (node==NULL){
+        //printf("c\n");
         return;
     }
     if(node->head==NULL){
@@ -210,6 +300,7 @@ void destroy_node(noeud *node){
     list_ele *current_ele = node->head;
     while(current_ele!=NULL){
         list_ele *temp = current_ele->next;
+        //printf("%c\n",current_ele->etiquette);
         destroy_node(current_ele->next_node);
         free(current_ele);
         current_ele = temp;

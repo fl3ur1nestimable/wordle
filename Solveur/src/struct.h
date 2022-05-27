@@ -10,6 +10,7 @@ typedef struct {
 struct _list_ele{
     char etiquette;
     struct _list_ele* next;
+    struct _list_ele* prev;
     struct _noeud* next_node;
 };
 typedef struct _list_ele list_ele;

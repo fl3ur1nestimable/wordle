@@ -10,37 +10,52 @@
 int main(){
 
     arbre_mots *arbre = arbre_init();
-    //lecture_fichier(arbre,5);
     arbre_append_mot(arbre,"AMOUR");
     arbre_append_mot(arbre,"TUILE");
     arbre_append_mot(arbre,"TARIF");
     arbre_append_mot(arbre,"BABAR");
-    arbre_append_mot(arbre,"CHIEN");
+    arbre_append_mot(arbre,"CHINA");
     arbre_append_mot(arbre,"FUITE");
-    int tab[]={0,2,1,0,0};
-    pattern *pat = pattern_from_input(tab,5);
-    mot *m = mot_create("ZAAZZ");
-    //printf("%c\n",arbre->root->head->etiquette);
-
-    printf("Taille : %d\n",taille_noeud(arbre->root));
     arbre_init_nb_mots(arbre);
+    int tab[]={0,1,0,0,0};
+    pattern *pat = pattern_from_input(tab,5);
+    mot *m = mot_create("ZAZZZ");
+
+    printTree(arbre);
     printf("Nombre de mots dans l'abre : %d\n",arbre->nb_mots);
-    printf("Proba : %f\n",proba(arbre,m,pat));
+    arbre_update(arbre,m,pat);
+    printTree(arbre);
+    printf("Nombre de mots dans l'abre : %d\n",arbre->nb_mots);
+    int tab2[]={0,0,2,0,0};
+    pattern *pat2 = pattern_from_input(tab2,5);
+    mot *m2 = mot_create("ZZIZZ");
+    arbre_update(arbre,m2,pat2);
+    printTree(arbre);
 
-    //printTree(arbre);
 
-    //arbre_mots *new_arbre = arbre_update(arbre,m,pat);
-
-    //printTree(arbre);
 
     //printf("%c\n",arbre->root->head->etiquette);
 
-    //printf("%c\n",arbre->root->head->next_node->head->etiquette);
+    //printf("Taille : %d\n",taille_noeud(arbre->root));
+    printf("Nombre de mots dans l'abre : %d\n",arbre->nb_mots);
+    //printf("Proba : %f\n",proba(arbre,m,pat));
+    //arbre_mots *arbre2 = arbre_init();
+    //lecture_fichier(arbre2,5);
+    //char str[12];
+    //mot_arbre_explore(arbre2->root,0,str,m);
+
+    //printf("%c\n",arbre->root->head->etiquette);
+
+    //printf("%c\n",arbre->root->head->next->next_node->head->etiquette);
     //printf("%c\n",arbre->root->head->next_node->head->next->etiquette);
     //destroy_arbre(new_arbre);
+
     destroy_arbre(arbre);
+    //destroy_arbre(arbre2);
     mot_destroy(m);
     pattern_destroy(pat);
+    mot_destroy(m2);
+    pattern_destroy(pat2);
 
     return EXIT_SUCCESS;
 }
