@@ -21,4 +21,6 @@ void destroy_node(noeud *node);
 void printTree(arbre_mots *arbre);
 void printNTree(noeud* n, bool flag[], int depth, bool isLast);
 double proba(arbre_mots* arbre,mot* mot,pattern* one_pattern);
+void arbre_init_nb_mots(arbre_mots *arbre);
+int noeud_init_nb_mots(noeud *node);
 #endif /* ARBRE_H */
