@@ -14,16 +14,20 @@ int main(){
     arbre_append_mot(arbre,"AMOUR");
     arbre_append_mot(arbre,"TUILE");
     arbre_append_mot(arbre,"TARIF");
-    arbre_append_mot(arbre,"TRIPE");
-    int tab[]={1,0,1,1,1};
+    arbre_append_mot(arbre,"BABAR");
+    arbre_append_mot(arbre,"CHIEN");
+    arbre_append_mot(arbre,"FUITE");
+    int tab[]={0,2,1,0,0};
     pattern *pat = pattern_from_input(tab,5);
-    mot *m = mot_create("TARIF");
+    mot *m = mot_create("ZAAZZ");
+    printf("Occurences de z : %d\n",mot_occurences(m,'Z'));
 
-    printf("%c\n",arbre->root->head->etiquette);
+    //printf("%c\n",arbre->root->head->etiquette);
 
     printf("Taille : %d\n",taille_noeud(arbre->root));
     arbre_init_nb_mots(arbre);
     printf("Nombre de mots dans l'abre : %d\n",arbre->nb_mots);
+    printf("Proba : %f\n",proba(arbre,m,pat));
 
     //printTree(arbre);
 

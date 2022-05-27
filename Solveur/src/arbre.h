@@ -22,4 +22,7 @@ void printTree(arbre_mots *arbre);
 void printNTree(noeud* n, bool flag[], int depth, bool isLast);
 void arbre_init_nb_mots(arbre_mots *arbre);
 int noeud_init_nb_mots(noeud *node);
+double proba(arbre_mots* arbre, mot* mot, pattern* one_pattern);
+int nb_mots_pat(noeud *node,mot *m, pattern *pat,int depth,char* str);
+
 #endif /* ARBRE_H */

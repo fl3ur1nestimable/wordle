@@ -17,6 +17,15 @@ void mot_destroy(mot *mot){
     free(mot);
 }
 
+int mot_occurences(char* str,char c){
+    int count = 0;
+    for(int i=0;i<(int)strlen(str);i++){
+        if(str[i]==c){
+            count += 1;
+        }
+    }
+    return count;
+}
 
 /*
 char* mot_get_val(mot *mot){

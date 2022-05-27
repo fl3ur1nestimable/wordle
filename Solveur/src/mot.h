@@ -28,6 +28,8 @@ mot *mot_create(char *str);
 
 void mot_destroy();
 
+int mot_occurences(char* str,char c);
+
 /*
 
 bool noeud_is_empty(noeud *one_noeud);

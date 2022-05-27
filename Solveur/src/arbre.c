@@ -1,4 +1,5 @@
 #include "arbre.h"
+#include "mot.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -324,7 +325,6 @@ int noeud_init_nb_mots(noeud *node){
     // Si c'est une feuille - Cas de base 
     if(node->head->next_node->head==NULL){
         node->nb_mots = node->size;
-        printf("%d\n",node->size);
         return node->size;
     }
     list_ele *current_ele = node->head;
@@ -333,6 +333,84 @@ int noeud_init_nb_mots(noeud *node){
         current_ele = current_ele->next;
     }
     return node->nb_mots;
+}
+
+double proba(arbre_mots* arbre, mot* mot, pattern* one_pattern){
+    int nb_mots_init = arbre->nb_mots;
+    int tab[one_pattern->size];
+    for(int k=0;k<one_pattern->size;k++){
+        tab[k]=0;
+    }
+    char str[12] = "";
+    int nb_mots_coupes = nb_mots_pat(arbre->root,mot, one_pattern,0,str);
+    int nb_mots_apres_coupure = nb_mots_init - nb_mots_coupes;
+    //printf("Nombre de mots coupés : %d\n",nb_mots_coupes);
+    return (double)nb_mots_apres_coupure/nb_mots_init; 
+}
+
+int nb_mots_pat(noeud *node,mot *m, pattern *pat,int depth,char* str){
+    if(depth>pat->size){
+        return 0;
+    }
+    int count = 0;
+    list_ele *current_ele = node->head;
+    while(current_ele!=NULL){
+        //printf("%c\n",current_ele->etiquette);
+        str[depth]=current_ele->etiquette;
+        bool coupe = false;
+        for(int i=0;i<pat->size;i++){
+            if(coupe){
+                break;
+            }
+            switch (pat->tab[i])
+            {
+            case 0:
+                // Si le mot contient la lettre, on coupe
+                if(current_ele->etiquette==m->val[i]){
+                    count += current_ele->next_node->nb_mots;
+                    coupe = true;
+                }
+                break;
+            case 2:
+                // Si le mot ne contient pas la lettre placée à ce niveau, on coupe
+                if((current_ele->etiquette!=m->val[i])&&(i==depth)){
+                    coupe = true;
+                    count += current_ele->next_node->nb_mots;
+                }
+                break;
+            case 1:
+                // Si le mot contient la lettre placée à ce niveau, on coupe
+                if((current_ele->etiquette==m->val[i])&&(i==depth)){
+                    coupe = true;
+                    count += current_ele->next_node->nb_mots;
+                    break;
+                }
+                // Si le mot contient la lettre, on augmente l'occurence de la lettre dans le tableau 
+                if(current_ele->etiquette==m->val[i]){
+                    
+                }
+                // Si c'est une feuille, on a atteint la fin du mot, on vérifie avec les occurences si le mot contient le bon nb de lettres
+                if(current_ele->next_node->head==NULL){
+                    // Si on a trouvé moins de lettres(associé au 1) dans le mot
+                    if(mot_occurences(str,m->val[i])<mot_occurences(m->val,m->val[i])){
+                        count += 1;
+                    }
+        
+                }
+                break;
+            default:
+                break;
+            }
+        }
+        // Si on a pas coupé la branche, on continue de parcourir la branche suivante (noeud suivant et niveau suivant)
+        if(!coupe){
+            count += nb_mots_pat(current_ele->next_node,m,pat,depth+1,str);
+        }
+        // On éxécute le programme pour chaque élément de la liste 
+        current_ele = current_ele->next;
+    }
+    // On retourne le nombre de mots qu'on a enlevé
+    return count;
 }
 
 
