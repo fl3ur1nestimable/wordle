@@ -33,11 +33,11 @@ arbre.o : struct.h arbre.h arbre.c
 pattern: test_pattern
 	$(RUN_ENV) ./test_pattern
 
-test_pattern: test_pattern.o pattern.o
+test_pattern: test_pattern.o pattern.o arbre.o
 
-test_pattern.o : pattern.o test_pattern.c
+test_pattern.o : pattern.o test_pattern.c arbre.o
 
-pattern.o : struct.h pattern.h pattern.c 
+pattern.o : struct.h arbre.h pattern.h pattern.c
 
 main:
 

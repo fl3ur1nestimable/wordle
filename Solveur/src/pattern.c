@@ -1,6 +1,7 @@
 #include "pattern.h"
 #include "arbre.h"
 #include "mot.h"
+#include "struct.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -46,13 +47,13 @@ long base3(int n){
     return r;
 }
 
-double entropy_pat(pattern* one_pattern, char * mot, arbre_mots *arbre){
+double entropy_pat(pattern* one_pattern, mot * mot, arbre_mots *arbre){
     double p  = proba(arbre,mot,one_pattern);
     double e = p*log(1/p);
     return e;
 }
 
-double moy_entropy(pattern** patterns, char* mot,arbre_mots *arbre,int taille){
+double moy_entropy(pattern** patterns, mot* mot,arbre_mots *arbre,int taille){
     double e_moy=0;
     int tot = pow(3,taille);
     for (int i = 0; i < tot; i++)

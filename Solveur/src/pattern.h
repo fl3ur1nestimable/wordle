@@ -2,11 +2,6 @@
 #define PATTERN_H
 #include "arbre.h"
 #include "mot.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-
 #include "struct.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -16,9 +11,9 @@
 
 pattern** pattern_init_all(int taille );
 
-double entropy_pat(pattern* one_pattern, char * mot,arbre_mots *arbre);
+double entropy_pat(pattern* one_pattern, mot * mot,arbre_mots *arbre);
 
-double moy_entropy(pattern** patterns, char* mot, arbre_mots *arbre,int taille);
+double moy_entropy(pattern** patterns, mot* mot, arbre_mots *arbre,int taille);
 
 pattern *pattern_from_input(int* tab,int taille);
 

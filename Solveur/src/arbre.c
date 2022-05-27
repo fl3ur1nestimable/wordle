@@ -312,4 +312,6 @@ void printTree(arbre_mots *arbre){
     printNTree(arbre->root,flag,1,false);
 }
 
-
+double proba(arbre_mots* arbre,mot* mot,pattern* one_pattern){
+    
+}
