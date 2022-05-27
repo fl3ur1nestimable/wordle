@@ -312,7 +312,9 @@ void printTree(arbre_mots *arbre){
     printNTree(arbre->root,flag,1,false);
 }
 
-
+double proba(arbre_mots* arbre,mot* mot,pattern* one_pattern){
+    
+}
 
 void arbre_init_nb_mots(arbre_mots *arbre){
     arbre->nb_mots= noeud_init_nb_mots(arbre->root);
@@ -334,5 +336,3 @@ int noeud_init_nb_mots(noeud *node){
     }
     return node->nb_mots;
 }
-
-
