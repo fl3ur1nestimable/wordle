@@ -20,8 +20,6 @@ int main(){
     int tab[]={0,2,1,0,0};
     pattern *pat = pattern_from_input(tab,5);
     mot *m = mot_create("ZAAZZ");
-    printf("Occurences de z : %d\n",mot_occurences(m,'Z'));
-
     //printf("%c\n",arbre->root->head->etiquette);
 
     printf("Taille : %d\n",taille_noeud(arbre->root));
