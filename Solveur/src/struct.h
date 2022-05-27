@@ -18,6 +18,7 @@ struct _noeud
 {
     list_ele* head;
     int size;
+    int nb_mots;
 
 };
 typedef struct _noeud noeud;
@@ -25,6 +26,7 @@ typedef struct _noeud noeud;
 
  struct _arbre_mots{
     noeud *root;
+    int nb_mots;
 };
 typedef  struct _arbre_mots arbre_mots;
 

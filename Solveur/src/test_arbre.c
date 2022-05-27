@@ -22,12 +22,14 @@ int main(){
     printf("%c\n",arbre->root->head->etiquette);
 
     printf("Taille : %d\n",taille_noeud(arbre->root));
+    arbre_init_nb_mots(arbre);
+    printf("Nombre de mots dans l'abre : %d\n",arbre->nb_mots);
 
-    printTree(arbre);
+    //printTree(arbre);
 
-    arbre_mots *new_arbre = arbre_update(arbre,m,pat);
+    //arbre_mots *new_arbre = arbre_update(arbre,m,pat);
 
-    printTree(arbre);
+    //printTree(arbre);
 
     //printf("%c\n",arbre->root->head->etiquette);
 
