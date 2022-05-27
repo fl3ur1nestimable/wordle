@@ -12,11 +12,11 @@ arbre_mots* arbre_init(){
 }
 
 noeud* node_init(){
-    noeud* L=malloc(sizeof(noeud));
-    L->head=NULL;
-    
-    L->size=0;
-    return L;
+    noeud* n=malloc(sizeof(noeud));
+    n->head=NULL;
+    n->nb_mots = 0;
+    n->size=0;
+    return n;
 
 }
 list_ele* list_ele_init(char val){
@@ -310,6 +310,29 @@ void printTree(arbre_mots *arbre){
     }
     printf("\n---------- Arbre ----------\n");
     printNTree(arbre->root,flag,1,false);
+}
+
+
+
+void arbre_init_nb_mots(arbre_mots *arbre){
+    arbre->nb_mots= noeud_init_nb_mots(arbre->root);
+}
+int noeud_init_nb_mots(noeud *node){
+    if(node->head==NULL){
+        return 0;
+    }
+    // Si c'est une feuille - Cas de base 
+    if(node->head->next_node->head==NULL){
+        node->nb_mots = node->size;
+        printf("%d\n",node->size);
+        return node->size;
+    }
+    list_ele *current_ele = node->head;
+    while(current_ele!=NULL){
+        node->nb_mots += noeud_init_nb_mots(current_ele->next_node);
+        current_ele = current_ele->next;
+    }
+    return node->nb_mots;
 }
 
 
