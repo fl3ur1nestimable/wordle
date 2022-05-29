@@ -25,5 +25,7 @@ void arbre_init_nb_mots(arbre_mots *arbre);
 int noeud_init_nb_mots(noeud *node);
 double proba(arbre_mots* arbre, mot* mot, pattern* one_pattern);
 int nb_mots_pat(noeud *node,mot *m, pattern *pat,int depth,char* str);
+bool est_feuille(list_ele *n);
+bool est_vide(noeud *node);
 
 #endif /* ARBRE_H */

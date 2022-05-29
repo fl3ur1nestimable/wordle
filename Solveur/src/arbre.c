@@ -63,7 +63,7 @@ void lecture_fichier(arbre_mots* arbre, int n){
 void arbre_append_mot(arbre_mots* arbre, char* m){
     // Si l'arbre est vide, on l'initialise
     if(arbre->root==NULL){
-        arbre->root=node_init(NULL);
+        arbre->root=node_init();
     }
     // Initialisation du compteur niveau
     int i = 0;
@@ -260,6 +260,7 @@ bool remove_ele(noeud* node, list_ele *current){
     if (prev==NULL){
         node->head=next;
     }
+    // Recollage
     if(prev!=NULL){
         prev->next=next;
     }   
@@ -317,25 +318,6 @@ void destroy_arbre(arbre_mots *arbre){
     destroy_node(current);
     free(arbre);
 }
-
-/*
-noeud *node_cpy(noeud *node){
-    if(node==NULL){
-        return NULL;
-    }
-    if(node->head==NULL){
-        return NULL;
-    }
-    node_cpy(node->head->next)
-}
-
-arbre_mots *arbre_cpy(arbre_mots *arbre){
-    arbre_mots *new_arbre = arbre_init();
-    noeud *root = node_cpy(arbre->root); 
-    new_arbre->root = root;
-}
-
-*/
 
 
 void printNTree(noeud* n, bool flag[], int depth, bool isLast)
@@ -403,7 +385,6 @@ void printTree(arbre_mots *arbre){
     printf("\n---------- Arbre ----------\n");
     printNTree(arbre->root,flag,1,false);
 }
-
 
 
 void arbre_init_nb_mots(arbre_mots *arbre){
@@ -498,6 +479,48 @@ int nb_mots_pat(noeud *node,mot *m, pattern *pat,int depth,char* str){
     }
     // On retourne le nombre de mots qu'on a enlevé
     return count;
+}
+
+bool est_feuille(list_ele *n){
+    return n->next_node->head==NULL;
+}
+bool est_vide(noeud *node){
+    return node->head==NULL;
+}
+
+void coupe_branches_rec(noeud *node,int depth,int size_mot){
+    if(est_vide(node)){
+        return;
+    }
+    bool node_detruite = false;
+    list_ele *current = node->head;
+    // Parcours de la liste
+    while(current!=NULL){
+        if(est_feuille(current)){
+            list_ele *prev = current->prev;
+            bool is_head = (prev==NULL);
+            // Si la feuille ne forme pas un mot de la bonne taille, on l'enlève de l'arbre
+            if(depth+1!=size_mot){
+                node_detruite = remove_ele(node,current);
+                if(node_detruite){
+                    return;
+                }
+                if(is_head){
+                    current = node->head;
+                }
+                else{
+                    current = prev;
+                }
+            }
+        }
+        coupe_branches_rec(current->next_node,depth+1,size_mot);
+        current = current->next;
+    }
+       
+}
+
+void coupe_branches(arbre_mots *arbre){
+
 }
 
 
