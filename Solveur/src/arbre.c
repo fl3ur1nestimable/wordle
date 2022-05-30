@@ -480,19 +480,14 @@ int noeud_init_nb_mots(noeud *node){
         count += noeud_init_nb_mots(current);
         current = current->next;
     }
+    node->nb_mots = count;
     return count;
 }
 
 double proba(arbre_mots* arbre, mot* mot, pattern* one_pattern){
     int nb_mots_init = arbre->nb_mots;
-    int tab[one_pattern->size];
-    for(int k=0;k<one_pattern->size;k++){
-        tab[k]=0;
-    }
-    char str[12] = "";
-    int nb_mots_coupes = nb_mots_pat(arbre->root,mot, one_pattern,0,str);
+    int nb_mots_coupes = arbre_nb_mot(arbre,mot,one_pattern);
     int nb_mots_apres_coupure = nb_mots_init - nb_mots_coupes;
-    //printf("Nombre de mots coupés : %d\n",nb_mots_coupes);
     return (double)nb_mots_apres_coupure/nb_mots_init; 
 }
 
@@ -555,6 +550,81 @@ int nb_mots_pat(liste *l,mot *m, pattern *pat,int depth,char* str){
     }
     // On retourne le nombre de mots qu'on a enlevé
     return count;
+}
+
+
+int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str){
+    if(depth>pat->size){
+        return 0;
+    }
+    int count = 0;
+    str[depth]=node->etiquette;
+    bool coupe = false;
+    for(int i=0;i<pat->size;i++){
+        if(coupe){
+            break;
+        }
+        switch (pat->tab[i])
+        {
+        case 0:
+            // Si le mot contient la lettre, on coupe
+            if(node->etiquette==m->val[i]){
+                count += node->nb_mots;
+                printf("%d\n",count);
+                coupe = true;
+            }
+            break;
+        case 2:
+            // Si le mot ne contient pas la lettre placée à ce niveau, on coupe
+            if((node->etiquette!=m->val[i])&&(i==depth)){
+                coupe = true;
+                count += node->nb_mots;
+            }
+            break;
+        case 1:
+            // Si le mot contient la lettre placée à ce niveau, on coupe
+            if((node->etiquette==m->val[i])&&(i==depth)){
+                coupe = true;
+                count += node->nb_mots;
+                break;
+            }
+            // Si c'est une feuille, on a atteint la fin du mot, on vérifie avec les occurences si le mot contient le bon nb de lettres
+            if(node->liste_fils->head==NULL){
+                // Si on a trouvé moins de lettres(associé au 1) dans le mot, on l'enlève 
+                if(mot_occurences(str,m->val[i])<mot_occurences(m->val,m->val[i])){
+                    count += 1;
+                }
+    
+            }
+            break;
+        default:
+            break;
+        }
+    }
+    // Si on a pas coupé la branche, on continue de parcourir les branches suivante (liste fils et niveau suivant)
+    if(!coupe){
+        noeud *current = node->liste_fils->head;
+        while(current!=NULL){
+            noeud *next = current->next;
+            count += noeud_nb_mot_coupe(current,m,pat,depth+1,str);
+            current = next;
+        }
+    }
+    
+    // On retourne le nombre de mots qu'on a enlevé
+    return count;
+
+}
+int arbre_nb_mot(arbre_mots *arbre, mot *m, pattern *pat){
+    char str[12] = "";
+    int nb_mots_coupe = 0;
+    noeud *current = arbre->root->head;
+    while(current!=NULL){
+        nb_mots_coupe += noeud_nb_mot_coupe(current,m,pat,0,str);
+        current = current->next;
+    }
+    return arbre->nb_mots-nb_mots_coupe;
+
 }
 
 bool noeud_est_feuille(noeud *n){

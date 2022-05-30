@@ -32,6 +32,8 @@ void arbre_init_nb_mots(arbre_mots *arbre);
 int noeud_init_nb_mots(noeud *node);
 double proba(arbre_mots* arbre, mot* mot, pattern* one_pattern);
 int nb_mots_pat(liste *l,mot *m, pattern *pat,int depth,char* str);
+int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str);
+int arbre_nb_mot(arbre_mots *arbre, mot *m, pattern *pat);
 
 bool noeud_est_feuille(noeud *n);
 bool liste_est_vide(liste *l);
