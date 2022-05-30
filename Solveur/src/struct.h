@@ -7,26 +7,28 @@ typedef struct {
 }mot;
 
 
-struct _list_ele{
+struct _noeud{
     char etiquette;
-    struct _list_ele* next;
-    struct _list_ele* prev;
-    struct _noeud* next_node;
+    struct _noeud* next;
+    struct _noeud* prev;
+    struct _noeud* parent;
+    struct _liste* liste_fils;
+    int nb_mots;
 };
-typedef struct _list_ele list_ele;
+typedef struct _noeud noeud;
 
-struct _noeud
+struct _liste
 {
-    list_ele* head;
+    noeud* head;
     int size;
     int nb_mots;
 
 };
-typedef struct _noeud noeud;
+typedef struct _liste liste;
 
 
  struct _arbre_mots{
-    noeud *root;
+    liste *root;
     int nb_mots;
 };
 typedef  struct _arbre_mots arbre_mots;

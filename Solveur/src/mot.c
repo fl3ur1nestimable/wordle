@@ -1,4 +1,7 @@
 #include "mot.h"
+#include "struct.h"
+#include "arbre.h"
+#include "pattern.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -10,6 +13,7 @@ int longueur = 2;
 mot *mot_create(char *str){
     mot *m = malloc(sizeof(mot));
     m->val = str;
+    m->entropy = 0;
     return m;
 }
 
@@ -27,6 +31,29 @@ int mot_occurences(char* str,char c){
     return count;
 }
 
+/*
+void mot_arbre_explore(noeud *node,int depth,char* str,mot *best, pattern *pattern){
+    list_ele *current_ele = node->head;
+    while(current_ele!=NULL){
+        str[depth]=current_ele->etiquette;
+        // Si c'est une feuille, on obtient un mot
+        if(current_ele->next_node->head==NULL){
+            mot *m = mot_create(str);
+            double *e = list_entro(*pattern,m,proba);
+            if(e>best->entropy){
+                m->entropy = e;
+                best = m;
+            }
+            free(m);
+
+            return;
+        }
+        mot_arbre_explore(current_ele->next_node,depth+1,str,best);
+        current_ele = current_ele->next;
+    }
+    return;
+}
+*/
 /*
 char* mot_get_val(mot *mot){
     return mot->val;

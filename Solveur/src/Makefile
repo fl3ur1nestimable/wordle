@@ -18,7 +18,7 @@ test_mot: test_mot.o mot.o
 
 tes_mot.o: mot.o test_mot.c
 
-mot.o: arbre.h mot.c
+mot.o: mot.h mot.c struct.h arbre.h
 
 arbre: test_arbre
 	$(RUN_ENV) ./test_arbre
