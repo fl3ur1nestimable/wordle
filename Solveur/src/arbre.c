@@ -31,7 +31,7 @@ noeud* noeud_init(char val,noeud *prev,noeud *parent){
 
 void lecture_fichier(arbre_mots* arbre, int n){
     FILE* f;
-    f=fopen("../liste_mots.txt","r");
+    f=fopen("../liste_mots_petit.txt","r");
     char c[20];
    
     
@@ -486,8 +486,7 @@ int noeud_init_nb_mots(noeud *node){
 
 double proba(arbre_mots* arbre, mot* mot, pattern* one_pattern){
     int nb_mots_init = arbre->nb_mots;
-    int nb_mots_coupes = arbre_nb_mot(arbre,mot,one_pattern);
-    int nb_mots_apres_coupure = nb_mots_init - nb_mots_coupes;
+    int nb_mots_apres_coupure = arbre_nb_mot(arbre,mot,one_pattern);
     return (double)nb_mots_apres_coupure/nb_mots_init; 
 }
 
@@ -570,7 +569,6 @@ int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str){
             // Si le mot contient la lettre, on coupe
             if(node->etiquette==m->val[i]){
                 count += node->nb_mots;
-                printf("%d\n",count);
                 coupe = true;
             }
             break;
@@ -593,6 +591,7 @@ int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str){
                 // Si on a trouvé moins de lettres(associé au 1) dans le mot, on l'enlève 
                 if(mot_occurences(str,m->val[i])<mot_occurences(m->val,m->val[i])){
                     count += 1;
+                    coupe = true;
                 }
     
             }
