@@ -53,9 +53,19 @@ int main(){
         int result;
         printf("Entrez le résultat pour le mot : \n");
         scanf("%d",&result);
+
+        if(result==-1){
+            printf("Arrêt");
+            return 0;
+        }
+        
         while(!(is_in_possibilities(result,taille))){
             printf("Votre mot n'est pas dans les possibilités : \nEntrez le résultat pour le mot : \n");
             scanf("%d",&result);
+            if(result==-1){
+                printf("Arrêt");
+                return 0;
+            }
         }
         
         guess[0]=result*pow(10,-(taille-1));
