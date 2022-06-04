@@ -18,17 +18,21 @@ test_mot: test_mot.o mot.o arbre.o pattern.o
 
 tes_mot.o: mot.o test_mot.c
 
-mot.o: mot.c 
+mot.o: mot.c
+
+
 
 arbre: test_arbre
 	$(RUN_ENV) ./test_arbre
-
 
 test_arbre: test_arbre.o arbre.o mot.o pattern.o
 
 test_arbre.o : arbre.o test_arbre.c
 
 arbre.o : arbre.c 
+
+
+
 
 pattern: test_pattern
 	$(RUN_ENV) ./test_pattern
@@ -39,7 +43,16 @@ test_pattern.o : pattern.o test_pattern.c arbre.o
 
 pattern.o : pattern.c 
 
-main:
+
+
+solveur_main_test : solveur_main
+	$(RUN_ENV) ./solveur_main
+
+solveur_main : solveur_main.o
+
+solveur_main.o : solveur_main.c
+
+
 
 clean_mot:
 	rm -f *.o test_mot
@@ -52,6 +65,6 @@ clean_pattern:
 		rm test_pattern
 
 clean_main:
-	rm -f *.o test_*
+	rm -f *.o solveur_main
 
 .SILENT: clean

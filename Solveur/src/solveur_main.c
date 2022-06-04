@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 #include <string.h>
 
 int base3(int n){
@@ -28,6 +29,20 @@ bool is_in_possibilities(int proposition, int taille){
         }
     }
     return 0;
+}
+
+int get_word_len(){
+    FILE*f;
+    f=fopen("../wsolf.txt","r");
+    char c[5];
+    fgets(c,sizeof(c),f);
+    int len = atoi(c);
+    if ( len < 4 || len > 10){
+        printf("Invalid length\n");
+        exit(EXIT_FAILURE);
+    }
+    fclose(f);
+    return len;
 }
 
 int main(){
@@ -91,5 +106,6 @@ int main(){
             printf("Sorry");
         }
     }
+    printf("%d is the len \n",get_word_len());
     return 0;  
 }
