@@ -36,7 +36,6 @@ int main(){
     arbre_update(arbre,mot1,pat);
     printf("\nNb mots : %d",arbre->nb_mots);
     
-    mot1->entropy = 0;
     mot_generate_best(arbre,mot1,5);
 
     printf("\nmot : %s \nentropie : %f\n",mot1->val,mot1->entropy);
@@ -44,8 +43,8 @@ int main(){
     pattern *pat2 = pattern_from_input(tab2,5);
     arbre_update(arbre,mot1,pat2);
     printTree(arbre);
-    printf("\nNb mots : %d",arbre->nb_mots);
-    mot1->entropy = 0;
+    printf("\nNb mots : %d\n",arbre->nb_mots);
+
     mot_generate_best(arbre,mot1,5);
     
 
