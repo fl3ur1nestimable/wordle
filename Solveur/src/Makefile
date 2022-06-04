@@ -33,9 +33,9 @@ arbre.o : arbre.c
 pattern: test_pattern
 	$(RUN_ENV) ./test_pattern
 
-test_pattern: test_pattern.o pattern.o
+test_pattern: test_pattern.o pattern.o arbre.o
 
-test_pattern.o : pattern.o test_pattern.c
+test_pattern.o : pattern.o test_pattern.c arbre.o
 
 pattern.o : pattern.c 
 
@@ -47,6 +47,9 @@ clean_mot:
 clean_arbre:
 
 clean_pattern:
+		rm pattern.o
+		rm test_pattern.o
+		rm test_pattern
 
 clean_main:
 	rm -f *.o test_*
