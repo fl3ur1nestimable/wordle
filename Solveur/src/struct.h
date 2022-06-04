@@ -20,7 +20,6 @@ typedef struct _noeud noeud;
 struct _liste
 {
     noeud* head;
-    int size;
     int nb_mots;
 
 };
