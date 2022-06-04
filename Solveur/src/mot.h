@@ -4,48 +4,23 @@
 #ifndef MOT_H
 #define MOT_H
 
-/*
-
-struct _noeud{
-    char etiquette;
-    struct _liste *liste_fils;
-    struct _noeud *next;
-};
-typedef struct _noeud noeud;
-
-struct _liste{
-    struct _noeud *head;
-};
-typedef struct _liste liste;
-
-typedef struct {
-    noeud *root;
-}arbre_mots;
-
-*/
-
+// Crée un mot avec le string str comme valeur et d'entropie nulle
 mot *mot_create(char *str);
 
+// Détruit (free) le mot
 void mot_destroy();
 
-int mot_occurences(char* str,char c);
+// Explore toutes les branches de l'arbre pour former tous les mots de la liste, calcule leur entropie, renvoie le mot avec la meilleur entropie
+void mot_arbre_explore(arbre_mots *arbre, noeud *node,int depth,char* str,mot *best, pattern **patterns);
 
-void mot_arbre_explore(liste *node,int depth,char* str,mot *best,pattern *pattern);
+// Renvoie le nombre d'occurence du charactère c dans le mot caché derrière l'association du mot m et du patterne p
+int mot_occurences_pattern(mot *m,pattern *p,char c);
 
-/*
+// Renvoie le nombre d'occurences du charactère c dans le string str 
+int str_occurences(char* str,char c);
 
-bool noeud_is_empty(noeud *one_noeud);
 
-void mot_arbre_explore(noeud *one_noeud, char* str, mot *best);
+void mot_generate_best(arbre_mots *one_arbre,mot *m,int taille_mot);
 
-bool noeud_is_last(noeud *one_noeud);
-
-void mot_generate_best(arbre_mots *one_arbre);
-
-char* mot_get_val(mot *mot);
-
-double mot_entropy(double *list_entro);
-
-*/
 
 #endif /* MOT_H */
