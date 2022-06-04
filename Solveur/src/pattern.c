@@ -1,5 +1,6 @@
 #include "struct.h"
 #include "pattern.h"
+#include "arbre.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -45,24 +46,29 @@ long base3(int n){
     return r;
 }
 
-/*
-double entropy_pat(pattern* one_pattern, char * mot, arbre_mots *arbre){
-    double p  = proba(arbre,mot,one_pattern);
-    double e = p*log(1/p);
+
+double entropy_pat(pattern* one_pattern, mot* m, arbre_mots *arbre){
+    double p  = arbre_proba(arbre,m,one_pattern);
+    //printf("_%f_",p);
+    double e = 0;
+    if(p!=0){
+        e = p*log(1/p);
+        //printf("---%f-",e);
+    }
     return e;
 }
 
-double moy_entropy(pattern** patterns, char* mot,arbre_mots *arbre,int taille){
+double moy_entropy(pattern** patterns, mot* m,arbre_mots *arbre,int taille){
     double e_moy=0;
     int tot = pow(3,taille);
     for (int i = 0; i < tot; i++)
     {
-        e_moy+=entropy_pat(patterns[i],mot,arbre);
+        e_moy+=entropy_pat(patterns[i],m,arbre);
     }
-    e_moy=e_moy/tot;
+    //e_moy=e_moy/tot;
     return e_moy;
 }
-*/
+
 pattern *pattern_from_input(int* tab,int taille){
     pattern* p = malloc(sizeof(pattern));
     p->entropy=0;
@@ -88,3 +94,14 @@ void pattern_destroy(pattern* one_pattern){
     free(one_pattern->tab);
     free(one_pattern);
 }
+
+void patterns_destroy(pattern **patterns){
+    int tot = pow(3,patterns[0]->size);
+    for (int i = 0; i < tot; i++){
+        pattern_destroy(patterns[i]);
+    }
+    free(patterns);
+}
+
+
+
