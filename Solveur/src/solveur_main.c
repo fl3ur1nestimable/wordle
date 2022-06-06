@@ -35,7 +35,7 @@ int get_word_len(){
 }
 
 int main(){
-    char * liste_premiers_mots[] = {"SAIE", "TIRAS"};
+    char * liste_premiers_mots[] = {"SAIE", "TIRAS","NORIAS"};
     int taille = get_word_len();
     int nb_essais;
     printf("Taille du mot : %d\n", taille);
@@ -48,12 +48,13 @@ int main(){
     arbre_mots * arbre = arbre_init();
     lecture_fichier(arbre,taille);
     char str[12] = "";
-    mot* m = mot_create(str);
-    mot_generate_best(arbre,m,taille);
+    
     
     printf("Vos réponse doivent être de la forme xxx où il y'a autant de x que la taille du mot et où x vaut 0,1, ou 2 \n");
     printf("0 sont les lettres n'étant pas dans le mot, 2 les lettres bien placées et 1 les lettres mal placées \n");
     while(i!=0 && not_win){
+        mot* m = mot_create(str);
+        mot_generate_best(arbre,m,taille);
         /*char str[12] = "";
         mot* m = mot_create(str);
         char* mot_propose;
