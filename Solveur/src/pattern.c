@@ -14,7 +14,7 @@ pattern** pattern_init_all(int taille){
         pat_list[i]=malloc(sizeof(pattern));
         pat_list[i]->entropy=0;
         pat_list[i]->size=taille;
-        char sa[10];
+        char sa[12];
         int b = base3(i);
         sprintf(sa,"%d",b);
         int len = sprintf(sa,"%d",b);
