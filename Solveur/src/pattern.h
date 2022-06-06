@@ -23,6 +23,6 @@ void pattern_destroy(pattern* one_pattern);
 
 void patterns_destroy(pattern **patterns);
 
-long base3(int n);
+int base3(int n);
 
 #endif /* PATTERN_H */
