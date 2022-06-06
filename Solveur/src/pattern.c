@@ -14,9 +14,9 @@ pattern** pattern_init_all(int taille){
         pat_list[i]->entropy=0;
         pat_list[i]->size=taille;
         char sa[10];
-        long b = base3(i);
-        sprintf(sa,"%lu",b);
-        int len = sprintf(sa,"%lu",b);
+        int b = base3(i);
+        sprintf(sa,"%d",b);
+        int len = sprintf(sa,"%d",b);
         int rest = taille - len;
         pat_list[i]->tab=malloc((taille+1)*sizeof(int));
         for (int j = 0; j < taille; j++)
@@ -33,9 +33,9 @@ pattern** pattern_init_all(int taille){
     return pat_list;
 }
 
-long base3(int n){
-    long r = 0;
-    long f = 1;
+int base3(int n){
+    int r = 0;
+    int f = 1;
     int a = n;
     while (a > 0)
     {

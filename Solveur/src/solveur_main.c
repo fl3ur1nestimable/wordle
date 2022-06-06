@@ -1,22 +1,11 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
+#include "pattern.h"
+#include "arbre.h"
+#include "mot.h"
 #include <stdlib.h>
 #include <string.h>
-
-int base3(int n){
-    int r = 0;
-    int f = 1;
-    int a = n;
-    while (a > 0)
-    {
-        r += (a%3)*f;
-        a = a/3;
-        f *= 10;
-    }
-    return r;
- }
-
 
 bool is_in_possibilities(int proposition, int taille){
     int nbr_possibilites = pow(3,taille);
@@ -46,10 +35,9 @@ int get_word_len(){
 }
 
 int main(){
-    int taille;
+    int taille = get_word_len();
     int nb_essais;
-    printf("Entrez la taille du mot : \n");
-    scanf("%d",&taille);
+    printf("Taille du mot : %d\n", taille);
     printf("Entrez le nombre d'essais : \n");
     scanf("%d",&nb_essais);
     int guess[taille];
@@ -106,6 +94,5 @@ int main(){
             printf("Sorry");
         }
     }
-    printf("%d is the len \n",get_word_len());
     return 0;  
 }

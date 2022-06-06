@@ -48,7 +48,7 @@ pattern.o : pattern.c
 solveur_main_test : solveur_main
 	$(RUN_ENV) ./solveur_main
 
-solveur_main : solveur_main.o
+solveur_main : solveur_main.o pattern.o arbre.o mot.o
 
 solveur_main.o : solveur_main.c
 
