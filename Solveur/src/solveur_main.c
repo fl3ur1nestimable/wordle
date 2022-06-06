@@ -47,11 +47,14 @@ int main(){
 
     arbre_mots * arbre = arbre_init();
     lecture_fichier(arbre,taille);
-
+    char str[12] = "";
+    mot* m = mot_create(str);
+    mot_generate_best(arbre,m,taille);
+    
     printf("Vos réponse doivent être de la forme xxx où il y'a autant de x que la taille du mot et où x vaut 0,1, ou 2 \n");
     printf("0 sont les lettres n'étant pas dans le mot, 2 les lettres bien placées et 1 les lettres mal placées \n");
     while(i!=0 && not_win){
-        char str[12] = "";
+        /*char str[12] = "";
         mot* m = mot_create(str);
         char* mot_propose;
         if(i==nb_essais){
@@ -61,7 +64,8 @@ int main(){
         else{
             mot_generate_best(arbre,m,taille);
             mot_propose = m->val; //generate best mot ici
-        }
+        }*/
+        char * mot_propose = m->val;
         printf("Mot proposé : %s\n",mot_propose);
         int somme = 2*taille;
         int result;
