@@ -35,6 +35,7 @@ int get_word_len(){
 }
 
 int main(){
+    char * liste_premiers_mots[] = {"SAIE", "TIRAS"};
     int taille = get_word_len();
     int nb_essais;
     printf("Taille du mot : %d\n", taille);
@@ -44,11 +45,23 @@ int main(){
     bool not_win = true;
     int i = nb_essais;
 
+    arbre_mots * arbre = arbre_init();
+    lecture_fichier(arbre,taille);
 
     printf("Vos réponse doivent être de la forme xxx où il y'a autant de x que la taille du mot et où x vaut 0,1, ou 2 \n");
     printf("0 sont les lettres n'étant pas dans le mot, 2 les lettres bien placées et 1 les lettres mal placées \n");
     while(i!=0 && not_win){
-        char* mot_propose = "oui"; //generate best mot ici
+        char str[12] = "";
+        mot* m = mot_create(str);
+        char* mot_propose;
+        if(i==nb_essais){
+            mot_propose=liste_premiers_mots[taille-4];
+            m->val=mot_propose;
+        }
+        else{
+            mot_generate_best(arbre,m,taille);
+            mot_propose = m->val; //generate best mot ici
+        }
         printf("Mot proposé : %s\n",mot_propose);
         int somme = 2*taille;
         int result;
@@ -61,7 +74,7 @@ int main(){
         }
         
         while(!(is_in_possibilities(result,taille))){
-            printf("Votre mot n'est pas dans les possibilités : \nEntrez le résultat pour le mot : \n");
+            printf("Votre résultat entré n'est pas dans les possibilités : \nEntrez le résultat pour le mot : \n");
             scanf("%d",&result);
             if(result==-1){
                 printf("Arrêt\n");
@@ -80,10 +93,7 @@ int main(){
         }
         pattern * input = pattern_from_input(guess,taille);
         pattern_print(input);
-        // il faut envoyer le tableau guess a la fonction
-        //arbre update et tout le tralala ici
-        pattern_destroy(input);
-        i=i-1;
+        
 
         if(somme == 0){
             printf("Trouvé !\n");
@@ -92,6 +102,11 @@ int main(){
         else{
             printf("Mot non trouvé\n");
         }
+        arbre_update(arbre,m,input);
+        mot_destroy(m);
+        pattern_destroy(input);
+        i=i-1;
     }
+    arbre_destroy(arbre);
     return 0;  
 }
