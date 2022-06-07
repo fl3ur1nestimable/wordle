@@ -46,7 +46,7 @@ def isFound(guess,word):
     return (guess==word)
 
 def isValid(guess):
-    f=open("Wordle/static/Dictionnaire/liste_mots.txt")
+    f=open("Wordle/static/Dictionnaire/liste_78k.txt")
     words=f.read().splitlines()
     f.close
     return guess in words

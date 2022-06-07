@@ -31,7 +31,7 @@ noeud* noeud_init(char val,noeud *prev,noeud *parent){
 //Lit le fichier liste_mots.txt et ajoute les mots lu de taille n dans l'arbre
 void lecture_fichier(arbre_mots* arbre, int n){
     FILE* f;
-    f=fopen("../liste_mots.txt","r");
+    f=fopen("../liste_78k.txt","r");
     char c[20];
    
     
