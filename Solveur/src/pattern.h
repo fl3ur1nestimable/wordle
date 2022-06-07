@@ -1,6 +1,7 @@
 #ifndef PATTERN_H
 #define PATTERN_H
-
+#include "arbre.h"
+#include "mot.h"
 #include "struct.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -22,6 +23,6 @@ void pattern_destroy(pattern* one_pattern);
 
 void patterns_destroy(pattern **patterns);
 
-long base3(int n);
+int base3(int n);
 
 #endif /* PATTERN_H */

@@ -56,7 +56,6 @@ void mot_arbre_explore(arbre_mots *arbre,noeud *node,int depth,char* str,mot *be
         if(e>=best->entropy){ // Si son entropie est meilleure que notre meilleur mot actuel(best), on change best
             best->entropy = e;
             strcpy(best->val,m->val);
-            printf("%s _ %f\n",best->val,best->entropy);
         }
         free(m); // On détruit le mot parcouru
         return;
