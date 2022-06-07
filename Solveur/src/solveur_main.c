@@ -1,6 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 #include "pattern.h"
 #include "arbre.h"
 #include "mot.h"
@@ -35,7 +36,7 @@ int get_word_len(){
 }
 
 int main(){
-    char * liste_premiers_mots[] = {"SAIE", "TIRAS","NORIAS"};
+    char * liste_premiers_mots[] = {"RAIE", "TAIRE","TRAINE"};
     int taille = get_word_len();
     int nb_essais;
     printf("Taille du mot : %d\n", taille);
@@ -54,7 +55,11 @@ int main(){
     printf("0 sont les lettres n'étant pas dans le mot, 2 les lettres bien placées et 1 les lettres mal placées \n");
     while(i!=0 && not_win){
         mot* m = mot_create(str);
+        time_t begin = time(NULL);
         mot_generate_best(arbre,m,taille);
+        time_t end = time(NULL);
+        unsigned long sec = (unsigned long) difftime(end,begin);
+        printf("%ld seconds\n",sec);
         /*char str[12] = "";
         mot* m = mot_create(str);
         char* mot_propose;
