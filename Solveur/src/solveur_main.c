@@ -36,7 +36,7 @@ int get_word_len(){
 }
 
 int main(){
-    char * liste_premiers_mots[] = {"RAIE", "TAIRE","TRAINE","NOTAIRE"};
+    char * liste_premiers_mots[] = {"ARIA", "TAIRE","TRAINE","NOTAIRE","SOUCIANT"};
     int taille = get_word_len();
     int nb_essais;
     printf("Taille du mot : %d\n", taille);
@@ -45,21 +45,12 @@ int main(){
     int guess[taille];
     bool not_win = true;
     int i = nb_essais;
-
     arbre_mots * arbre = arbre_init();
     lecture_fichier(arbre,taille);
-    //char str[12] = "";
-    
-    
+
     printf("Vos réponse doivent être de la forme xxx où il y'a autant de x que la taille du mot et où x vaut 0,1, ou 2 \n");
     printf("0 sont les lettres n'étant pas dans le mot, 2 les lettres bien placées et 1 les lettres mal placées \n");
     while(i!=0 && not_win){
-        /*mot* m = mot_create(str);
-        time_t begin = time(NULL);
-        mot_generate_best(arbre,m,taille);
-        time_t end = time(NULL);
-        unsigned long sec = (unsigned long) difftime(end,begin);
-        printf("%ld seconds\n",sec);*/
         char str[12] = "";
         mot* m = mot_create(str);
         char* mot_propose;
@@ -68,15 +59,9 @@ int main(){
             m->val=mot_propose;
         }
         else{
-            printf("%d mots\n", arbre->nb_mots);
-            time_t begin = time(NULL);
             mot_generate_best(arbre,m,taille);
-            time_t end = time(NULL);
-            unsigned long sec = (unsigned long) difftime(end,begin);
-            printf("%ld seconds\n",sec);
             mot_propose = m->val; //generate best mot ici
         }
-        //char * mot_propose = m->val;
         printf("Mot proposé : %s\n",mot_propose);
         int somme = 2*taille;
         int result;
@@ -109,7 +94,6 @@ int main(){
         pattern * input = pattern_from_input(guess,taille);
         pattern_print(input);
         
-
         if(somme == 0){
             printf("Trouvé !\n");
             not_win = false;
