@@ -39,7 +39,12 @@ test_pattern.o : pattern.o test_pattern.c
 
 pattern.o : pattern.c 
 
-main:
+main: solveur_main
+	$(RUN_ENV) ./solveur_main
+
+solveur_main : solveur_main.o pattern.o arbre.o mot.o
+
+solveur_main.o : solveur_main.c
 
 clean_mot:
 	rm -f *.o test_mot
