@@ -20,7 +20,7 @@ void mot_destroy(mot *mot){
     free(mot);
 }
 
-
+// Renvoie le nombre d'occurences du charactère c dans le string str 
 int str_occurences(char* str,char c){
     int count = 0; // Initialisation compteur d'occurence du charactère c
     for(int i=0;i<(int)strlen(str);i++){
@@ -56,6 +56,7 @@ void mot_arbre_explore(arbre_mots *arbre,noeud *node,int depth,char* str,mot *be
         if(e>=best->entropy){ // Si son entropie est meilleure que notre meilleur mot actuel(best), on change best
             best->entropy = e;
             strcpy(best->val,m->val);
+            printf("%s _ %f\n",best->val,best->entropy);
         }
         free(m); // On détruit le mot parcouru
         return;
@@ -69,7 +70,7 @@ void mot_arbre_explore(arbre_mots *arbre,noeud *node,int depth,char* str,mot *be
     }
     return ;
 }
-
+// Stocke dans le mot m le mot avec la plus grande entropie dans l'arbre 
 void mot_generate_best(arbre_mots *one_arbre,mot *m,int taille_mot){
     m->entropy = 0; // Le mot m est notre meilleur mot pour l'instant (on réinitialise son entropy à 0)
     char str_current[12]=""; // Initialisation du string qui contiendra le mot parcouru dans l'arbre

@@ -51,8 +51,15 @@ solveur_main_test : solveur_main
 solveur_main : solveur_main.o pattern.o arbre.o mot.o
 
 solveur_main.o : solveur_main.c
-<<<<<<< HEAD
-=======
+
+
+
+algo : test_algo
+	$(RUN_ENV) ./test_algo
+
+test_algo : test_algo.o pattern.o arbre.o mot.o
+
+test_algo.o : test_algo.c
 
 
 clean_mot:

@@ -25,4 +25,6 @@ void patterns_destroy(pattern **patterns);
 
 int base3(int n);
 
+pattern *pattern_from_mot(char *guess,char *response,int taille);
+
 #endif /* PATTERN_H */

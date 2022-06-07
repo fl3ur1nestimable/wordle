@@ -88,6 +88,19 @@ void arbre_append_mot(arbre_mots* arbre, char* m){
         }
     } 
 }
+void noeud_append_mot(noeud *node,int depth,char* str){
+    if(depth==strlen(str)){
+        return;
+    }
+    node->etiquette = str[depth];
+    noeud *current = node->liste_fils->head;
+    while(current !=NULL){
+        if(current->etiquette==str[depth+1]){
+
+        }
+
+    }
+}
 
 //Enlève la branche associé aux mots générés par le noeud node dans l'arbre 
 void noeud_remove(arbre_mots *arbre, noeud *node){
@@ -99,6 +112,10 @@ void noeud_remove(arbre_mots *arbre, noeud *node){
     noeud *parent = node->parent;
     // Si c'est le seul élément de sa liste
     if(prev==NULL&&next==NULL){
+        
+        if(parent==NULL){
+            printf("%c\n",node->etiquette);
+        }
         noeud *current = node->liste_fils->head;
         while(current!=NULL){
             noeud *next = current->next;
@@ -107,8 +124,14 @@ void noeud_remove(arbre_mots *arbre, noeud *node){
         }
         free(node->liste_fils);
         free(node);
-        parent->liste_fils->head=NULL;
-        noeud_remove(arbre,parent);
+        if(parent!=NULL){
+            parent->liste_fils->head=NULL;
+            noeud_remove(arbre,parent);
+            //printTree(arbre);
+        }else{
+            //printTree(arbre);
+            arbre->root=NULL;
+        }
         return;
     }
     // Si c'est la tête de liste qu'on enlève, on update la head de la liste
@@ -146,6 +169,7 @@ void noeud_update(arbre_mots *arbre,noeud *node,mot *m, pattern* pat, int depth,
     bool coupe = false;
     for(int i=0;i<pat->size;i++){
         if(coupe){
+            
             break;
         }
         switch (pat->tab[i])
@@ -185,15 +209,18 @@ void noeud_update(arbre_mots *arbre,noeud *node,mot *m, pattern* pat, int depth,
             if((node->etiquette==m->val[i])&&(i==depth)){
                 noeud_remove(arbre,node);
                 coupe = true;
+                
                 break;
             }
             // Si c'est une feuille, on a atteint la fin du mot, on vérifie avec les occurences si le mot contient le bon nb de lettres
             if(noeud_est_feuille(node)){
                 // Si on a trouvé moins de lettres(associé au 1) dans le mot, on l'enlève 
-                if(str_occurences(str,m->val[i])<str_occurences(m->val,m->val[i])){
+                int a = str_occurences(str,m->val[i]);
+                int b = str_occurences(m->val,m->val[i]);
+                int c = mot_occurences_pattern(m,pat,m->val[i]);
+                if(((b>c)&&(a!=c))||(a<c)){
                     noeud_remove(arbre,node);
                     coupe = true;
-                    break;
                 }
             }
             break;
@@ -262,6 +289,9 @@ void noeud_destroy(noeud *node){
 // Renvoie le nombre de noeud dans l'arbre
 int arbre_taille(arbre_mots *arbre){
     int taille = 0;
+    if(arbre->root==NULL){
+        return 0;
+    }
     noeud *current = arbre->root->head;
     while(current!=NULL){
         taille += noeud_taille(current);
@@ -342,6 +372,10 @@ void printTree(arbre_mots *arbre){
         flag[k]=true;
     }
     printf("\n---------- Arbre ----------\n");
+    if(arbre->root==NULL){
+        printf("Arbre vide\n");
+        return;
+    }
     noeud *current = arbre->root->head;
     while(current!=NULL){
         printNTree(current,flag,0,current->next==NULL);
@@ -352,6 +386,10 @@ void printTree(arbre_mots *arbre){
 //Initialise les variables nb_mots dans l'arbre et ses noeuds au nombre de mot généré à partir de l'arbre (noeuds) cad le nombre de feuilles
 void arbre_init_nb_mots(arbre_mots *arbre){
     int count = 0;
+    if(arbre->root==NULL){
+        arbre->nb_mots=0;
+        return;
+    }
     noeud *current = arbre->root->head;
     while(current!=NULL){
         count += noeud_init_nb_mots(current);
@@ -436,11 +474,28 @@ int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str){
             // Si c'est une feuille, on a atteint la fin du mot, on vérifie avec les occurences si le mot contient le bon nb de lettres
             if(node->liste_fils->head==NULL){
                 // Si on a trouvé moins de lettres(associé au 1) dans le mot, on l'enlève 
-                if(str_occurences(str,m->val[i])<str_occurences(m->val,m->val[i])){
+                /*
+                int a = str_occurences(str,m->val[i]);
+                int b = str_occurences(m->val,m->val[i]);
+                int c = mot_occurences_pattern(m,pat,m->val[i]);
+                if(((b>c)&&(a!=c))||(a<c)){
                     count += 1;
                     coupe = true;
                 }
-    
+                */
+               int occ = mot_occurences_pattern(m,pat,m->val[i]);
+               int occ_str = 0;
+               noeud *parent = node->parent;
+               while(parent!=NULL){
+                   if(parent->etiquette==m->val[i]){
+                       occ_str += 1;
+                   }
+                   parent = parent->parent;
+                }
+                if(occ_str<occ){
+                    count +=1;
+                    coupe = true;
+                }    
             }
             break;
         default:
