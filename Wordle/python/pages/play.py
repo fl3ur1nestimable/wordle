@@ -24,7 +24,7 @@ def MotusPL1():
 
 
 def generate_word(longueur):
-    f = open('Wordle/static/Dictionnaire/liste_mots.txt', 'r')
+    f = open('Wordle/static/Dictionnaire/liste_78k.txt', 'r')
     list_de_mots = list()
     for line in f:
         stripped_l = line.strip()
