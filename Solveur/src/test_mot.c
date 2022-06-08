@@ -62,28 +62,34 @@ int main(){
 
     lecture_fichier(arbre,4);
     int essais = 0;
-    char str[10]="";
-    char c[10]="BORA";
+    char str[10]="RAIE";
+    char c[10]="EBLA";
     mot *m = mot_create(str);
-    mot_generate_best(arbre,m,4);
-    printf("%s\n",m->val);
-    printf("%d\n",arbre->nb_mots);
-    /*
+     
+    
 
     pattern *pat = pattern_from_mot(m->val,c,4);
+    pattern_print(pat);
     //pattern_print(pat);
     //printf("GUESS : %s / MOT solution : %s\n",m->val,c);
     arbre_update(arbre,m,pat);
     essais+=1;
+    mot_generate_best(arbre,m,4);
+    printf("%s\n",m->val);
+    printf("%d\n",arbre->nb_mots);
     
     pattern_destroy(pat);
     pattern *pat2 = pattern_from_mot(m->val,c,4);
     pattern_print(pat2);
     printf("%s\n",m->val);
     arbre_update(arbre,m,pat2);
-    */
+    essais+=1;
+    mot_generate_best(arbre,m,4);
+    printf("%s\n",m->val);
+    printf("%d\n",arbre->nb_mots);
+    
     //printTree(arbre);
-    //pattern_destroy(pat2);
+    pattern_destroy(pat2);
 
     mot_destroy(m);
 

@@ -36,32 +36,33 @@ int main(){
 
     char liste_premiers_mots[][10] = {"RAIE", "TAIRE","TRAINE","NOTAIRE","SOUCIANT"};
     char *liste_noms_fichiers[] = {"../test4.txt","../test5.txt","../test6.txt","../test7.txt","../test8.txt"};
-    for (int t = 6;t<9;t++){
+    int n[]={1672,4007,7146,10028,11657};
+    for (int t = 4;t<9;t++){
         f=fopen("../liste_78k.txt","r");
         f2 = fopen(liste_noms_fichiers[t-4],"w");
         char c[20];
     
         double perf = 0;
-        int n= 0;
         while (fgets(c,sizeof(c),f)!=NULL)
         {   
             c[strlen(c)-1]='\0';
             if ((int)strlen(c)==t){
-                printf("______ %s\n",c);
                 arbre_mots *arbre = arbre_init();
                 lecture_fichier(arbre,t);
-                n = arbre->nb_mots;
-                int essais = 0;
-                printf("%s\n",liste_premiers_mots[t-4]);
-                mot *m = mot_create(liste_premiers_mots[t-4]);
+                int essais = 1;
+                //printf("%s\n",liste_premiers_mots[t-4]);
+                char str[12];
+                strcpy(str,liste_premiers_mots[t-4]);
+                mot *m = mot_create(str);
                 
                 
-                while(strcmp(c,m->val)){
+                while(strcmp(c,m->val)!=0){
                     pattern *pat = pattern_from_mot(m->val,c,t);
+                    
                     //pattern_print(pat);
                     //printf("GUESS : %s / MOT solution : %s\n",m->val,c);
                     arbre_update(arbre,m,pat);
-                    essais+=1;
+                    essais++;
                     mot_generate_best(arbre,m,t);
                     pattern_destroy(pat);
                 }
@@ -74,8 +75,8 @@ int main(){
             } 
         }
         printf("%d\n",n);
-        printf("%f\n",perf/(double)n);
-        fprintf(f2,"%f\n",perf/(double)n);
+        printf("%f\n",perf/(double)n[t-4]);
+        fprintf(f2,"%f\n",perf/(double)n[t-4]);
 
         fclose(f2);
         fclose(f);
