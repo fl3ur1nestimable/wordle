@@ -89,7 +89,7 @@ void arbre_append_mot(arbre_mots* arbre, char* m){
     } 
 }
 void noeud_append_mot(noeud *node,int depth,char* str){
-    if(depth==strlen(str)){
+    if(depth==(int)strlen(str)){
         return;
     }
     node->etiquette = str[depth];

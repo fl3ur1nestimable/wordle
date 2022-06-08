@@ -62,16 +62,10 @@ test_algo : test_algo.o pattern.o arbre.o mot.o
 test_algo.o : test_algo.c
 
 
-clean_mot:
-	rm -f *.o test_mot
-clean_arbre:
-
-clean_pattern:
-		rm pattern.o
-		rm test_pattern.o
-		rm test_pattern
-
-clean_main:
-	rm -f *.o solveur_main
-
-.SILENT: clean
+clean : 
+	rm solveur_main
+	rm test_arbre
+	rm test_pattern
+	rm test_mot
+	rm *.o
+	rm test_algo
