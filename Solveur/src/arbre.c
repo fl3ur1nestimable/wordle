@@ -442,7 +442,7 @@ int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str){
             if(i==depth){
                 if((node->etiquette!=m->val[i])){
                 coupe = true;
-                count += node->nb_mots;
+                count = count + node->nb_mots;
             }else{
                 coupe = false;
             }
@@ -451,7 +451,7 @@ int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str){
         case 0:
             if(i==depth){
                 if(node->etiquette==m->val[i]){
-                    count += node->nb_mots;;
+                    count = count + node->nb_mots;
                     coupe = true;
                     break;
                 }
@@ -459,7 +459,7 @@ int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str){
             // Si le mot contient la lettre, on coupe la branche
             if(node->etiquette==m->val[i]){
                 if(str_occurences(str,m->val[i])>mot_occurences_pattern(m,pat,m->val[i])){
-                    count += node->nb_mots;;
+                    count = count + node->nb_mots;
                     coupe = true;
                 }
             }
@@ -468,7 +468,7 @@ int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str){
             // Si le mot contient la lettre placée à ce niveau, on coupe
             if((node->etiquette==m->val[i])&&(i==depth)){
                 coupe = true;
-                count += node->nb_mots;
+                count = count + node->nb_mots;
                 break;
             }
             // Si c'est une feuille, on a atteint la fin du mot, on vérifie avec les occurences si le mot contient le bon nb de lettres
@@ -488,12 +488,12 @@ int noeud_nb_mot_coupe(noeud *node,mot *m,pattern *pat,int depth,char *str){
                noeud *parent = node->parent;
                while(parent!=NULL){
                    if(parent->etiquette==m->val[i]){
-                       occ_str += 1;
+                       occ_str ++;
                    }
                    parent = parent->parent;
                 }
                 if(occ_str<occ){
-                    count +=1;
+                    count = count + 1;
                     coupe = true;
                 }    
             }
