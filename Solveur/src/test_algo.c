@@ -74,7 +74,6 @@ int main(){
                 
             } 
         }
-        printf("%d\n",n);
         printf("%f\n",perf/(double)n[t-4]);
         fprintf(f2,"%f\n",perf/(double)n[t-4]);
 

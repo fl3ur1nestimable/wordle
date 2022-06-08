@@ -92,7 +92,6 @@ int main(){
             somme = somme - guess[j];
         }
         pattern * input = pattern_from_input(guess,taille);
-        pattern_print(input);
         
         if(somme == 0){
             printf("Trouvé !\n");
