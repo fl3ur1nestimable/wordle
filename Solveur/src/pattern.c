@@ -110,5 +110,36 @@ void patterns_destroy(pattern **patterns){
     free(patterns);
 }
 
+pattern *pattern_from_mot(char *guess,char *solution,int taille){
+    char response[12];
+    strcpy(response,solution);
+    pattern* pat = malloc(sizeof(pattern));
+    pat->entropy=0;
+    pat->size = taille;
+    pat->tab=malloc(taille*sizeof(int));
+    int l = taille;
+    for (int i=0;i<l;i++){
+        if (guess[i]==response[i]){
+            pat->tab[i]=2;
+            response[i]=' ';
+        }
+    }
+    for (int j=0;j<l;j++){
+        for (int k=0;k<l;k++){
+            if ((guess[j] == response[k])&&(pat->tab[j] != 2)){
+                pat->tab[j]=1;
+                response[k]=' '; 
+                break; 
+            }
+        }
+    } 
+
+    for (int h=0;h<l;h++){
+        if (pat->tab[h]!=1 && pat->tab[h]!=2){
+            pat->tab[h]=0;
+        }
+    }
+    return pat;
+}
 
 
