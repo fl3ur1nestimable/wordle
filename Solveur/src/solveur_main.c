@@ -36,7 +36,7 @@ int get_word_len(){
 }
 
 int main(){
-    char * liste_premiers_mots[] = {"ARIA", "TAIRE","TRAINE","NOTAIRE","SOUCIANT"};
+    char * liste_premiers_mots[] = {"RAIE", "TAIRE","TRAINE","NOTAIRE","SOUCIANT"};
     int taille = get_word_len();
     int nb_essais;
     printf("Taille du mot : %d\n", taille);
